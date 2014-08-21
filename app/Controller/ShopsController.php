@@ -40,7 +40,7 @@ class ShopsController extends AppController {
                 $this->Session->setFlash('failed');
             }
         }else{
-            $this->Session->setFlash('error');
+            //$this->Session->setFlash('error');
         }
     }
 }
