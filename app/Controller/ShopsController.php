@@ -35,7 +35,7 @@ class ShopsController extends AppController {
         if ($this->request->is('post')){
             if ($this->Shop->save($this->request->data)){
                 $this->Session->setFlash('Success');
-                $this->redirect(array('url'=>'index'));
+                $this->redirect(array('action'=>'index'));
             }else{
                 $this->Session->setFlash('failed');
             }
