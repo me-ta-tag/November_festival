@@ -17,7 +17,8 @@ class ShopsController extends AppController {
             'limit' => 2
         );
         //find(条件,条件{Object}@param)
-        $this->set('shops', $this->Shop->find('all',$params));
+        //$this->set('shops', $this->Shop->find('all',$params));
+        $this->set('shops', $this->Shop->find('all'));
         //shopsというphp変数にいれそれを入れる。
         $this->set('title_for_layout','店舗一覧');
     }
@@ -30,8 +31,8 @@ class ShopsController extends AppController {
 
     }
     public function add(){
-        var_dump($this->request);
-        if ($this->request->is('shop')){
+        //var_dump($this->request);
+        if ($this->request->is('post')){
             if ($this->Shop->save($this->request->data)){
                 $this->Session->setFlash('Success');
                 $this->redirect(array('url'=>'index'));
