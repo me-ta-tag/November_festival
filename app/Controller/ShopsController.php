@@ -26,13 +26,13 @@ class ShopsController extends AppController {
 
     //ログイン後にリダイレクトされるアクション
     public function index(){
-        $this->set('user', $this->Auth->user());
+        $this->set('shop', $this->Auth->shop());
     }
 
     public function register(){
         //$this->requestにPOSTされたデータが入っている
         //POSTメソッドかつユーザ追加が成功したら
-        if($this->request->is('post') && $this->User->save($this->request->data)){
+        if($this->request->is('post') && $this->Shop->save($this->request->data)){
             //ログイン
             //$this->request->dataの値を使用してログインする規約になっている
             $this->Auth->login();
