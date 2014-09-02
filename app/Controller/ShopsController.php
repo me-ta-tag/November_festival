@@ -17,6 +17,7 @@ class ShopsController extends AppController {
     //どのアクションが呼ばれてもはじめに実行される関数
     public function beforeFilter()
     {
+
         parent::beforeFilter();
 
         //未ログインでアクセスできるアクションを指定
@@ -26,10 +27,14 @@ class ShopsController extends AppController {
 
     //ログイン後にリダイレクトされるアクション
     public function index(){
-        $this->set('shop', $this->Auth->shop());
+        $this->set('shop', $this->Auth->user());
+    }
+    public function logout(){
+        $this->Auth->logout();
+        $this->response->header('Location', "../users/login");
     }
 
-    public function register(){
+    /*public function register(){
         //$this->requestにPOSTされたデータが入っている
         //POSTメソッドかつユーザ追加が成功したら
         if($this->request->is('post') && $this->Shop->save($this->request->data)){
@@ -43,7 +48,8 @@ class ShopsController extends AppController {
     public function login(){
         if($this->request->is('post')) {
             if($this->Auth->login())
-                return $this->redirect('index');
+                $this->Session->setFlash(__('ログイン成功'), 'default', array(), 'auth');
+                //return $this->redirect('index');
             else
                 $this->Session->setFlash('ログイン失敗');
         }
@@ -52,7 +58,7 @@ class ShopsController extends AppController {
     public function logout(){
         $this->Auth->logout();
         $this->redirect('login');
-    }
+    }*/
     /*
     public $helpers = array('Html','Form');
 

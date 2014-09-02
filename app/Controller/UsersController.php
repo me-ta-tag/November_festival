@@ -23,6 +23,7 @@ class UsersController extends AppController
 //ユーザ名、パスワード判定
             if ($this->Auth->login()) {
                 $this->Session->setFlash(__('ログイン成功'), 'default', array(), 'auth');
+                $this->response->header('Location', "../shops/");
             } else {
                 $this->Session->setFlash(__('ユーザー名かパスワードに誤りがあります'), 'default', array(), 'auth');
             }
@@ -31,6 +32,7 @@ class UsersController extends AppController
 
     function logout(){
         $this->Auth->logout(); //ログアウト処理
+        $this->redirect('login');
     }
 }
 ?>
