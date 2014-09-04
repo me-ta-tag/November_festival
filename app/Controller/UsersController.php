@@ -30,9 +30,16 @@ class UsersController extends AppController
         }
     }
 
+    function index(){
+        $this->redirect('/users/login');
+    }
+
+    function register(){
+    }
+    /*
     function logout(){
         $this->Auth->logout(); //ログアウト処理
         $this->redirect('login');
-    }
+    }*/
 }
 ?>

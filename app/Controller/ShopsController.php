@@ -34,18 +34,19 @@ class ShopsController extends AppController {
         $this->response->header('Location', "../users/login");
     }
 
-    /*public function register(){
+    public function register(){
         //$this->requestにPOSTされたデータが入っている
         //POSTメソッドかつユーザ追加が成功したら
         if($this->request->is('post') && $this->Shop->save($this->request->data)){
             //ログイン
             //$this->request->dataの値を使用してログインする規約になっている
             $this->Auth->login();
+            $this->Session->setFlash(__('ユーザーの新規登録が完了しました。'));
             $this->redirect('index');
         }
     }
 
-    public function login(){
+    /*public function login(){
         if($this->request->is('post')) {
             if($this->Auth->login())
                 $this->Session->setFlash(__('ログイン成功'), 'default', array(), 'auth');
