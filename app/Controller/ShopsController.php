@@ -6,8 +6,61 @@
  * Time: 16:00
  */
 
+App::uses('AppController', 'Controller');
+
 class ShopsController extends AppController {
 //    public $scaffold;
+
+    //読み込むコンポーネントの指定
+    public $components = array('Session', 'Auth');
+
+    //どのアクションが呼ばれてもはじめに実行される関数
+    public function beforeFilter()
+    {
+
+        parent::beforeFilter();
+
+        //未ログインでアクセスできるアクションを指定
+        //これ以外のアクションへのアクセスはloginにリダイレクトされる規約になっている
+        $this->Auth->allow('register', 'login');
+    }
+
+    //ログイン後にリダイレクトされるアクション
+    public function index(){
+        $this->set('shop', $this->Auth->user());
+    }
+    public function logout(){
+        $this->Auth->logout();
+        $this->response->header('Location', "../users/login");
+    }
+
+    public function register(){
+        //$this->requestにPOSTされたデータが入っている
+        //POSTメソッドかつユーザ追加が成功したら
+        if($this->request->is('post') && $this->Shop->save($this->request->data)){
+            //ログイン
+            //$this->request->dataの値を使用してログインする規約になっている
+            $this->Auth->login();
+            $this->Session->setFlash(__('ユーザーの新規登録が完了しました。'));
+            $this->redirect('index');
+        }
+    }
+
+    /*public function login(){
+        if($this->request->is('post')) {
+            if($this->Auth->login())
+                $this->Session->setFlash(__('ログイン成功'), 'default', array(), 'auth');
+                //return $this->redirect('index');
+            else
+                $this->Session->setFlash('ログイン失敗');
+        }
+    }
+
+    public function logout(){
+        $this->Auth->logout();
+        $this->redirect('login');
+    }*/
+    /*
     public $helpers = array('Html','Form');
 
     public function index(){
@@ -43,4 +96,5 @@ class ShopsController extends AppController {
             //$this->Session->setFlash('error');
         }
     }
+    */
 }
