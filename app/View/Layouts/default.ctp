@@ -36,6 +36,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->fetch('script');
         echo $this->Html->css('style');
 	?>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
 	<div id="container">
