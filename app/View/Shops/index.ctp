@@ -4,3 +4,4 @@
         <?php //var_dump($shop) ?>
 目標金額：<?php print(h($shop['shop_goal'])); ?><br />
 <?php print($this->Html->link('ログアウト', 'logout')); ?>
+
