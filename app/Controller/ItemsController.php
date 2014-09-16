@@ -64,4 +64,47 @@ class ItemsController extends AppController {
         echo json_encode($this->Shop->itemsLoad($params));
     }
 
+
+    // POSTされた内容を追加する処理
+    public function add(){
+        $items_base = array();
+        // アイテム取得処理
+        if ($this -> request -> is('post') ){
+        
+            // 試験運転のGET版 : 上記isをgetにした際に用いれる
+            // $items_base['item_name']  = $this -> request -> query['item_name'];
+
+            // POST版
+            if(isset($this -> request -> data['item_name'])){
+                $items_base['item_name'] = $this -> request -> data['item_name'];
+            }
+            if(isset($this -> request -> data['item_price'])){
+                $items_base['item_price'] = $this -> request -> data['item_price'];
+            }
+            if(isset($this -> request -> data['item_detail'])){
+                $items_base['item_detail'] = $this -> request -> data['item_detail'];
+            }
+            if(isset($this -> request -> data['item_photo'])){
+                $items_base['item_photo'] = $this -> request -> data['item_photo'];
+            }
+            if(isset($this -> request -> data['item_stock'])){
+                $items_base['item_stock']= $this -> request -> data['item_stock'];
+            }
+            if(isset($this -> request -> data['shop_id'])){
+                $items_base['shop_id']= $this -> request -> data['shop_id'];
+            }
+            if(isset($this -> request -> data['category_id'])){
+                $items_base['category_id']= $this -> request -> data['category_id'];
+            }
+            */
+        }
+        
+        $items_data = array('Item' => $items_base);
+        $items_fields = array();
+        foreach ($items_base as $items_key => $items_value) {
+             array_push($items_fields, $items_key);
+        }
+        $this->Item->save($items_data, false, $items_fields);
+    }
+
 }
