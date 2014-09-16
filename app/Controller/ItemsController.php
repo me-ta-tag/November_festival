@@ -26,7 +26,7 @@ class ItemsController extends AppController {
     }
 
     //ログイン後にリダイレクトされるアクション
-    public function index(){
+    public function read(){
         $id = $_GET['shop_id'];
         if ($this->request->is('ajax')) {
             if (isset($id)){
@@ -96,7 +96,6 @@ class ItemsController extends AppController {
             if(isset($this -> request -> data['category_id'])){
                 $items_base['category_id']= $this -> request -> data['category_id'];
             }
-            */
         }
         
         $items_data = array('Item' => $items_base);
