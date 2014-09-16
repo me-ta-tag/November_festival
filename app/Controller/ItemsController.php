@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: LastyRain
+ * User: LastyRain, Zenkun
  * Date: 2014/08/14
  * Time: 16:00
  */
@@ -72,14 +72,30 @@ class ItemsController extends AppController {
         if ($this -> request -> is('post') ){
         
             // 試験運転のGET版 : 上記isをgetにした際に用いれる
-            // $items_base['item_name']  = $this -> request -> query['item_name'];
+            /*
+             if(isset($this -> request -> query['item_name'])){
+                $items_base['item_name'] = $this -> request -> query['item_name'];
+            }
+            else{
+                echo("item_nameが未設定です。<br/>");
+                return;
+            }
+            */
 
             // POST版
             if(isset($this -> request -> data['item_name'])){
                 $items_base['item_name'] = $this -> request -> data['item_name'];
             }
+            else{
+                echo("item_nameが未設定です。<br/>");
+                return;
+            }
             if(isset($this -> request -> data['item_price'])){
                 $items_base['item_price'] = $this -> request -> data['item_price'];
+            }
+            else{
+                echo("item_priceが未設定です。<br/>");
+                return;
             }
             if(isset($this -> request -> data['item_detail'])){
                 $items_base['item_detail'] = $this -> request -> data['item_detail'];
@@ -93,17 +109,24 @@ class ItemsController extends AppController {
             if(isset($this -> request -> data['shop_id'])){
                 $items_base['shop_id']= $this -> request -> data['shop_id'];
             }
+            else{
+                echo("shop_idが未設定です。<br/>");
+                return;
+            }
             if(isset($this -> request -> data['category_id'])){
                 $items_base['category_id']= $this -> request -> data['category_id'];
             }
+            else{
+                echo("category_idが未設定です。<br/>");
+                return;
+            }
+            $items_data = array('Item' => $items_base);
+            $items_fields = array();
+            foreach ($items_base as $items_key => $items_value) {
+                 array_push($items_fields, $items_key);
+            }
+            $this->Item->save($items_data, false, $items_fields);
         }
-        
-        $items_data = array('Item' => $items_base);
-        $items_fields = array();
-        foreach ($items_base as $items_key => $items_value) {
-             array_push($items_fields, $items_key);
-        }
-        $this->Item->save($items_data, false, $items_fields);
     }
 
 }
