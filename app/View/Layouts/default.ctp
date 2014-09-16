@@ -41,7 +41,17 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+            <header>
+                <?php
+                if(isset($shop['id'])){
+                    echo($shop['shop_name'].'さん<br />');
+                    echo('ID:'.$shop['id'].'<br />');
+                    echo($this->Html->link('ログアウト', '/shops/logout'));
+                }else{
+
+                }
+                ?>
+            </header>
 		</div>
 		<div id="content">
 
