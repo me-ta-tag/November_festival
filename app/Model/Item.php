@@ -18,5 +18,14 @@ class Item extends AppModel{
             'foreignKey' => ''
         )
     );
+    public $actsAs = [
+        'Upload.Upload' => [
+            'item_photo' => [
+                'fields' => [
+                    'dir' => 'item_photo_dir'
+                ]
+            ]
+        ]
+    ];
 
 }
