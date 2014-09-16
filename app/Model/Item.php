@@ -23,7 +23,8 @@ class Item extends AppModel{
             'item_photo' => [
                 'fields' => [
                     'dir' => 'item_photo_dir'
-                ]
+                ],
+                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}'
             ]
         ]
     ];

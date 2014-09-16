@@ -11,6 +11,8 @@ App::uses('AppController', 'Controller');
 class ItemsController extends AppController {
 //    public $scaffold;
 
+    public $item = ['Item'];
+
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
 
@@ -106,4 +108,11 @@ class ItemsController extends AppController {
         $this->Item->save($items_data, false, $items_fields);
     }
 
+    public function test(){
+
+        if($this->request->is('post')){
+            $this->Item->save($this->request->data);
+        }
+
+    }
 }
