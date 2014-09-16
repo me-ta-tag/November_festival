@@ -39,5 +39,9 @@ class Shop extends AppModel{
         $this->data['Shop']['shop_password'] = AuthComponent::password($this->data['Shop']['shop_password']);
         return true;
     }
-
+//    function itemsLoad($params){
+//        App::import('Model','Item');
+//        $Items = new Item;
+//        return $Items->find('all',$params);
+//    }
 }
