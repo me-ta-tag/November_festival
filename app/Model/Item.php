@@ -24,7 +24,13 @@ class Item extends AppModel{
                 'fields' => [
                     'dir' => 'item_photo_dir'
                 ],
-                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}'
+                'thumbnailSizes' => [
+                    'thumb150' => '150x150',
+                    'normal' => '200x200',
+                    'big' => '500x500'
+                ],
+                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}',
+                'thumbnailMethod' => 'php'
             ]
         ]
     ];

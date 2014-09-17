@@ -12,6 +12,8 @@ class ItemsController extends AppController {
 //    public $scaffold;
 
     public $item = ['Item'];
+    public $helpers= array('html' ,'Form');
+
 
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
@@ -108,11 +110,36 @@ class ItemsController extends AppController {
         $this->Item->save($items_data, false, $items_fields);
     }
 
+    public function upload5(){
+//var_dump( $_FILES['files']['name'] );
+        $uploadfile = "../webroot/img/"  .  $_FILES['file']['name'] ;
+        if (move_uploaded_file( $_FILES['file']['tmp_name'] , $uploadfile) == false ) {
+            $response = array('ret'=> "0");
+            echo json_encode($response );
+            exit();
+        }else{
+            $response = array('ret'=> "1");
+            echo json_encode($response );
+            exit();
+        }
+    }
+
     public function test(){
 
         if($this->request->is('post')){
+            var_dump($this->request->data);
             $this->Item->save($this->request->data);
         }
 
+    }
+    public function test2(){
+        if($this->request->is('post')){
+            var_dump($this->request->data);
+            $this->Item->save($this->request->data);
+        }
+    }
+
+    public function testupload(){
+        die(json_encode($_FILES));
     }
 }
