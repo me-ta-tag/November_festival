@@ -55,13 +55,25 @@ class ItemsController extends AppController {
 //        $shop_id = $this->Auth->user()->id;
 
 
-    public function getList(){
+    public function metaGet(){
+        if($this -> request -> is('get') ){
+            $params = array(
+                'conditions' => array('Item.shop_id'=> '1'),
+                'order' => 'Item.id DESC'
+            );
+            echo json_encode($this->Shop->itemsLoad($params));
+        }
+    }
 
-        $params = array(
-            'conditions' => array('Item.shop_id'=> $this->Auth->user()['id']),
-            'order' => 'Item.id DESC'
-        );
-        echo json_encode($this->Shop->itemsLoad($params));
+
+    public function getList(){
+        if($this -> request -> is('get')){
+            $params = array(
+                'conditions' => array('Item.shop_id'=> $this->Auth->user()['id']),
+                'order' => 'Item.id DESC'
+            );
+            echo json_encode($this->Shop->itemsLoad($params));
+        }
     }
 
 
