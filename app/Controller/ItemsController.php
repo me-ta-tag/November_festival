@@ -46,6 +46,8 @@ class ItemsController extends AppController {
                 }
             }
 //            $this->disableCache();
+        }else{
+            throw new NotFoundException();
         }
     }
 //        var_dump($this->Auth->user());
@@ -55,19 +57,23 @@ class ItemsController extends AppController {
 //        $shop_id = $this->Auth->user()->id;
 
     public function metaread(){
-        if ($this->request->is('get')) {
-            $params = array(
-                'conditions' => array('Item.shop_id'=> 1),
-                'order' => 'Item.id DESC'
-            );
-            $items = $this->Item->find('all',$params);
-            // viewにはjson形式のファイルを表示させるように。
-            $this->layout = 'ajax';
-            $this->RequestHandler->setContent('json');
-            $this->RequestHandler->respondAs('application/json; charset=UTF-8');
+        if($this->request->is('ajax')) {
+            if ($this->request->is('get')) {
+                $params = array(
+                    'conditions' => array('Item.shop_id' => 1),
+                    'order' => 'Item.id DESC'
+                );
+                $items = $this->Item->find('all', $params);
+                // viewにはjson形式のファイルを表示させるように。
+                $this->layout = 'ajax';
+                $this->RequestHandler->setContent('json');
+                $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
-            // $studentsの配列をviewに渡す。
-            $this->set('items', $items);
+                // $studentsの配列をviewに渡す。
+                $this->set('items', $items);
+            } else {
+                throw new NotFoundException();
+            }
         }else{
             throw new NotFoundException();
         }
