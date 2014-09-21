@@ -22,17 +22,50 @@ class Item extends AppModel{
         'Upload.Upload' => [
             'item_photo' => [
                 'fields' => [
-                    'dir' => 'item_photo_dir'
+                    'dir' => 'item_photo_dir',
+                    'type' => 'type',
+                    'size' => 'size'
                 ],
                 'thumbnailSizes' => [
                     'thumb150' => '150x150',
                     'normal' => '200x200',
                     'big' => '500x500'
                 ],
+                'extensions' => [
+                    'jpg',
+                    'jpeg',
+                    'JPG',
+                    'JPEG',
+                    'gif',
+                    'GIF',
+                    'png',
+                    'PNG'
+                ],
+                'mimetypes' => ['image/jpeg', 'image/gif', 'image/png'],
                 'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}',
                 'thumbnailMethod' => 'php'
             ]
         ]
     ];
+//    public $actsAs = [
+//        'Upload.Upload' => [
+//            'item_photo' => [
+//                'fields' => [
+//                    'dir' => 'dir', 'type' => 'type', 'size' => 'size'
+//                ],
+//                'thumbnailSizes' => [
+//                    'thumb150' => '150x150',
+//                    'normal' => '200x200',
+//                    'big' => '500x500'
+//                ],
+//                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}',
+//                'thumbnailMethod' => 'php',
+//                'resizeToMaxWidth' => true,
+//                'mimetypes' => array('image/jpeg', 'image/gif', 'image/png'),
+//                'extensions' => array('jpg', 'jpeg', 'JPG', 'JPEG', 'gif', 'GIF', 'png', 'PNG'),
+//                'quality' => 100
+//            ]
+//        ]
+//    ];
 
 }
