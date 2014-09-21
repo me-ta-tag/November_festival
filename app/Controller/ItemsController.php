@@ -54,27 +54,35 @@ class ItemsController extends AppController {
 
 //        $shop_id = $this->Auth->user()->id;
 
-
-    public function metaGet(){
-        if($this -> request -> is('get') ){
+    public function metaread(){
+        if ($this->request->is('get')) {
             $params = array(
-                'conditions' => array('Item.shop_id'=> '1'),
+                'conditions' => array('Item.shop_id'=> 1),
                 'order' => 'Item.id DESC'
             );
-            echo json_encode($this->Shop->itemsLoad($params));
+            $items = $this->Item->find('all',$params);
+            // viewにはjson形式のファイルを表示させるように。
+            $this->layout = 'ajax';
+            $this->RequestHandler->setContent('json');
+            $this->RequestHandler->respondAs('application/json; charset=UTF-8');
+
+            // $studentsの配列をviewに渡す。
+            $this->set('items', $items);
+        }else{
+            throw new NotFoundException();
         }
     }
 
 
-    public function getList(){
-        if($this -> request -> is('get')){
-            $params = array(
-                'conditions' => array('Item.shop_id'=> $this->Auth->user()['id']),
-                'order' => 'Item.id DESC'
-            );
-            echo json_encode($this->Shop->itemsLoad($params));
-        }
-    }
+//    public function getList(){
+//        if($this -> request -> is('get')){
+//            $params = array(
+//                'conditions' => array('Item.shop_id'=> $this->Auth->user()['id']),
+//                'order' => 'Item.id DESC'
+//            );
+//            echo json_encode($this->Shop->itemsLoad($params));
+//        }
+//    }
 
 
     // POSTされた内容を追加する処理
