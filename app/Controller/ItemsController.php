@@ -29,7 +29,10 @@ class ItemsController extends AppController {
 //        $this->Auth->allow('register', 'login');
     }
 
-    //ログイン後にリダイレクトされるアクション
+    /**
+     * 商品リスト取得
+     * $_GET['shop_id']を取得し、それに該当するデータを取得する
+     */
     public function read(){
         $id = $_GET['shop_id'];
         if ($this->request->is('ajax')) {
@@ -59,14 +62,6 @@ class ItemsController extends AppController {
 //        $shop_id = $this->Auth->user()->id;
 
 
-    public function getList(){
-
-        $params = array(
-            'conditions' => array('Item.shop_id'=> $this->Auth->user()['id']),
-            'order' => 'Item.id DESC'
-        );
-        echo json_encode($this->Shop->itemsLoad($params));
-    }
 
 
     // POSTされた内容を追加する処理
@@ -109,6 +104,8 @@ class ItemsController extends AppController {
         }
         $this->Item->save($items_data, false, $items_fields);
     }
+
+
     public function update(){
         if ($this -> request -> is('post') ){
             // 試験運転のGET版 : 上記isをgetにした際に用いれる
@@ -141,7 +138,7 @@ class ItemsController extends AppController {
             foreach ($items_base as $items_key => $items_value) {
                 array_push($items_fields, $items_key);
             }
-            $this->Item->save($items_data, false, $items_fields);
+            $this->Item->updateAll($items_data, false, $items_fields);
         }
     }
     public function upload(){
