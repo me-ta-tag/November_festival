@@ -45,7 +45,7 @@ class ShopsController extends AppController {
             $this->redirect('index');
         }
     }
-
+    
     /*public function login(){
         if($this->request->is('post')) {
             if($this->Auth->login())
