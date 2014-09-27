@@ -45,6 +45,10 @@ class ShopsController extends AppController {
             $this->redirect('index');
         }
     }
+    
+    public function add(){
+        
+    }
 
     /*public function login(){
         if($this->request->is('post')) {

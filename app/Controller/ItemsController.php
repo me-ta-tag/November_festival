@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: LastyRain
+ * User: LastyRain, Zenkun
  * Date: 2014/08/14
  * Time: 16:00
  */
@@ -53,6 +53,8 @@ class ItemsController extends AppController {
                 }
             }
 //            $this->disableCache();
+        }else{
+            throw new NotFoundException();
         }
     }
 //        var_dump($this->Auth->user());
@@ -61,7 +63,28 @@ class ItemsController extends AppController {
 
 //        $shop_id = $this->Auth->user()->id;
 
+    public function metaread(){
+        if($this->request->is('ajax')) {
+            if ($this->request->is('get')) {
+                $params = array(
+                    'conditions' => array('Item.shop_id' => 1),
+                    'order' => 'Item.id DESC'
+                );
+                $items = $this->Item->find('all', $params);
+                // viewにはjson形式のファイルを表示させるように。
+                $this->layout = 'ajax';
+                $this->RequestHandler->setContent('json');
+                $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
+                // $studentsの配列をviewに渡す。
+                $this->set('items', $items);
+            } else {
+                throw new NotFoundException();
+            }
+        }else{
+            throw new NotFoundException();
+        }
+    }
 
 
     // POSTされた内容を追加する処理
@@ -71,14 +94,44 @@ class ItemsController extends AppController {
         if ($this -> request -> is('post') ){
         
             // 試験運転のGET版 : 上記isをgetにした際に用いれる
-            // $items_base['item_name']  = $this -> request -> query['item_name'];
+        /*    
+             if(isset($this -> request -> query['category_id'])){
+                $items_base['category_id'] = $this -> request -> query['category_id'];
+                // shopモデルの読み込み
+                $this->loadModel('Category');
+                $this->Shop = new Category();
+                $id_is_found = $this->Category->find(
+                    'first', array(
+                        'fields' => array('category_name'),
+                        'conditions' => array('category_name' => $items_base['category_id'])
+                    )
+                );
+                if(empty($id_is_found)){
+                    echo("対応するidはありません。<br/>");
+                    return;
+                }
+            }
+            else{
+                echo("shop_idが未設定です。<br/>");
+                return;
+            }
+        */  
+            
 
             // POST版
             if(isset($this -> request -> data['item_name'])){
                 $items_base['item_name'] = $this -> request -> data['item_name'];
             }
+            else{
+                echo("item_nameが未設定です。<br/>");
+                return;
+            }
             if(isset($this -> request -> data['item_price'])){
                 $items_base['item_price'] = $this -> request -> data['item_price'];
+            }
+            else{
+                echo("item_priceが未設定です。<br/>");
+                return;
             }
             if(isset($this -> request -> data['item_detail'])){
                 $items_base['item_detail'] = $this -> request -> data['item_detail'];
@@ -91,32 +144,101 @@ class ItemsController extends AppController {
             }
             if(isset($this -> request -> data['shop_id'])){
                 $items_base['shop_id']= $this -> request -> data['shop_id'];
+                // 該当IDがあるかチェック
+                $shop_id_is_found = $this->Shop->find(
+                    'first', array(
+                        'fields' => array('id'),
+                        'conditions' => array('id' => $items_base['shop_id'])
+                    )
+                );
+                // 対応するIDが見当たらない場合終了
+                if(empty($shop_id_is_found)){
+                    echo("対応するshop_idはありません。<br/>");
+                    return;
+                }
+            }
+            else{
+                echo("shop_idが未設定です。<br/>");
+                return;
             }
             if(isset($this -> request -> data['category_id'])){
                 $items_base['category_id']= $this -> request -> data['category_id'];
+                // Categoryモデルの呼び出し
+                $this->loadModel('Category');
+                $this->Category = new Category();
+                // 該当IDがあるかチェック
+                $category_id_is_found = $this->Category->find(
+                    'first', array(
+                        'fields' => array('category_name'),
+                        'conditions' => array('category_name' => $items_base['category_id'])
+                    )
+                );
+                // 対応するIDが見当たらない場合終了
+                if(empty($category_id_is_found)){
+                    echo("対応するcategory_idはありません。<br/>");
+                    return;
+                }
             }
-        }
+            else{
+                echo("category_idが未設定です。<br/>");
+                return;
+            }
         
-        $items_data = array('Item' => $items_base);
-        $items_fields = array();
-        foreach ($items_base as $items_key => $items_value) {
-             array_push($items_fields, $items_key);
-        }
-        $this->Item->save($items_data, false, $items_fields);
+            // デ―タをInsert
+            $items_data = array('Item' => $items_base);
+            $items_fields = array();
+            foreach ($items_base as $items_key => $items_value) {
+                 array_push($items_fields, $items_key);
+            }
+            $this->Item->save($items_data, false, $items_fields);
+        }   
     }
 
 
     public function update(){
+        $items_base = array();
+        // アイテム取得処理
         if ($this -> request -> is('post') ){
+
             // 試験運転のGET版 : 上記isをgetにした際に用いれる
-            // $items_base['item_name']  = $this -> request -> query['item_name'];
+            /*
+                 if(isset($this -> request -> query['category_id'])){
+                    $items_base['category_id'] = $this -> request -> query['category_id'];
+                    // shopモデルの読み込み
+                    $this->loadModel('Category');
+                    $this->Shop = new Category();
+                    $id_is_found = $this->Category->find(
+                        'first', array(
+                            'fields' => array('category_name'),
+                            'conditions' => array('category_name' => $items_base['category_id'])
+                        )
+                    );
+                    if(empty($id_is_found)){
+                        echo("対応するidはありません。<br/>");
+                        return;
+                    }
+                }
+                else{
+                    echo("shop_idが未設定です。<br/>");
+                    return;
+                }
+            */
+
 
             // POST版
             if(isset($this -> request -> data['item_name'])){
                 $items_base['item_name'] = $this -> request -> data['item_name'];
             }
+            else{
+                echo("item_nameが未設定です。<br/>");
+                return;
+            }
             if(isset($this -> request -> data['item_price'])){
                 $items_base['item_price'] = $this -> request -> data['item_price'];
+            }
+            else{
+                echo("item_priceが未設定です。<br/>");
+                return;
             }
             if(isset($this -> request -> data['item_detail'])){
                 $items_base['item_detail'] = $this -> request -> data['item_detail'];
@@ -129,10 +251,47 @@ class ItemsController extends AppController {
             }
             if(isset($this -> request -> data['shop_id'])){
                 $items_base['shop_id']= $this -> request -> data['shop_id'];
+                // 該当IDがあるかチェック
+                $shop_id_is_found = $this->Shop->find(
+                    'first', array(
+                        'fields' => array('id'),
+                        'conditions' => array('id' => $items_base['shop_id'])
+                    )
+                );
+                // 対応するIDが見当たらない場合終了
+                if(empty($shop_id_is_found)){
+                    echo("対応するshop_idはありません。<br/>");
+                    return;
+                }
+            }
+            else{
+                echo("shop_idが未設定です。<br/>");
+                return;
             }
             if(isset($this -> request -> data['category_id'])){
                 $items_base['category_id']= $this -> request -> data['category_id'];
+                // Categoryモデルの呼び出し
+                $this->loadModel('Category');
+                $this->Category = new Category();
+                // 該当IDがあるかチェック
+                $category_id_is_found = $this->Category->find(
+                    'first', array(
+                        'fields' => array('category_name'),
+                        'conditions' => array('category_name' => $items_base['category_id'])
+                    )
+                );
+                // 対応するIDが見当たらない場合終了
+                if(empty($category_id_is_found)){
+                    echo("対応するcategory_idはありません。<br/>");
+                    return;
+                }
             }
+            else{
+                echo("category_idが未設定です。<br/>");
+                return;
+            }
+
+            // デ―タをInsert
             $items_data = array('Item' => $items_base);
             $items_fields = array();
             foreach ($items_base as $items_key => $items_value) {
