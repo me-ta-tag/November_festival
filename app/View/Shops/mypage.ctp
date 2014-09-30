@@ -1,7 +1,8 @@
 <?php
-    echo  $this -> Html -> script( array( 'jquery-1.11.1.min', 'easyselectbox' ), array( 'inline' => false ) );
-    echo $this -> Html -> css( array( 'reset', 'style', 'easyselectbox' ), array( 'inline' => false ) );
+    echo $this -> Html -> script( array( 'jquery-1.11.1.min', 'easyselectbox' ), array( 'inline' => false ) );
+    echo $this -> Html -> css( array( 'easyselectbox' ), false, array( 'inline' => false ) );
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -35,46 +36,7 @@
     
 </head>
 <body>
-  <header>
-        <ul>
-            <div class="toggle t_left">
-            	<li class = "shop_name">ID</li>
-            	<input type = "button" value = ログアウト class="btn" onClick = "#"></li></div>
-            </div>
-            <div class = "head_left">
-            <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='mypage.html'"></li>
-            <li class = "shop_name">ID</li>
-            <li class = "logout">
-                <input type = "button" value = "ログアウト" class="btn" onclick ="***">
-            </li>
-            </div>
-            
-            <div class="toggle t_right">
-                <form method=post>
-            	<select id="#eazy-select" onchange="navi(this)">
-					<option>menu</option>
-					<option value="mypage.html">マイページへ</option>
-					<option value="registration.html">登録画面へ</option>
-					<option value="payment.html">会計画面へ</option>
-           		</select>
-           		</form>
-           		<script type="text/javascript">
-					(function ($) {
-					  $('.menu2').easySelectBox();
-					})(jQuery);
-				</script>
 
-            </div>
-            <div class = "head_right"> 
-            <li class = "touroku">
-                <input type = "button" value = "登録" class="btn" onclick ="location.href='registration.html'">
-            </li>
-            <li class = "kaikei">
-                <input type = "button" value = "会計" class="btn" onclick ="location.href='payment.html'">
-            </li>
-            </div>
-        </ul>
-    </header>
     <div class = "login_container">
         <div class = "link">
             <ul>
