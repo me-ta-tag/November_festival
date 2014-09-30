@@ -278,12 +278,15 @@ $(function(){
 	});
 //---------------------------------------------------------------------------------------
 // 商品の読込
-	for(i=0; i<fromPHP.length; i++){
-		items.push(fromPHP[i].Item);
-	}
-	for(i=0; i<fromPHP.length; i++){
-		categorys.push(fromPHP[i].Category);
-	}
+	$.get("/m_regi/items/read", {shop_id : 2}, function(data){
+		console.log(data);
+		debugger;
+		for(var i=0; i<data.item.length; i++){
+			items.push(data.item[i].Item);
+			categorys.push(data.category[i]);
+			tickets.push(data.ticket[i]);
+		}
+	});
 
 	function firstadd(tgt, json){
 		// プルダウンメニュの内容を生成
