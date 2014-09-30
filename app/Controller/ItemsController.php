@@ -11,6 +11,12 @@ App::uses('AppController', 'Controller');
 class ItemsController extends AppController {
 //    public $scaffold;
 
+// indexアクション
+    public $helpers = array('Html', 'Form');
+    public function index(){
+        $this->set('items', $this->Item->find('all'));
+    }
+
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
 
@@ -56,7 +62,7 @@ class ItemsController extends AppController {
 
 //        $shop_id = $this->Auth->user()->id;
 
-    public function metaread(){
+   public function metaread(){
         if($this->request->is('ajax')) {
             if ($this->request->is('get')) {
                 $params = array(
