@@ -10,6 +10,7 @@ App::uses('AppController', 'Controller');
 
 class ItemsController extends AppController {
 //    public $scaffold;
+    var $uses = array('Item', 'Category', 'ticket');
 
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
@@ -27,22 +28,35 @@ class ItemsController extends AppController {
 
     //ログイン後にリダイレクトされるアクション
     public function read(){
+
+
         $id = $_GET['shop_id'];
         if ($this->request->is('ajax')) {
             if (isset($id)){
                 if($id != 0){
+
                     $params = array(
                         'conditions' => array('Item.shop_id'=> $id),
                         'order' => 'Item.id DESC'
                     );
                     $items = $this->Item->find('all',$params);
+
+                    $ticparams = [
+                    ];
+                    $tickets = $this->ticket->find('all', $ticparams);
+
+                    $cateparamas = [
+                        'conditions' => array('shop_id'=> $id),
+                        'order' => 'id DESC'
+                    ];
+                    $categorys = $this->Category->find('all',$cateparamas);
                     // viewにはjson形式のファイルを表示させるように。
                     $this->layout = 'ajax';
                     $this->RequestHandler->setContent('json');
                     $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
                     // $studentsの配列をviewに渡す。
-                    $this->set('items', $items);
+                    $this->set('items', ['item' => $items,'category' => $categorys,'ticket' =>$tickets]);
                 }
             }
 //            $this->disableCache();
