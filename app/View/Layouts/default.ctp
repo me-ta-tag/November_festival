@@ -22,9 +22,11 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	echo $this->Html->css( 'reset' );
 	echo $this->Html->css( 'style' );
 	echo $this->Html->css( 'easyselectbox' );
-	$this -> Html -> script( 'jquery-1.11.1.min', array( 'inline' => false ) );
-	$this -> Html -> script( 'easyselectbox', array( 'inline' => false ) );
-	$this -> Html -> script( 'underscore-min', array( 'inline' => false ) );
+	echo $this->Html->script( 'jquery-1.11.1.min' );
+	echo $this->Html->script( 'easyselectbox' );
+	echo $this->Html->script( 'underscore-min' );
+
+    echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>'
 ?>
 <!DOCTYPE html>
 <html>
