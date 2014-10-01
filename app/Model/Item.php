@@ -28,8 +28,8 @@ class Item extends AppModel{
                 ],
                 'thumbnailSizes' => [
                     'thumb150' => '150x150',
-                    'normal' => '200x200',
-                    'big' => '500x500'
+                    'normal' => '400x400',
+                    'big' => '960x350'
                 ],
                 'extensions' => [
                     'jpg',
