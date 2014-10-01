@@ -46,10 +46,6 @@ class ShopsController extends AppController {
         }
     }
     
-    public function add(){
-        
-    }
-
     /*public function login(){
         if($this->request->is('post')) {
             if($this->Auth->login())
