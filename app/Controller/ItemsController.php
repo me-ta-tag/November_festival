@@ -124,19 +124,17 @@ class ItemsController extends AppController {
                     $items_base['category_id'] = $this -> request -> query['category_id'];
                 }
             */  
-
+                //var_dump($this -> request -> data['item_name']);
                 // POST版
                 if(isset($this -> request -> data['item_name'])){
                     $items_base['item_name'] = $this -> request -> data['item_name'];
-                }
-                else{
+                }else{
                     echo("item_nameが未設定です。<br/>");
                     return;
                 }
                 if(isset($this -> request -> data['item_price'])){
                     $items_base['item_price'] = $this -> request -> data['item_price'];
-                }
-                else{
+                }else{
                     echo("item_priceが未設定です。<br/>");
                     return;
                 }
@@ -147,7 +145,10 @@ class ItemsController extends AppController {
                     $items_base['item_photo'] = $this -> request -> data['item_photo'];
                 }
                 if(isset($this -> request -> data['item_stock'])){
-                    $items_base['item_stock']= $this -> request -> data['item_stock'];
+                    $items_base['item_stock'] = $this -> request -> data['item_stock'];
+                }
+                if(isset($this -> request -> data['item_leader'])){
+                    $items_base['item_leader'] = $this -> request -> data['item_leader'];
                 }
                 if(isset($this -> request -> data['shop_id'])){
                     $items_base['shop_id']= $this -> request -> data['shop_id'];
@@ -221,6 +222,9 @@ class ItemsController extends AppController {
                 }
                 if(isset($this -> request -> data['item_stock'])){
                     $items_base['item_stock']= $this -> request -> data['item_stock'];
+                }
+                if(isset($this -> request -> data['item_leader'])){
+                    $items_base['item_leader'] = $this -> request -> data['item_leader'];
                 }
                 if(isset($this -> request -> data['shop_id'])){
                     $items_base['shop_id']= $this -> request -> data['shop_id'];
