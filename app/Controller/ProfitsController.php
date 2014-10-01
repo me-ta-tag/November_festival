@@ -57,10 +57,11 @@ class ProfitsController extends AppController {
                 if (isset($id)) {
                     if ($id != 0) {
 
-                        $params = array(
-                            'conditions' => array('Profit.shop_id' => $id),
-                            'order' => 'Profit.id DESC'
-                        );
+                        $params = [
+                            'conditions' => [
+                                'Profit.shop_id' => $id
+                            ]
+                        ];
                         $profits = $this->Profit->find('all', $params);
 
 
@@ -80,7 +81,7 @@ class ProfitsController extends AppController {
             }else{
                 throw new NotFoundException();
             }
-            $this->disableCache();
+            //$this->disableCache();
         }else{
             throw new NotFoundException();
         }
