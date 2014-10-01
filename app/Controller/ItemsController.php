@@ -19,7 +19,7 @@ class ItemsController extends AppController {
     }
 
     public $item = ['Item'];
-    public $helpers= array('html' ,'Form');
+    //public $helpers= array('html' ,'Form');
 
 
     public $components = array('RequestHandler');
@@ -199,85 +199,85 @@ class ItemsController extends AppController {
         }
     }
     // POSTされたIDの内容を変更する
-    public function update(){
-        $items_base = array();
-        if($this->request->is('ajax')) {
-            if ($this->request->is('post')) {
-                // 変更対象のID
-                if(isset($this -> request -> data['item_name'])){
-                    $items_base['item_name'] = $this -> request -> data['item_name'];
-                }
-                if(isset($this -> request -> data['item_price'])){
-                    $items_base['item_price'] = $this -> request -> data['item_price'];
-                }
-                if(isset($this -> request -> data['item_detail'])){
-                    $items_base['item_detail'] = $this -> request -> data['item_detail'];
-                }
-                if(isset($this -> request -> data['item_photo'])){
-                    $items_base['item_photo'] = $this -> request -> data['item_photo'];
-                }
-                if(isset($this -> request -> data['item_stock'])){
-                    $items_base['item_stock']= $this -> request -> data['item_stock'];
-                }
-                if(isset($this -> request -> data['item_leader'])){
-                    $items_base['item_leader'] = $this -> request -> data['item_leader'];
-                }
-                if(isset($this -> request -> data['shop_id'])){
-                    $items_base['shop_id']= $this -> request -> data['shop_id'];
-                    // 該当IDがあるかチェック
-                    $shop_id_is_found = $this->Shop->find(
-                            'first', array(
-                                    'fields' => array('id'),
-                                    'conditions' => array('id' => $items_base['shop_id'])
-                                    )
-                            );
-                    // 対応するIDが見当たらない場合終了
-                    if(empty($shop_id_is_found)){
-                        echo("対応するshop_idはありません。<br/>");
-                        return;
-                    }
-                }
-                if(isset($this -> request -> data['category_id'])){
-                    $items_base['category_id']= $this -> request -> data['category_id'];
-                    // Categoryモデルの呼び出し
-                    $this->loadModel('Category');
-                    $this->Category = new Category();
-                    // 該当IDがあるかチェック
-                    $category_id_is_found = $this->Category->find(
-                            'first', array(
-                                    'fields' => array('category_name'),
-                                    'conditions' => array('category_name' => $items_base['category_id'])
-                                    )
-                            );
-                    // 対応するIDが見当たらない場合終了
-                    if(empty($category_id_is_found)){
-                        return;
-                    }
-                }
-                //update対象のデータを探す
-                if(isset($this -> request -> data['id'])){
-                    $items_base['id'] = $this -> request -> data['id'];
-                    $items_id_is_found = $this->Item->find(
-                                    'first', array(
-                                        'fields' => array('Item.id'),
-                                        'conditions' => array('Item.id' => $items_base['id'])
-                                    )
-                            );
-                    if(empty($items_id_is_found)){
-                        echo("対応するidはありません。<br/>");
-                        return;
-                    }
-                    // デ―タをUpdate
-                    $items_data = array('Item' => $items_base);
-                    $items_fields = array();
-                    foreach ($items_base as $items_key => $items_value) {
-                        array_push($items_fields, $items_key);
-                    }
-                    $this->Item->save($items_data, false, $items_fields);
-                }
-            }
-        }
-    }
+//    public function update(){
+//        $items_base = array();
+//        if($this->request->is('ajax')) {
+//            if ($this->request->is('post')) {
+//                // 変更対象のID
+//                if(isset($this -> request -> data['item_name'])){
+//                    $items_base['item_name'] = $this -> request -> data['item_name'];
+//                }
+//                if(isset($this -> request -> data['item_price'])){
+//                    $items_base['item_price'] = $this -> request -> data['item_price'];
+//                }
+//                if(isset($this -> request -> data['item_detail'])){
+//                    $items_base['item_detail'] = $this -> request -> data['item_detail'];
+//                }
+//                if(isset($this -> request -> data['item_photo'])){
+//                    $items_base['item_photo'] = $this -> request -> data['item_photo'];
+//                }
+//                if(isset($this -> request -> data['item_stock'])){
+//                    $items_base['item_stock']= $this -> request -> data['item_stock'];
+//                }
+//                if(isset($this -> request -> data['item_leader'])){
+//                    $items_base['item_leader'] = $this -> request -> data['item_leader'];
+//                }
+//                if(isset($this -> request -> data['shop_id'])){
+//                    $items_base['shop_id']= $this -> request -> data['shop_id'];
+//                    // 該当IDがあるかチェック
+//                    $shop_id_is_found = $this->Shop->find(
+//                            'first', array(
+//                                    'fields' => array('id'),
+//                                    'conditions' => array('id' => $items_base['shop_id'])
+//                                    )
+//                            );
+//                    // 対応するIDが見当たらない場合終了
+//                    if(empty($shop_id_is_found)){
+//                        echo("対応するshop_idはありません。<br/>");
+//                        return;
+//                    }
+//                }
+//                if(isset($this -> request -> data['category_id'])){
+//                    $items_base['category_id']= $this -> request -> data['category_id'];
+//                    // Categoryモデルの呼び出し
+//                    $this->loadModel('Category');
+//                    $this->Category = new Category();
+//                    // 該当IDがあるかチェック
+//                    $category_id_is_found = $this->Category->find(
+//                            'first', array(
+//                                    'fields' => array('category_name'),
+//                                    'conditions' => array('category_name' => $items_base['category_id'])
+//                                    )
+//                            );
+//                    // 対応するIDが見当たらない場合終了
+//                    if(empty($category_id_is_found)){
+//                        return;
+//                    }
+//                }
+//                //update対象のデータを探す
+//                if(isset($this -> request -> data['id'])){
+//                    $items_base['id'] = $this -> request -> data['id'];
+//                    $items_id_is_found = $this->Item->find(
+//                                    'first', array(
+//                                        'fields' => array('Item.id'),
+//                                        'conditions' => array('Item.id' => $items_base['id'])
+//                                    )
+//                            );
+//                    if(empty($items_id_is_found)){
+//                        echo("対応するidはありません。<br/>");
+//                        return;
+//                    }
+//                    // デ―タをUpdate
+//                    $items_data = array('Item' => $items_base);
+//                    $items_fields = array();
+//                    foreach ($items_base as $items_key => $items_value) {
+//                        array_push($items_fields, $items_key);
+//                    }
+//                    $this->Item->save($items_data, false, $items_fields);
+//                }
+//            }
+//        }
+//    }
 
 
     public function update(){
@@ -285,29 +285,7 @@ class ItemsController extends AppController {
         // アイテム取得処理
         if ($this -> request -> is('post') ){
 
-            // 試験運転のGET版 : 上記isをgetにした際に用いれる
-            /*
-                 if(isset($this -> request -> query['category_id'])){
-                    $items_base['category_id'] = $this -> request -> query['category_id'];
-                    // shopモデルの読み込み
-                    $this->loadModel('Category');
-                    $this->Shop = new Category();
-                    $id_is_found = $this->Category->find(
-                        'first', array(
-                            'fields' => array('category_name'),
-                            'conditions' => array('category_name' => $items_base['category_id'])
-                        )
-                    );
-                    if(empty($id_is_found)){
-                        echo("対応するidはありません。<br/>");
-                        return;
-                    }
-                }
-                else{
-                    echo("shop_idが未設定です。<br/>");
-                    return;
-                }
-            */
+
 
 
             // POST版
@@ -400,12 +378,16 @@ class ItemsController extends AppController {
     }
 
     public function test(){
+        if($this->request->is('ajax')){
+            if($this->request->is('post')){
+//            var_dump($this->request->data);
+                $data = $this->request->data;
+//            var_dump($data);
+                $this->Item->saveAll($data['Item']);
 
-        if($this->request->is('post')){
-            var_dump($this->request->data);
-            $this->Item->save($this->request->data);
+                //$this->Item->save($this->request->data);
+            }
         }
-
     }
     public function test2(){
         if($this->request->is('post')){
