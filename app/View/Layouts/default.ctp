@@ -18,7 +18,14 @@
 
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
-<!-- 
+<?php
+	echo $this->Html->css( 'reset' );
+	echo $this->Html->css( 'style' );
+	echo $this->Html->css( 'easyselectbox' );
+	$this -> Html -> script( 'jquery-1.11.1.min', array( 'inline' => false ) );
+	$this -> Html -> script( 'easyselectbox', array( 'inline' => false ) );
+	$this -> Html -> script( 'underscore-min', array( 'inline' => false ) );
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +34,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
--->
 <!-- 	
 	<?php
 		echo $this->Html->meta('icon');
@@ -40,25 +46,33 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         echo $this->Html->css('style');
 	?>
  -->
- 	<link rel="stylesheet" href="/m_regi/css/style.css" type="text/css" />
-    <link rel="stylesheet" href="/m_regi/css/reset.css" type="text/css" />
-    <link rel="stylesheet" href="/m_regi/css/easyselectbox.css" type="text/css" />
+	<script type="text/javascript">
+        $(document).ready(function(){
+          $('#eazy-select').easySelectBox({speed:100});
+        });
+    </script>
+    <script language="javascript">
+        function navi(obj) {
+         url = obj.options[obj.selectedIndex].value;
+         if(url != "") {
+           location.href = url;
+          }
+        }
 
-    <script src="/m_regi/js/jquery-1.11.1.min.js"></script>
-    <script src="/m_regi/js/underscore-min.js"></script>
-    <script src="/m_regi/js/easyselectbox.js"></script>
+    </script>
 
 </head>
 <body>
   <header>
         <ul>
+        	<?php if(isset($shop['id'])){?>
             <div class="toggle t_left">
-            	<li class = "shop_name"><?php if ( isset($shop['id'] ) ) { echo ( $shop['shop_name'] ); } ?></li>
+            	<li class = "shop_name"><?php echo ( $shop['shop_name'] ); ?></li>
             	<input type = "button" value = ログアウト class="btn" onClick = "location.href='/m_regi/shops/logout'"></li></div>
             </div>
             <div class = "head_left">
-            <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='mypage.html'"></li>
-            <li class = "shop_name"><?php if ( isset($shop['id'] ) ) { echo ( $shop['id'] ); } ?></li>
+            <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='/m_regi/shops'"></li>
+            <li class = "shop_name"><?php echo ( $shop['id'] );  ?></li>
             <li class = "logout">
                 <input type = "button" value = "ログアウト" class="btn" onclick = "location.href='/m_regi/shops/logout'">
             </li>
@@ -68,9 +82,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 <form method=post>
             	<select id="#eazy-select" onchange="navi(this)">
 					<option>menu</option>
-					<option value="mypage.html">マイページへ</option>
-					<option value="registration.html">登録画面へ</option>
-					<option value="payment.html">会計画面へ</option>
+					<option value="/m_regi/shops">マイページへ</option>
+					<option value="/m_regi/shops/registration">登録画面へ</option>
+					<option value="/m_regi/shops/payment">会計画面へ</option>
            		</select>
            		</form>
            		<script type="text/javascript">
@@ -82,15 +96,15 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
             </div>
             <div class = "head_right"> 
             <li class = "touroku">
-                <input type = "button" value = "登録" class="btn" onclick ="location.href='registration.html'">
+                <input type = "button" value = "登録" class="btn" onclick ="location.href='/m_regi/shops/registration'">
             </li>
             <li class = "kaikei">
-                <input type = "button" value = "会計" class="btn" onclick ="location.href='payment.html'">
+                <input type = "button" value = "会計" class="btn" onclick ="location.href='/m_regi/shops/payment'">
             </li>
             </div>
+            <?php } ?>
         </ul>
     </header>
-
 
 	<div id="content">
 
@@ -99,7 +113,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<?php echo $this->fetch('content'); ?>
 
 	</div>
-<!-- 	
+	
 	<div id="footer">
 		<?php echo $this->Html->link(
 				$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
@@ -109,6 +123,5 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		?>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
- -->
  </body>
 </html>

@@ -46,21 +46,17 @@ class ShopsController extends AppController {
         }
     }
     
-    // マイページ
-    public function mypage(){
-
-    }
     // 会計ページ
     public function payment(){
-
+        $this->set('shop', $this->Auth->user());
     }
     // 商品登録ページ
     public function registration(){
-        
+        $this->set('shop', $this->Auth->user());
     }
     // 売上詳細ページ
     public function sale(){
-
+        $this->set('shop', $this->Auth->user());
     }
 
     /*public function login(){
