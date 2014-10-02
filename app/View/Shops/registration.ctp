@@ -191,8 +191,8 @@ $(function(){
         }
             json = JSON.stringify(json);
             if(json !== "[]"){
-                debugger;
-                $.post("/m_regi/items/add", json, function(data){
+                $.post("/m_regi/items/test", json, function(data){
+            debugger;
                     console.log("data = "+data);
                 });
             }
@@ -207,10 +207,11 @@ $(function(){
             }
         });
         if(flag){
+            shop_id = 1;
             // リストの値を配列に格納
             var len = $("#item_reg .reg_list > div").length,
                 ary = [];
-            if(shop_id != 0){
+            if(shop_id != 1){
                 for(var i=0; i<len; i++){
                     var target = $("#item_reg .reg_list > div").eq(i);
                     ary[i] = {
@@ -230,9 +231,9 @@ $(function(){
                             "item_name" : $(".name > input:text", target).val(),
                             "item_price" : $(".price > input:text", target).val(),
                             "item_stock" : $(".stock > input:text", target).val(),
-                            "item_detail" : $(".detail", target).html(),
+                            "item_detail" : $(".detail", target).val(),
                             "item_photo" : $(".item_img", target).attr("src"),
-                            "shop_id" : "1",
+                            "shop_id" : shop_id + "",
                             "category_id" : $(".category > select option:selected",target).val()
                          }
                 }

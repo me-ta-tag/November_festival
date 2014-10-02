@@ -374,7 +374,7 @@ class ItemsController extends AppController {
 //            var_dump($this->request->data);
                 $data = $this->request->data;
 //            var_dump($data);
-                $this->Item->saveAll($data['Item']);
+                $this->Item->saveAll($this->request->data);
 
                 //$this->Item->save($this->request->data);
             }
