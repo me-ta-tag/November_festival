@@ -23,10 +23,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	echo $this->Html->css( 'style' );
 	echo $this->Html->css( 'easyselectbox' );
 	echo $this->Html->script( 'jquery-1.11.1.min' );
-	echo $this->Html->script( 'easyselectbox' );
 	echo $this->Html->script( 'underscore-min' );
+    echo $this->Html->script( 'easyselectbox' );
 
-    echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>'
+    echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>';
 ?>
 <!DOCTYPE html>
 <html>
