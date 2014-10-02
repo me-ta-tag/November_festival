@@ -192,7 +192,7 @@ $(function(){
             json = JSON.stringify(json);
             debugger;
             if(json !== "[]"){
-                $.post("/m_regi/items/test", json, function(data){
+                $.post("/m_regi/items/test", {'Item':json}, function(data){
                     debugger;
                     console.log("data = "+data);
                 });
