@@ -41,7 +41,7 @@ class ItemsController extends AppController {
 
                     $params = array(
                         'conditions' => array('Item.shop_id'=> $id),
-                        'order' => 'Item.id DESC'
+                        'order' => 'Item.id ASC'
                     );
                     $items = $this->Item->find('all',$params);
 
@@ -51,7 +51,7 @@ class ItemsController extends AppController {
 
                     $cateparamas = [
                         'conditions' => array('shop_id'=> $id),
-                        'order' => 'id DESC'
+                        'order' => 'id ASC'
                     ];
                     $categorys = $this->Category->find('all',$cateparamas);
                     // viewにはjson形式のファイルを表示させるように。

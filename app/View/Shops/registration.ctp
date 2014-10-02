@@ -190,9 +190,10 @@ $(function(){
             }
         }
             json = JSON.stringify(json);
+            debugger;
             if(json !== "[]"){
                 $.post("/m_regi/items/test", json, function(data){
-            debugger;
+                    debugger;
                     console.log("data = "+data);
                 });
             }
