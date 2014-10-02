@@ -189,10 +189,10 @@ $(function(){
                 }
             }
         }
-            json = JSON.stringify(json);
+            json = {'Item':JSON.stringify(json)};
             debugger;
             if(json !== "[]"){
-                $.post("/m_regi/items/test", {'Item':json}, function(data){
+                $.post("/m_regi/items/test", json, function(data){
                     debugger;
                     console.log("data = "+data);
                 });
@@ -229,9 +229,9 @@ $(function(){
                     var target = $("#item_reg .reg_list > div").eq(i);
                     ary[i] = {
                             "id" : target.data("metatag_regiapri_item_id") + "",
-                            "item_name" : $(".name > input:text", target).val(),
-                            "item_price" : $(".price > input:text", target).val(),
-                            "item_stock" : $(".stock > input:text", target).val(),
+                            "item_name" : $(".name > input:text", target).val() *1,
+                            "item_price" : $(".price > input:text", target).val() *1,
+                            "item_stock" : $(".stock > input:text", target).val() ,
                             "item_detail" : $(".detail", target).val(),
                             "item_photo" : $(".item_img", target).attr("src"),
                             "shop_id" : shop_id + "",
