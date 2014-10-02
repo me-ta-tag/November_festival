@@ -207,24 +207,40 @@ $(function(){
             }
         });
         if(flag){
-        // リストの値を配列に格納
-        var len = $("#item_reg .reg_list > div").length,
-            ary = [];
-        for(var i=0; i<len; i++){
-            var target = $("#item_reg .reg_list > div").eq(i);
-            ary[i] = {
-                        "id" : target.data("metatag_regiapri_item_id") + "",
-                        "item_name" : $(".name > input:text", target).val(),
-                        "item_price" : $(".price > input:text", target).val(),
-                        "item_stock" : $(".stock > input:text", target).val(),
-                        "item_detail" : "",
-                        "item_photo" : "",
-                        "shop_id" : shop_id + "",
-                        "category_id" : $(".category > select option:selected",target).val()
-                    }
+            // リストの値を配列に格納
+            var len = $("#item_reg .reg_list > div").length,
+                ary = [];
+            if(shop_id != 0){
+                for(var i=0; i<len; i++){
+                    var target = $("#item_reg .reg_list > div").eq(i);
+                    ary[i] = {
+                            "id" : target.data("metatag_regiapri_item_id") + "",
+                            "item_name" : $(".name > input:text", target).val(),
+                            "item_price" : $(".price > input:text", target).val(),
+                            "item_stock" : $(".stock > input:text", target).val(),
+                            "shop_id" : shop_id + "",
+                            "category_id" : $(".category > select option:selected",target).val()
+                         }
+                }
+            }else{
+                for(var i=0; i<len; i++){
+                    var target = $("#item_reg .reg_list > div").eq(i);
+                    ary[i] = {
+                            "id" : target.data("metatag_regiapri_item_id") + "",
+                            "item_name" : $(".name > input:text", target).val(),
+                            "item_price" : $(".price > input:text", target).val(),
+                            "item_stock" : $(".stock > input:text", target).val(),
+                            "item_detail" : $(".detail", target).html(),
+                            "item_photo" : $(".item_img", target).attr("src"),
+                            "shop_id" : "1",
+                            "category_id" : $(".category > select option:selected",target).val()
+                         }
+                }
+
+            }
+            compare(ary,items_back);
         }
-        compare(ary,items_back);
-        }
+
     });
 
     $("#ticket_reg .ok > input:button").on("click",function(){
@@ -387,6 +403,46 @@ $(function(){
         }
     });
 //--------------------------------------------------------------------------
+// バザー用
+// 画像関連
+    // ドラッグ&ドロップされたらブラウザでファイルが開かれてしまうのを防ぐ
+    $("body").on("dragover",function(){
+        event.preventDefault();
+    });
+    $(document).on("drop",".dropzone",function(){
+        event.preventDefault();
+        event.stopPropagation();
+        // FileListオブジェクトを取得
+        var files = event.dataTransfer.files,
+            file = files[0],
+            fileReader = new FileReader();
+        target_dropzone = $(event.target).attr("id");
+        if(file.type.indexOf("image/") === 0){
+            fileReader.onload = function(event){
+                $("#"+target_dropzone+" > .guide").hide();
+                var src = event.target.result;
+                $("#"+target_dropzone+" > .item_img").attr("src", src);
+                $("#"+target_dropzone+" > .item_img").show();
+            }
+            fileReader.readAsDataURL(file);
+        }else{
+            alert("画像ファイル以外はむりだわ");
+      }
+    });
+//--------------------------------------------------------------------------
+// 外にドラッグ&ドロップで既存の画像を削除
+    $(document).on("dragstart",".item_img",function(){
+        event.dataTransfer.setData("text", event.target.id);
+    })
+    $("body").on("drop",function(){
+        event.preventDefault();
+        var targetclass = $(event.target).attr("class") + "";
+        if (targetclass !== "item_img" && targetclass !== "dropzone"){
+            event.stopPropagation();
+            $("#"+event.dataTransfer.getData("text")).attr("src", "").hide();
+            $("#"+event.dataTransfer.getData("text")).prevAll(".guide").show(); 
+        }
+    })
 
 });
 </script>
