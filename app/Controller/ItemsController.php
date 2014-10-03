@@ -221,84 +221,51 @@ class ItemsController extends AppController {
 
 
     public function update(){
-        $items_base = array();
         // アイテム取得処理
         if($this-> request -> is('ajax')){
             if ($this -> request -> is('post') ){
 
+                $addArray = [
+                    id => 1,
+                    item_name => 1,
+                    item_price => 1,
+                    item_detail => 0,
+                    item_photo => 0,
+                    item_stock => 0,
+                    item_leader => 0,
+                    shop_id => "shop_id",
+                    category_id => "category_id"
+                ];//1はNot Null 0は Nullあり、その他はその他の処理
+
+
                 // POST版
-                if(isset($this -> request -> data['item_name'])){
-                    $items_base['item_name'] = $this -> request -> data['item_name'];
-                }
-                else{
-                    echo("item_nameが未設定です。<br/>");
-                    return;
-                }
-                if(isset($this -> request -> data['item_price'])){
-                    $items_base['item_price'] = $this -> request -> data['item_price'];
-                }
-                else{
-                    echo("item_priceが未設定です。<br/>");
-                    return;
-                }
-                if(isset($this -> request -> data['item_detail'])){
-                    $items_base['item_detail'] = $this -> request -> data['item_detail'];
-                }
-                if(isset($this -> request -> data['item_photo'])){
-                    $items_base['item_photo'] = $this -> request -> data['item_photo'];
-                }
-                if(isset($this -> request -> data['item_stock'])){
-                    $items_base['item_stock']= $this -> request -> data['item_stock'];
-                }
-                if(isset($this -> request -> data['shop_id'])){
-                    $items_base['shop_id']= $this -> request -> data['shop_id'];
-                    // 該当IDがあるかチェック
-                    $shop_id_is_found = $this->Shop->find(
-                        'first', array(
-                            'fields' => array('id'),
-                            'conditions' => array('id' => $items_base['shop_id'])
-                        )
-                    );
-                    // 対応するIDが見当たらない場合終了
-                    if(empty($shop_id_is_found)){
-                        echo("対応するshop_idはありません。<br/>");
-                        return;
-                    }
-                }
-                else{
-                    echo("shop_idが未設定です。<br/>");
-                    return;
-                }
-                if(isset($this -> request -> data['category_id'])){
-                    $items_base['category_id']= $this -> request -> data['category_id'];
-                    // Categoryモデルの呼び出し
-                    $this->loadModel('Category');
-                    $this->Category = new Category();
-                    // 該当IDがあるかチェック
-                    $category_id_is_found = $this->Category->find(
-                        'first', array(
-                            'fields' => array('category_name'),
-                            'conditions' => array('category_name' => $items_base['category_id'])
-                        )
-                    );
-                    // 対応するIDが見当たらない場合終了
-                    if(empty($category_id_is_found)){
-                        echo("対応するcategory_idはありません。<br/>");
-                        return;
-                    }
-                }
-                else{
-                    echo("category_idが未設定です。<br/>");
-                    return;
-                }
+                $items_base = $this->checkList($addArray,$this -> request -> data,'Item');
 
                 // デ―タをInsert
-                $items_data = array('Item' => $items_base);
+                /*$items_data = array('Item' => $items_base);
                 $items_fields = array();
                 foreach ($items_base as $items_key => $items_value) {
                     array_push($items_fields, $items_key);
+                }*/
+                foreach($items_base as $val){
+
+                    $this->Item->updateAll(
+                        [
+                            'item_name' =>  $val['item_name'],
+                            'item_price' =>  $val['item_price'],
+                            'item_detail' =>  $val['item_detail'],
+                            'item_photo' =>  $val['item_photo'],
+                            'item_stock' =>  $val['item_stock'],
+                            'item_leader'=>  $val['item_lender'],
+                            'shop_id' =>  $val['shop_id'],
+                            'category_id' =>  $val['category_id'],
+                        ],
+                        [
+                                'id'   =>  $val['id']
+                        ]
+                    );
+
                 }
-                $this->Item->updateAll($items_data, false, $items_fields);
             }
         }
 
@@ -352,8 +319,8 @@ class ItemsController extends AppController {
                                 // 該当IDがあるかチェック
                                 $category_id_is_found = $this->Category->find(
                                     'first', array(
-                                        'fields' => array('category_name'),
-                                        'conditions' => array('category_name' => $items_base[$key])
+                                        'fields' => array('id'),
+                                        'conditions' => array('id' => $items_base[$key])
                                     )
                                 );
                                 // 対応するIDが見当たらない場合終了
@@ -395,7 +362,7 @@ class ItemsController extends AppController {
     public function test(){
         if($this->request->is('ajax')){
             if($this->request->is('post')){
-//            var_dump($this->request->data);
+            var_dump($this->request->data);
                 $data = $this->request->data;
 //            var_dump($data);
                 $this->Item->saveAll($data);
