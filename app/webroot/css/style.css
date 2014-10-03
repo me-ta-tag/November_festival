@@ -202,7 +202,7 @@ width:93px;
         width:400px;
         border:1px solid black;
         overflow: scroll;
-        text-align: center;
+        /*text-align: center;*/
         background: #fff;
     }
 
@@ -260,7 +260,7 @@ width:93px;
         float: right;
         border:1px solid black;
         overflow: scroll;
-        text-align: center;
+/*         text-align: center; */
         margin-bottom: 20px;
         background: #fff;
     }
