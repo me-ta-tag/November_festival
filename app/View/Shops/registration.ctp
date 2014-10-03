@@ -179,14 +179,12 @@ $(function(){
             json = [];
         for(var i=0; i<ary.length; i++){
             // 新商品
-            if(ary[i].id == "new"){
+            if(isNaN(ary[i].id)){
                 delete ary[i].id;
-                delete back[i].item_photo_dir;
                 json.push(ary[i]);
             }
             // 更新判断
             else{
-                delete back[i].item_photo_dir;
                 if(shop_id != 1){delete back[i].item_detail; delete back[i].item_photo;}
                 var flag = _.isEqual(ary[i], back[i]);
                 // true=同じ，false=異なる
@@ -215,7 +213,6 @@ $(function(){
             }
         });
         if(flag){
-            // shop_id = 1;
             // リストの値を配列に格納
             var len = $("#item_reg .reg_list > div").length,
                 ary = [];
@@ -223,27 +220,31 @@ $(function(){
                 for(var i=0; i<len; i++){
                     var target = $("#item_reg .reg_list > div").eq(i);
                     ary[i] = {
-                            "id" : target.data("metatag_regiapri_item_id") + "",
+                            "id" : target.data("metatag_regiapri_item_id") *1,
                             "item_name" : $(".name > input:text", target).val(),
                             "item_price" : $(".price > input:text", target).val() *1,
                             "item_stock" : $(".stock > input:text", target).val() *1,
-                            "shop_id" : shop_id + "",
-                            "category_id" : $(".category > select option:selected",target).val(),
+                            "shop_id" : shop_id,
+                            "category_id" : $(".category > select option:selected",target).val() *1,
                             "item_leader" : $("input:checkbox", target).prop("checked")
                          }
                 }
             }else{
                 for(var i=0; i<len; i++){
-                    var target = $("#item_reg .reg_list > div").eq(i);
+                    var target = $("#item_reg .reg_list > div").eq(i),
+                        img_src = $(".item_img", target).attr("src");
+                    if(img_src == ""){
+                        var img_src = null;
+                    }
                     ary[i] = {
-                            "id" : target.data("metatag_regiapri_item_id") + "",
+                            "id" : target.data("metatag_regiapri_item_id") *1,
                             "item_name" : $(".name > input:text", target).val(),
                             "item_price" : $(".price > input:text", target).val() *1,
                             "item_stock" : $(".stock > input:text", target).val() *1,
                             "item_detail" : $(".detail", target).val(),
-                            "item_photo" : $(".item_img", target).attr("src"),
-                            "shop_id" : shop_id + "",
-                            "category_id" : $(".category > select option:selected",target).val(),
+                            "item_photo" : img_src,
+                            "shop_id" : shop_id,
+                            "category_id" : $(".category > select option:selected",target).val() *1,
                             "item_leader" : $("input:checkbox", target).prop("checked")
                          }
                 }
@@ -286,7 +287,6 @@ $(function(){
                 // テンプレートのためにプロパティ追加
                 ary[i].num = i+1;
                 ary[i].option = opt;
-                // ary[i].shop_id = 1;
                 target.append(tmp(ary[i]));
             }
             // カテゴリを合わせる
@@ -308,9 +308,12 @@ $(function(){
     $.get("/m_regi/items/read",{shop_id : shop_id}, function(data){
         for(var i=0; i<data.item.length; i++){
             items.push(data.item[i].Item);
-        }        for(var i=0; i<data.category.length; i++){
+            delete items[i].item_photo_dir;
+        }
+        for(var i=0; i<data.category.length; i++){
             categorys.push(data.category[i].Category);
-        }        for(var i=0; i<data.ticket.length; i++){
+        }
+        for(var i=0; i<data.ticket.length; i++){
             tickets.push(data.ticket[i].ticket);
         }
 
@@ -348,7 +351,7 @@ $(function(){
             }else{
                 if(tgt=="item"){
                     target.append(tmp({
-                        id: "new", category_id: "", num: i+1, item_name: "", item_price: "", item_stock: "", option: opt, item_detail: "", item_photo: ""
+                        id: "new", category_id: "", num: i+1, item_name: "", item_price: "", item_stock: "", option: opt, item_detail: "", item_photo: null, item_leader: ""
                     }));
                 }else if(tgt=="ticket"){
                     target.append(tmp({

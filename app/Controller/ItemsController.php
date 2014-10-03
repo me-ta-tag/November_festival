@@ -43,6 +43,8 @@ class ItemsController extends AppController {
                         'conditions' => array('Item.shop_id'=> $id),
                         'order' => 'Item.id ASC'
                     );
+                    $pdo = $this->Item->getDatasource()->getConnection();
+                    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                     $items = $this->Item->find('all',$params);
 
                     $ticparams = [
@@ -256,7 +258,7 @@ class ItemsController extends AppController {
                             'item_detail' =>  $val['item_detail'],
                             'item_photo' =>  $val['item_photo'],
                             'item_stock' =>  $val['item_stock'],
-                            'item_leader'=>  $val['item_lender'],
+                            'item_leader'=>  $val['item_leader'],
                             'shop_id' =>  $val['shop_id'],
                             'category_id' =>  $val['category_id'],
                         ],
@@ -272,6 +274,23 @@ class ItemsController extends AppController {
     }
 
 
+    // 該当するIDのカラムを削除する
+    public function delete(){
+       if($this-> request -> is('ajax')){
+            if ($this -> request -> is('post') ){
+                $items_id = $this -> request -> data['id'];
+                $this->Item->delete($items_id);
+            }
+        }
+    }
+
+    /**
+     * @param $list
+     * @param $data
+     * @param $exportKey
+     * @return array
+     * @throws NotFoundException
+     */
     public function checkList($list,$data,$exportKey){
         $export = [$exportKey];
         $export[$exportKey] = [];
@@ -382,27 +401,26 @@ class ItemsController extends AppController {
                         echo "error";
                         //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
                     }
+
                     foreach($updateArray as $val) {
-                        if ($this->Item->updateAll(
-                            [
-                                'item_name' => $val['item_name'],
-                                'item_price' => $val['item_price'],
-                                'item_detail' => $val['item_detail'],
-                                'item_photo' => $val['item_photo'],
-                                'item_stock' => $val['item_stock'],
-                                'item_leader' => $val['item_lender'],
-                                'shop_id' => $val['shop_id'],
-                                'category_id' => $val['category_id'],
-                            ],
-                            [
-                                'id' => $val['id']
-                            ]
-                        )
-                        ) {
+                        //var_dump($val);
+                        foreach($val as $key => $value){
+                            if($key = "item_leader"){
+                                if($value){
+                                    $updateList[$key] = 1;
+                                }else{
+                                    $updateList[$key] = 0;
+                                }
+                            }else{
+                                $updateList[$key] = $value;
+                            }
+                        }
+                        if ($this->Item->updateAll($updateList,[id => $val['id']])) {
 
                         } else {
                             echo "error";
                         }
+                        echo $this->element('sql_dump');
                     }
 
                     //$this->Item->save($this->request->data);
