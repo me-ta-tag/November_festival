@@ -30,15 +30,16 @@ class ProfitsController extends AppController {
 
         if($this->request->is('post')){
             if($this->Profit->saveAssociated($this->request->data)){
-                $this->Session->setFlash('成功！');
-                $this->redirect(array('action'=>'index'));
+                //var_dump($this->request->data);
+                //$this->Session->setFlash('成功！');
+                //$this->redirect(array('action'=>'index'));
             }else{
                 $this->Session->setFlash(pr($this->request->data));
-                $this->Session->setFlash('失敗');
+                //$this->Session->setFlash('失敗');
 
             }
-            print_r(json_decode($this->request->data, true));
-            print_r($this->request, true);
+            //print_r(json_decode($this->request->data, true));
+            //print_r($this->request, true);
         }
 
     }
@@ -70,7 +71,7 @@ class ProfitsController extends AppController {
                      if(isset($this -> request -> data[$dataList[$i]])){
                          $profitBase[$dataList[$i]] = $this -> request -> data[$dataList[$i]];
                      }else{
-                         insertError();
+                         $this -> insertError();
                      }
                  }
 
@@ -80,11 +81,9 @@ class ProfitsController extends AppController {
                  foreach ($profitBase as $profitKey => $profitValue) {
                      array_push($profitFields, $profitKey);
                  }
-//                 $this->Item->save($profitsData, false, $profitFields);
                  if($this->Profit->save($profitsData, false, $profitFields)){
                      $this->loadModel('Sale');
                      $profitId = $this->Profit->getLastInsertID();
-//                     print_r($last_id );
                      $dataList = [
                          'item_id',
                          'sale_price',
@@ -100,11 +99,10 @@ class ProfitsController extends AppController {
                          //var_dump($dataArray);
                          if(isset($dataArray)){
                              for($i = 0;$i < count($dataList);$i++){
-                                 //var_dump($dataArray[$dataList[$i]]);
                                  if(isset($dataArray[$dataList[$i]])){
                                      $saleBase[$dataList[$i]] = $dataArray[$dataList[$i]];
                                  }else{
-                                     insertError();
+                                     $this -> insertError();
                                  }
 
                              }
@@ -113,7 +111,6 @@ class ProfitsController extends AppController {
 
                      }
                      $salesData = ['Sale' => $salesBase];
-                     //var_dump($salesData);
                      $this->Sale->saveAll($salesData['Sale']);
                  }
              }
@@ -144,11 +141,7 @@ class ProfitsController extends AppController {
                         $this->layout = 'ajax';
                         $this->RequestHandler->setContent('json');
                         $this->RequestHandler->respondAs('application/json; charset=UTF-8');
-//                        $this->viewClass = 'Json';
 
-//                        $this->set(compact('result'));
-
-                        // $studentsの配列をviewに渡す。
                         $this->set('profit', $profits);
                     } else {
                         throw new NotFoundException();
@@ -159,7 +152,6 @@ class ProfitsController extends AppController {
             }else{
                 throw new NotFoundException();
             }
-            //$this->disableCache();
         }else{
             throw new NotFoundException();
         }
