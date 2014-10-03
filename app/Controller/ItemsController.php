@@ -272,6 +272,17 @@ class ItemsController extends AppController {
     }
 
 
+    // 該当するIDのカラムを削除する
+    public function delete(){
+       if($this-> request -> is('ajax')){
+            if ($this -> request -> is('post') ){
+                $items_id = $this -> request -> data['id'];
+                $this->Item->delete($items_id);
+            }
+        }
+    }
+
+
     public function checkList($list,$data,$exportKey){
         $export = [$exportKey];
         $export[$exportKey] = [];
@@ -390,6 +401,7 @@ class ItemsController extends AppController {
                         }
                         if ($this->Item->updateAll(
                             $updateList,
+
                             [
                                 'id' => $val['id']
                             ]
