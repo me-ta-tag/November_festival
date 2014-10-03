@@ -191,8 +191,9 @@ $(function(){
                 }
             }
         }
-            json = {'Item': json};
             debugger;
+            json = {'Item':json};
+
             if(json !== "[]"){
                 $.post("/m_regi/items/test", json, function(data){
                     // debugger;
