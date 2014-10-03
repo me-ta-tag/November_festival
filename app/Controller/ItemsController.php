@@ -360,16 +360,26 @@ class ItemsController extends AppController {
     }
 
     public function test(){
-        if($this->request->is('ajax')){
-            if($this->request->is('post')){
-            var_dump($this->request->data);
-                $data = $this->request->data;
+        try{
+            //if($this->request->is('ajax')){
+                if($this->request->is('post')){
+                    //var_dump($this->request->data);
+                    $data = $this->request->data;
 //            var_dump($data);
-                $this->Item->saveAll($data);
+                    if ($this->Item->saveAll($data)){
+                        echo "true";
+                    }else{
+                        echo "error";
+                        //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
+                    }
 
-                //$this->Item->save($this->request->data);
-            }
+                    //$this->Item->save($this->request->data);
+                }
+            //}
+        }catch (Exception $e){
+            echo $e;
         }
+
     }
     public function test2(){
         if($this->request->is('post')){
