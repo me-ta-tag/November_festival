@@ -256,7 +256,7 @@ class ItemsController extends AppController {
                             'item_detail' =>  $val['item_detail'],
                             'item_photo' =>  $val['item_photo'],
                             'item_stock' =>  $val['item_stock'],
-                            'item_leader'=>  $val['item_lender'],
+                            'item_leader'=>  $val['item_leader'],
                             'shop_id' =>  $val['shop_id'],
                             'category_id' =>  $val['category_id'],
                         ],
@@ -382,18 +382,14 @@ class ItemsController extends AppController {
                         echo "error";
                         //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
                     }
+
                     foreach($updateArray as $val) {
+                        //var_dump($val);
+                        foreach($val as $key => $value){
+                            $updateList[$key] = $value;
+                        }
                         if ($this->Item->updateAll(
-                            [
-                                'item_name' => $val['item_name'],
-                                'item_price' => $val['item_price'],
-                                'item_detail' => $val['item_detail'],
-                                'item_photo' => $val['item_photo'],
-                                'item_stock' => $val['item_stock'],
-                                'item_leader' => $val['item_lender'],
-                                'shop_id' => $val['shop_id'],
-                                'category_id' => $val['category_id'],
-                            ],
+                            $updateList,
                             [
                                 'id' => $val['id']
                             ]
