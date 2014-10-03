@@ -67,6 +67,7 @@
                     </div>
                     <div class="item_value" style="float:left; margin:30px 10px;">
                         商品名<br><span  class="name"><input type="text" style="width:150px;" value="<%-item_name%>"></span><br>
+                        目玉商品 <input type="checkbox"><br>
                         単価 <span class="price numtxt"><input type="text" style="width:50px;" value="<%-item_price%>"></span>
                         在庫 <span class="stock numtxt"><input type="text" style="width:50px;" value="<%-item_stock%>"></span><br>
                         カテゴリ<br><span class="category"><select style="width:150px;"><%=option%></select></span><br>
@@ -191,8 +192,8 @@ $(function(){
                 }
             }
         }
-            debugger;
             json = {'Item':json};
+            debugger;
 
             if(json !== "[]"){
                 $.post("/m_regi/items/test", json, function(data){
@@ -224,7 +225,8 @@ $(function(){
                             "item_price" : $(".price > input:text", target).val(),
                             "item_stock" : $(".stock > input:text", target).val(),
                             "shop_id" : shop_id + "",
-                            "category_id" : $(".category > select option:selected",target).val()
+                            "category_id" : $(".category > select option:selected",target).val(),
+                            "item_leader" : $("input:checkbox", target).prop("checked")
                          }
                 }
             }else{
@@ -238,7 +240,8 @@ $(function(){
                             "item_detail" : $(".detail", target).val(),
                             "item_photo" : $(".item_img", target).attr("src"),
                             "shop_id" : shop_id + "",
-                            "category_id" : $(".category > select option:selected",target).val()
+                            "category_id" : $(".category > select option:selected",target).val(),
+                            "item_leader" : $("input:checkbox", target).prop("checked")
                          }
                 }
 
