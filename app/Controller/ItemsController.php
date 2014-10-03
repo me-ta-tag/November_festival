@@ -43,6 +43,8 @@ class ItemsController extends AppController {
                         'conditions' => array('Item.shop_id'=> $id),
                         'order' => 'Item.id ASC'
                     );
+                    $pdo = $this->Item->getDatasource()->getConnection();
+                    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                     $items = $this->Item->find('all',$params);
 
                     $ticparams = [
@@ -282,7 +284,13 @@ class ItemsController extends AppController {
         }
     }
 
-
+    /**
+     * @param $list
+     * @param $data
+     * @param $exportKey
+     * @return array
+     * @throws NotFoundException
+     */
     public function checkList($list,$data,$exportKey){
         $export = [$exportKey];
         $export[$exportKey] = [];
@@ -397,20 +405,22 @@ class ItemsController extends AppController {
                     foreach($updateArray as $val) {
                         //var_dump($val);
                         foreach($val as $key => $value){
-                            $updateList[$key] = $value;
+                            if($key = "item_leader"){
+                                if($value){
+                                    $updateList[$key] = 1;
+                                }else{
+                                    $updateList[$key] = 0;
+                                }
+                            }else{
+                                $updateList[$key] = $value;
+                            }
                         }
-                        if ($this->Item->updateAll(
-                            $updateList,
-
-                            [
-                                'id' => $val['id']
-                            ]
-                        )
-                        ) {
+                        if ($this->Item->updateAll($updateList,[id => $val['id']])) {
 
                         } else {
                             echo "error";
                         }
+                        echo $this->element('sql_dump');
                     }
 
                     //$this->Item->save($this->request->data);
