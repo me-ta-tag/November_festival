@@ -1,69 +1,69 @@
-    <div class="sales_container">
-        <table>
-           <tr><td style="font-size:140%;"><b>売上詳細</b></td><td class="line"><hr size = "5"></td></tr>
-           </table>
-        <table class="sales_big">
-        	<thead>
-				<tr class="sales1">
-				   <th class="sales_day"><b>日付</b></th>
-				   <th class="sales_time"><b>時間帯</b></th>
-				   <th class="sales_yen"><b>売上(円)</b></th>
-				   <th class="sales_customer"><b>客数(人)</b></th>
-				   <th class="sales_other_big"><b>男幼(人)</b></th>
-				   <th class="sales_other_big"><b>男成(人)</b></th> 
-				   <th class="sales_other_big"><b>男熟(人)</b></th> 
-				   <th class="sales_other_big"><b>女幼(人)</b></th> 
-				   <th class="sales_other_big"><b>女成(人)</b></th> 
-				   <th class="sales_other_big"><b>女熟(人)</b></th>
-				</tr>
-            </thead>
-            <tfoot>
-            	<tr>
-            		<td colspan="2" class="sales_all"><b>総売上(円)</b></td>
-            		<td class="sales_all2">1000000</td>
-            		<td colspan="4" class="sales_all3"><b>採算(円)</b></td>
-            		<td colspan="3" class="sales_all4">100000</td>
-            	</tr>
-            </tfoot>
-            <tr class="sales2">
-                <td class="sales_day1">**/**</td>
-                <td class="sales_time1">
-                    <select name="item_number">
-                        <option value="all">終日</option>
-                        <option value="am">午前</option>
-                        <option value="pm">午後</option>
-                    </select>
-                </td>
-                <td class="sales_yen">100000</td>
-                <td class="sales_customer">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>   
-				
-            </tr>
-            <tr class="sales2">
-                <td class="sales_day1">**/**</td>
-                <td class="sales_time1">
-                    <select name="item_number">
-                        <option value="all">終日</option>
-                        <option value="am">午前</option>
-                        <option value="pm">午後</option>
-                    </select>
-                </td>
-                <td class="sales_yen">100000</td>
-                <td class="sales_customer">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-                <td class="sales_other_big">1000</td>
-            </tr>
-        </table>
-    </div>
+<div class="sales_container">
+    <table>
+       <tr><td style="font-size:140%;"><b>売上詳細</b></td><td class="line"><hr size = "5"></td></tr>
+       </table>
+    <table class="sales_big">
+    	<thead>
+			<tr class="sales1">
+			   <th class="sales_day"><b>日付</b></th>
+			   <th class="sales_time"><b>時間帯</b></th>
+			   <th class="sales_yen"><b>売上(円)</b></th>
+			   <th class="sales_customer"><b>客数(人)</b></th>
+			   <th class="sales_other_big"><b>男幼(人)</b></th>
+			   <th class="sales_other_big"><b>男成(人)</b></th> 
+			   <th class="sales_other_big"><b>男熟(人)</b></th> 
+			   <th class="sales_other_big"><b>女幼(人)</b></th> 
+			   <th class="sales_other_big"><b>女成(人)</b></th> 
+			   <th class="sales_other_big"><b>女熟(人)</b></th>
+			</tr>
+        </thead>
+        <tfoot>
+        	<tr>
+        		<td colspan="2" class="sales_all"><b>総売上(円)</b></td>
+        		<td class="sales_all2">1000000</td>
+        		<td colspan="4" class="sales_all3"><b>採算(円)</b></td>
+        		<td colspan="3" class="sales_all4">100000</td>
+        	</tr>
+        </tfoot>
+        <tr class="sales2">
+            <td class="sales_day1">**/**</td>
+            <td class="sales_time1">
+                <select name="item_number">
+                    <option value="all">終日</option>
+                    <option value="am">午前</option>
+                    <option value="pm">午後</option>
+                </select>
+            </td>
+            <td class="sales_yen">100000</td>
+            <td class="sales_customer">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>   
+			
+        </tr>
+        <tr class="sales2">
+            <td class="sales_day1">**/**</td>
+            <td class="sales_time1">
+                <select name="item_number">
+                    <option value="all">終日</option>
+                    <option value="am">午前</option>
+                    <option value="pm">午後</option>
+                </select>
+            </td>
+            <td class="sales_yen">100000</td>
+            <td class="sales_customer">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+            <td class="sales_other_big">1000</td>
+        </tr>
+    </table>
+</div>
     
  <!--===========================================
  	ここでレスポンシブ区切り、表示の変更
@@ -241,3 +241,7 @@
             </tr>
         </table>
     </div>
+<!-- ------------------------------ 以下JavaScript ------------------------------ -->
+<script type="text/javascript">
+
+</script>

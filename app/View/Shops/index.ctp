@@ -6,13 +6,13 @@
         <div class = "link">
             <ul>
                 <li>
-                    <input type = "button" value = "売上詳細、各種削除へ" class="btn" onclick ="location.href='location.href='/m_regi/shops/sales'">
+                    <input type = "button" value = "売上詳細、各種削除へ" class="btn" onclick = "location.href='/m_regi/shops/sales'">
                 </li>
                 <li>
-                    <input type = "button" value = "登録画面へ" class="btn" onclick ="location.href='location.href='/m_regi/shops/registration'">
+                    <input type = "button" value = "登録画面へ" class="btn" onclick = "location.href='/m_regi/shops/registration'">
                 </li>
                 <li>
-                    <input type = "button" value = "会計画面へ" class="btn" onclick ="location.href='location.href='/m_regi/shops/payment'">
+                    <input type = "button" value = "会計画面へ" class="btn" onclick = "location.href='/m_regi/shops/payment'">
                 </li>
             </ul>
         </div>

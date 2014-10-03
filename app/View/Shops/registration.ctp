@@ -397,8 +397,10 @@ $(function(){
 // 消去ボタン
     // 削除するデータを送信して，DBで削除されてからリロードするようにしたい
     $(document).on("click","#item_reg .reg_list .delete",function(){
-        var id = $(this).parent().data("metatag_regiapri_item_id");
-        alert(id);
+        var id = $(this).parents(".touroku_item").data("metatag_regiapri_item_id");
+        $.post("/m_regi/Items/delete",{id : id}, function(data){
+            console.log(data);
+        });
     });
     $(document).on("click","#ticket_reg .reg_list .delete",function(){
         var id = $(this).parent().data("metatag_regiapri_ticket_id");

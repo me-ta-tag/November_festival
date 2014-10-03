@@ -20,10 +20,28 @@
     .item > .price{
 		width:50px;
     }
-    #selected_list > div{
+    .selected_btn{
         background-color: lightblue;
     }
-    #selected_list > div > *{
+
+    #selected_list > div{
+        background-color: lightblue;
+        width: 400px;
+        height: 50px;
+        margin: 30px;
+    }
+    div[class^="item_"] > *{
+        float: left;
+        text-align: center;
+    }
+    div[class^="item_"] > .name{
+    }
+    div[class^="item_"] > .price{
+    }
+    div[class^="item_"] > .sum_price{
+    }
+
+    div[class^="ticket_"] > *{
         float: left;
         text-align: center;
     }
@@ -82,12 +100,14 @@
             <script id="selected_item_tmp" type="text/template">
                 <div class="item_<%-id%>">
                     <input type="checkbox">
-                    <div class="name"><%-id%>:<%-item_name%></div>
+                    <div class="id"><%-id%></div>
+                    <span>:</span>
+                    <div class="name"><%-item_name%></div>
                     <span class="yen_mark">¥</span>
                     <div class="price"><%-item_price%></div>
-                    <input type="button" class="minus" value="▼">
-                    <input type="text" size="1" class="qty" value=1>個
-                    <input type="button" class="plus" value="▲">
+                    <div><input type="button" class="minus" value="▼"></div>
+                    <div><input type="text" size="1" class="qty" value=1></div>
+                    <div><input type="button" class="plus" value="▲"></div>
                     <span class="yen_mark">¥</span>
                     <div class="sum_price"><%-item_price%></div>
                     <div class="negiri_price" style="display:none;"><input type="text" size="3" value=""></div>
@@ -96,12 +116,16 @@
             <script id="selected_ticket_tmp" type="text/template">
                 <div class="ticket_<%-id%>">
                     <input type="checkbox">
-                    券:<span class="name"><%-ticket_name%></span>
-                    ¥<span class="price"><%-ticket_price%></span>
-                    <input type="button" class="minus" value="▼">
-                    <input type="text" size="1" class="qty" value=1>個
-                    <input type="button" class="plus" value="▲">
-                    ¥<span class="sum_price"><%-ticket_price%></span>
+                    <span>券</span>
+                    <span>:</span>
+                    <div class="name"><%-ticket_name%></div>
+                    <span>¥</span>
+                    <div class="price">-<%-ticket_price%></div>
+                    <div><input type="button" class="minus" value="▼"></div>
+                    <div><input type="text" size="1" class="qty" value=1></div>
+                    <div><input type="button" class="plus" value="▲"></div>
+                    <span>¥</span>
+                    <div class="sum_price">-<%-ticket_price%></div>
                 </div>
             </script>
             </div><!--#selected_list-->
@@ -138,11 +162,11 @@
 				</div>
 				<div class = "take_pay">
 						<p>お預かり</p>
-						<input type="text" name="take_pay" class="pay_text">
+						<input type="text" name="take_pay" class="pay_text" value="0">
 				</div>
 				 <div class = "exchange">
 					<p>お釣り</p>
-					<input type="text" name="exchange" class="exchange_text">
+					<input type="text" name="exchange" class="exchange_text" value="0">
 				</div>
             <div class = "decide">
                 <div class = "decide2">
@@ -200,8 +224,8 @@ $(function(){
     // 会計へ商品を追加する
     $(document).on("click",".item",function(){
         var item_id = $(this).data("metatag_regiapp_item_id"),
-            // IDは1から始まっていて，配列は0から始まるため -1 しておく
-            num = item_id -1,
+            // 取ってきたアイテムの何番目か
+            num = $("#item_list > .item").index(this),
             tmp = _.template($("#selected_item_tmp").html());
         // 既にその商品が選択されているかどうかを調べる
         var flag = _.contains(selected_item_id, item_id);
@@ -213,7 +237,7 @@ $(function(){
         }else{
             // 登録
             selected_item_id.push(item_id);
-            $(">input:button",this).toggleClass("not_select");
+            $(this).toggleClass("selected_btn");
             $("#selected_list").append(tmp(items[num]));
             selected_sort();
         }
@@ -223,7 +247,7 @@ $(function(){
     // 会計へ金券を追加する
     $(".ticket_use").on("click",function(){
         var ticket_id = $("#ticket_list option:selected").val(),
-            num = ticket_id -1,
+            num = $("#ticket_list option").index($("#ticket_list option:selected")) -1,
             tmp = _.template($("#selected_ticket_tmp").html());
         if(ticket_id !== ""){
             var flag = _.contains(selected_ticket_id, ticket_id)
@@ -247,8 +271,8 @@ $(function(){
         selected_item_id = _.sortBy(selected_item_id);
         selected_ticket_id = _.sortBy(selected_ticket_id);
         // ソート順に一時退避
-        var shelter_i = [];
-        var shelter_t = [];
+        var shelter_i = [],
+            shelter_t = [];
         for(var i=0; i<selected_item_id.length; i++){
             shelter_i.push($("#selected_list .item_"+selected_item_id[i]));
         }
@@ -268,22 +292,22 @@ $(function(){
 
     // 上下ボタンで個数を変更
     $(document).on("click","#selected_list .minus",function(){
-        var minus = parseInt($(this).next().val()) -1;
+        var minus = parseInt($("input:text", $(this).parent().next()).val()) -1;
         // 0以下にさせない
         if(minus <= 0){minus = 1;}
-        $(this).next().val(minus).trigger("change",true);
+        $("input:text", $(this).parent().next()).val(minus).trigger("change", true);
         chg_qty();
     });
     $(document).on("click","#selected_list .plus",function(){
-        $(this).prev().val(parseInt($(this).prev().val())+1).trigger("change",true);
+        $("input:text", $(this).parent().prev()).val(parseInt($("input:text", $(this).parent().prev()).val())+1).trigger("change", true);
         chg_qty();
     });
 
     // 個数が変更されたら価格を変更
     $(document).on("change","#selected_list .qty",function(){
         // 値切りでなければ（.negiri_priceが見えていなければ）
-        if(!$(this).nextAll(".negiri_price").is(":visible")){
-            $(this).nextAll(".sum_price").html(parseInt($(this).prevAll(".price").html()) * parseInt($(this).val()));
+        if(!$(this).parent().nextAll(".negiri_price").is(":visible")){
+            $(this).parent().nextAll(".sum_price").html(parseInt($(this).parent().prevAll(".price").html()) * parseInt($(this).val()));
         }
         chg_price();
     });
@@ -292,7 +316,7 @@ $(function(){
     $("#selected_list_reset").click(function(){
         $("#selected_list > div").remove();
         for(var i=0; i<selected_item_id.length; i++){
-            $("#item_list div[data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("not_select");
+            $("#item_list div[data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("selected_btn");
         }
         // 配列リセット
         selected_item_id = [];
@@ -308,7 +332,7 @@ $(function(){
             if($("input:checkbox",this).prop("checked") == true){
                 $(this).remove();
                 rm_i.push(selected_item_id[i]);
-                $("#items div[data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("not_select");
+                $("#item_list div[data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("selected_btn");
             }
         });
         $("#selected_list > div[class^=ticket]").each(function(i){
@@ -325,7 +349,7 @@ $(function(){
     });
     // 値切り，チェックされているものの価格部分をtextと取り替える
     $("#negiri_btn").on("click",function(){
-        $("#selected_list > div[class^=item]").each(function(){
+        $("#selected_list > div[class^=item_]").each(function(){
             if($("input:checkbox",this).prop("checked") == true){
                     $(".sum_price",this).hide();
                     $(".price",this).html("---");
@@ -364,9 +388,14 @@ $(function(){
     }
     // おつり表示
     $(".total_yen > span, .pay_text").change(function(){
-        var oturi = parseInt($(".pay_text").val()) - parseInt($(".total_yen > span").html());
-        if(!isNaN(oturi)){
-            $(".exchange_text").val(oturi);
+        if(parseInt($(".pay_text").val()) !== 0){
+            var oturi = parseInt($(".pay_text").val()) - parseInt($(".total_yen > span").html());
+            if(!isNaN(oturi) && oturi !== parseInt($(".pay_text").val())){
+                $(".exchange_text").val(oturi);
+                if(oturi < 0){$(".exchange_text").css("color","red")}else{$(".exchange_text").css("color","black")}
+            }else{
+                $(".exchange_text").val(0);
+            }
         }
     });
 
