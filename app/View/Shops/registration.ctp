@@ -43,7 +43,7 @@
 
                 <div class="touroku_item" data-metatag_regiapri_item_id="<%-id%>" data-metatag_regiapri_category_id="<%-category_id%>">
                     <div class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-item_name%>"></div>
-                    <div class="touroku_item_medama"><input type="checkbox"></div>
+                    <div class="touroku_item_medama"><input type="checkbox" checked="<%-item_leader%>"></div>
                     <div class="touroku_item_2 price">¥<input type="text" class="numtxt" value="<%-item_price%>"></div>
                     <div class="touroku_item_3 category"><select><%=option%></select></div>
                     <div class="touroku_item_4 stock"><input type="text" class="numtxt" value="<%-item_stock%>"></div>
@@ -67,7 +67,8 @@
                     </div>
                     <div class="item_value" style="float:left; margin:30px 10px;">
                         商品名<br><span  class="name"><input type="text" style="width:150px;" value="<%-item_name%>"></span><br>
-                        目玉商品 <input type="checkbox"><br>
+                        目玉商品 <input type="checkbox" <% if(item_leader){%>checked<% } %> >
+                        <br>
                         単価 <span class="price numtxt"><input type="text" style="width:50px;" value="<%-item_price%>"></span>
                         在庫 <span class="stock numtxt"><input type="text" style="width:50px;" value="<%-item_stock%>"></span><br>
                         カテゴリ<br><span class="category"><select style="width:150px;"><%=option%></select></span><br>
@@ -180,10 +181,12 @@ $(function(){
             // 新商品
             if(ary[i].id == "new"){
                 delete ary[i].id;
+                delete back[i].item_photo_dir;
                 json.push(ary[i]);
             }
             // 更新判断
             else{
+                delete back[i].item_photo_dir;
                 if(shop_id != 1){delete back[i].item_detail; delete back[i].item_photo;}
                 var flag = _.isEqual(ary[i], back[i]);
                 // true=同じ，false=異なる
@@ -222,8 +225,8 @@ $(function(){
                     ary[i] = {
                             "id" : target.data("metatag_regiapri_item_id") + "",
                             "item_name" : $(".name > input:text", target).val(),
-                            "item_price" : $(".price > input:text", target).val(),
-                            "item_stock" : $(".stock > input:text", target).val(),
+                            "item_price" : $(".price > input:text", target).val() *1,
+                            "item_stock" : $(".stock > input:text", target).val() *1,
                             "shop_id" : shop_id + "",
                             "category_id" : $(".category > select option:selected",target).val(),
                             "item_leader" : $("input:checkbox", target).prop("checked")
