@@ -189,7 +189,8 @@ $(function(){
                 }
             }
         }
-            json = {'Item':JSON.stringify(json)};
+            //json = {'Item':JSON.stringify(json)};
+            json = {'Item':json};
             debugger;
             if(json !== "[]"){
                 $.post("/m_regi/items/test", json, function(data){

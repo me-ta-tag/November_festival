@@ -361,21 +361,53 @@ class ItemsController extends AppController {
 
     public function test(){
         try{
-            //if($this->request->is('ajax')){
+            if($this->request->is('ajax')){
                 if($this->request->is('post')){
                     //var_dump($this->request->data);
-                    $data = $this->request->data;
+                    $data = $this->request->data['Item'];
+                    $updateArray = [];
+                    $insertArray = [];
+                    foreach($data as $value){
+                        if(isset($value['id'])){
+                            array_push($updateArray,$value);
+                        }else{
+                            array_push($insertArray,$value);
+                        }
+                    }
+
 //            var_dump($data);
-                    if ($this->Item->saveAll($data)){
-                        echo "true";
+                    if ($this->Item->saveAll($insertArray)){
+                        //echo "true";
                     }else{
                         echo "error";
                         //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
                     }
+                    foreach($updateArray as $val) {
+                        if ($this->Item->updateAll(
+                            [
+                                'item_name' => $val['item_name'],
+                                'item_price' => $val['item_price'],
+                                'item_detail' => $val['item_detail'],
+                                'item_photo' => $val['item_photo'],
+                                'item_stock' => $val['item_stock'],
+                                'item_leader' => $val['item_lender'],
+                                'shop_id' => $val['shop_id'],
+                                'category_id' => $val['category_id'],
+                            ],
+                            [
+                                'id' => $val['id']
+                            ]
+                        )
+                        ) {
+
+                        } else {
+                            echo "error";
+                        }
+                    }
 
                     //$this->Item->save($this->request->data);
                 }
-            //}
+            }
         }catch (Exception $e){
             echo $e;
         }
@@ -383,7 +415,7 @@ class ItemsController extends AppController {
     }
     public function test2(){
         if($this->request->is('post')){
-            var_dump($this->request->data);
+            //var_dump($this->request->data);
             $this->Item->save($this->request->data);
         }
     }
