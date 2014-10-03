@@ -172,8 +172,9 @@ var items = [],
 $(function(){
 //--------------------------------------------------------------------------
 // 確定ボタン（登録，更新）
-    function compare(ary, back){
-        var json = [];
+    function compare(ary, back_json){
+        var back = $.extend(true, {}, back_json),
+            json = [];
         for(var i=0; i<ary.length; i++){
             // 新商品
             if(ary[i].id == "new"){
@@ -182,6 +183,7 @@ $(function(){
             }
             // 更新判断
             else{
+                if(shop_id != 1){delete back[i].item_detail; delete back[i].item_photo;}
                 var flag = _.isEqual(ary[i], back[i]);
                 // true=同じ，false=異なる
                 if(!flag){
@@ -193,7 +195,7 @@ $(function(){
             debugger;
             if(json !== "[]"){
                 $.post("/m_regi/items/test", json, function(data){
-                    debugger;
+                    // debugger;
                     console.log("data = "+data);
                 });
             }
@@ -208,7 +210,7 @@ $(function(){
             }
         });
         if(flag){
-            shop_id = 1;
+            // shop_id = 1;
             // リストの値を配列に格納
             var len = $("#item_reg .reg_list > div").length,
                 ary = [];
@@ -277,7 +279,7 @@ $(function(){
                 // テンプレートのためにプロパティ追加
                 ary[i].num = i+1;
                 ary[i].option = opt;
-                ary[i].shop_id = 1;
+                // ary[i].shop_id = 1;
                 target.append(tmp(ary[i]));
             }
             // カテゴリを合わせる
