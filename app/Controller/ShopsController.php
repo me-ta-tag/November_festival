@@ -55,7 +55,7 @@ class ShopsController extends AppController {
         $this->set('shop', $this->Auth->user());
     }
     // 売上詳細ページ
-    public function sale(){
+    public function sales(){
         $this->set('shop', $this->Auth->user());
     }
 

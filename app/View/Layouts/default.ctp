@@ -26,7 +26,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	echo $this->Html->script( 'underscore-min' );
     echo $this->Html->script( 'easyselectbox' );
 
-    echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>';
+    if(isset($shop['id'])){ echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>';}
 ?>
 <!DOCTYPE html>
 <html>
@@ -104,6 +104,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 <input type = "button" value = "会計" class="btn" onclick ="location.href='/m_regi/shops/payment'">
             </li>
             </div>
+            <?php }else{ ?>
+            <h1 style="color:white">ログイン</h1>
             <?php } ?>
         </ul>
     </header>
