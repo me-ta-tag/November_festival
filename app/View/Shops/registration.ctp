@@ -424,8 +424,8 @@ $(function(){
 //--------------------------------------------------------------------------
 // カテゴリ登録
     $(".new_category > input:button").on("click",function(){
-        var category_name = [$(this).prev().val()];
-        debugger;
+        var category_name = $(this).prev().val();
+        var json = {Category:{shop_id:shop_id, category_name:category_name}}
         $.post("/m_regi/Categorys/add",{"Cateogry" : category_name},function(data){
             console.log(data);
         })

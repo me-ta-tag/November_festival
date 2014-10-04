@@ -8,9 +8,9 @@
 
 App::uses('AppController', 'Controller');
 
-class ItemsController extends AppController {
+class CategorysController extends AppController {
 //    public $scaffold;
-    var $uses = array('Item', 'Category', 'ticket');
+    //var $uses = array('Item', 'Category', 'ticket');
 
 
     public $components = array('RequestHandler');
@@ -38,7 +38,7 @@ class ItemsController extends AppController {
                 try{
                     //var_dump($this->request->data);
                     $data = $this->request->data['Category'];
-                    if ($this->Item->save($data)){
+                    if ($this->Category->save($data)){
                         //echo "true";
                     }else{
                         echo "error";
