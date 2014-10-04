@@ -201,7 +201,7 @@ $(function(){
             json = {'Item':json};
             debugger;
             if(json.Item.length != 0){
-                $.post("/m_regi/items/test", json, function(data){
+                $.post("/m_regi/items/add", json, function(data){
                     console.log("data = "+data);
                 });
             }
