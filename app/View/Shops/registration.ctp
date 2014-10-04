@@ -123,8 +123,8 @@
  --> 
             <script id="ticket_tmp" type="text/template">
                 <div class="touroku_item" data-metatag_regiapp_ticket_id="<%-id%>">
-                    <div class="touroku_item_1"><%-num%>:<input type="text" value="<%-ticket_name%>"></div>
-                    <div class="touroku_item_2"><input type="text" size="3" value="<%-ticket_price%>"></div>
+                    <div class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-ticket_name%>"></div>
+                    <div class="touroku_item_2 price"><input type="text" size="3" value="<%-ticket_price%>"></div>
                     <%if(id !== "new"){%>
                         <div class="touroku_item_5"><input type="button" class="btn" value="消去"></div>
                     <%}else{%>
@@ -200,7 +200,7 @@ $(function(){
         }
             json = {'Item':json};
             debugger;
-            if(json.Item.length != 0){
+            if(json.Item.length !== 0){
                 $.post("/m_regi/items/add", json, function(data){
                     console.log("data = "+data);
                 });
@@ -265,10 +265,11 @@ $(function(){
             var target = $("#ticket_reg .reg_list > div").eq(i);
             ary[i] = {
                 "id" : target.data("metatag_regiapp_ticket_id") *1,
-                "ticket_name" : $(".name > input:text",target).val(),
-                "ticket_price" : $(".price > input:text",target).val() *1
+                "ticket_name" : $(".name > input:text", target).val(),
+                "ticket_price" : $(".price > input:text", target).val() *1
             }
         }
+        console.log(ary);
         var back = $.extend(true, {}, tickets_back),
             json = [];
             for(var i=0; i<ary.length; i++){
@@ -278,16 +279,17 @@ $(function(){
                 }else{
                     var flag = _.isEqual(ary[i], back[i]);
                     if(flag){
-                        // json.push(ary[i]);
+                        json.push(ary[i]);
                     }
                 }
-                json = {"Ticket" : json};
-                if(json.Ticket.length !== 0){
-                    $.post("/m_regi/tickets/add", json, function(data){
-                        console.log(data);
-                    })
-                }
             }
+                json = {"Ticket" : json};
+                debugger;
+                if(json.Ticket.length !== 0){
+                    $.post("/m_regi/Tickets/add", json, function(data){
+                        console.log(data);
+                    });
+                }
     });
 //---------------------------------------------------------------------------------------
 // 商品の読み込み，書き込み
