@@ -41,9 +41,9 @@
                 <script id="item_tmp" type="text/template">
                 <% if(shop_id != 1){ %>
 
-                <div class="touroku_item" data-metatag_regiapri_item_id="<%-id%>" data-metatag_regiapri_category_id="<%-category_id%>">
+                <div class="touroku_item" data-metatag_regiapp_item_id="<%-id%>" data-metatag_regiapp_category_id="<%-category_id%>">
                     <div class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-item_name%>"></div>
-                    <div class="touroku_item_medama"><input type="checkbox" checked="<%-item_leader%>"></div>
+                    <div class="touroku_item_medama"><input type="checkbox" <input type="checkbox" <% if(item_leader){%>checked<% } %> ></div>
                     <div class="touroku_item_2 price">¥<input type="text" class="numtxt" value="<%-item_price%>"></div>
                     <div class="touroku_item_3 category"><select><%=option%></select></div>
                     <div class="touroku_item_4 stock"><input type="text" class="numtxt" value="<%-item_stock%>"></div>
@@ -56,7 +56,7 @@
 
                 <% }else{ %>
 
-                <div class="touroku_item" data-metatag_regiapri_item_id="<%-id%>" data-metatag_regiapri_category_id="<%-category_id%>" style="background-color:#C6C6C6; width:480px;height:280px; margin:30px auto;">
+                <div class="touroku_item" data-metatag_regiapp_item_id="<%-id%>" data-metatag_regiapp_category_id="<%-category_id%>" style="background-color:#C6C6C6; width:480px;height:280px; margin:30px auto;">
                     <div class="item_num" style="float:left; width:60px;">
                         <%if(id !== "new"){%>
                         <span class="delete"><input type="button" value="削除"></span>
@@ -122,7 +122,7 @@
         	</div>
  --> 
             <script id="ticket_tmp" type="text/template">
-                <div class="touroku_item" data-metatag_regiapri_ticket_id="<%-id%>">
+                <div class="touroku_item" data-metatag_regiapp_ticket_id="<%-id%>">
                     <div class="touroku_item_1"><%-num%>:<input type="text" value="<%-ticket_name%>"></div>
                     <div class="touroku_item_2"><input type="text" size="3" value="<%-ticket_price%>"></div>
                     <%if(id !== "new"){%>
@@ -178,15 +178,20 @@ $(function(){
         var back = $.extend(true, {}, back_json),
             json = [];
         for(var i=0; i<ary.length; i++){
-            // 新商品
+            // 新商品("new" *1 = NaN)
             if(isNaN(ary[i].id)){
                 delete ary[i].id;
+                // nullって送ってもnullにならないから削除
+                if(ary[i].item_photo==null){delete ary[i].item_photo}
+                if(ary[i].item_leader){ary[i].item_leader=1}else{ary[i].item_leader=0}
                 json.push(ary[i]);
             }
             // 更新判断
             else{
                 if(shop_id != 1){delete back[i].item_detail; delete back[i].item_photo;}
                 var flag = _.isEqual(ary[i], back[i]);
+                if(ary[i].item_photo==null){delete ary[i].item_photo}
+                if(ary[i].item_leader){ary[i].item_leader=1}else{ary[i].item_leader=0}
                 // true=同じ，false=異なる
                 if(!flag){
                     json.push(ary[i]);
@@ -195,10 +200,8 @@ $(function(){
         }
             json = {'Item':json};
             debugger;
-
-            if(json !== "[]"){
+            if(json.Item.length != 0){
                 $.post("/m_regi/items/test", json, function(data){
-                    // debugger;
                     console.log("data = "+data);
                 });
             }
@@ -220,7 +223,7 @@ $(function(){
                 for(var i=0; i<len; i++){
                     var target = $("#item_reg .reg_list > div").eq(i);
                     ary[i] = {
-                            "id" : target.data("metatag_regiapri_item_id") *1,
+                            "id" : target.data("metatag_regiapp_item_id") *1,
                             "item_name" : $(".name > input:text", target).val(),
                             "item_price" : $(".price > input:text", target).val() *1,
                             "item_stock" : $(".stock > input:text", target).val() *1,
@@ -232,12 +235,12 @@ $(function(){
             }else{
                 for(var i=0; i<len; i++){
                     var target = $("#item_reg .reg_list > div").eq(i),
-                        img_src = $(".item_img", target).attr("src");
-                    if(img_src == ""){
-                        var img_src = null;
-                    }
+                        img_src = $(".item_img", target).attr("src"),
+                        leader = $("input:checkbox", target).prop("checked");
+                    if(img_src==""){img_src=null};
+                    // if(leader){leader = 0}else{leader = 1};
                     ary[i] = {
-                            "id" : target.data("metatag_regiapri_item_id") *1,
+                            "id" : target.data("metatag_regiapp_item_id") *1,
                             "item_name" : $(".name > input:text", target).val(),
                             "item_price" : $(".price > input:text", target).val() *1,
                             "item_stock" : $(".stock > input:text", target).val() *1,
@@ -245,7 +248,7 @@ $(function(){
                             "item_photo" : img_src,
                             "shop_id" : shop_id,
                             "category_id" : $(".category > select option:selected",target).val() *1,
-                            "item_leader" : $("input:checkbox", target).prop("checked")
+                            "item_leader" : leader
                          }
                 }
 
@@ -261,7 +264,7 @@ $(function(){
         for(var i=0; i<count; i++){
             var target = $("#ticket_reg .reg_list > div").eq(i);
             ary[i] = {
-                "id" : target.data("metatag_regiapri_ticket_id") + "",
+                "id" : target.data("metatag_regiapp_ticket_id") + "",
                 "ticket_name" : $(".name > input:text",target).val(),
                 "ticket_price" : $(".price > input:text",target).val()
             }
@@ -291,7 +294,7 @@ $(function(){
             }
             // カテゴリを合わせる
             $("#item_reg .touroku_item .category select").each(function(){
-                var id = $(this).parents(".touroku_item").data("metatag_regiapri_category_id");
+                var id = $(this).parents(".touroku_item").data("metatag_regiapp_category_id");
                 for(var i=0; i<$("option",this).length; i++){
                     if($("option",this).eq(i).val() == id){
                         $("option",this).eq(i).prop("selected", true);
@@ -351,7 +354,7 @@ $(function(){
             }else{
                 if(tgt=="item"){
                     target.append(tmp({
-                        id: "new", category_id: "", num: i+1, item_name: "", item_price: "", item_stock: "", option: opt, item_detail: "", item_photo: null, item_leader: ""
+                        id: "new", category_id: "", num: i+1, item_name: "", item_price: "", item_stock: "", option: opt, item_detail: "", item_photo: null, item_leader: false
                     }));
                 }else if(tgt=="ticket"){
                     target.append(tmp({
@@ -379,7 +382,7 @@ $(function(){
         // selectedも初期状態に戻す
         $("#"+tgt+"_reg select[name=item_number] option").eq(0).prop("selected", true);
         $("#item_reg .touroku_item .category select").each(function(){
-            var id = $(this).parents(".touroku_item").data("metatag_regiapri_category_id");
+            var id = $(this).parents(".touroku_item").data("metatag_regiapp_category_id");
             for(var i=0; i<$("option",this).length; i++){
                 if($("option",this).eq(i).val() == id){
                     $("option",this).eq(i).prop("selected", true);
@@ -397,13 +400,13 @@ $(function(){
 // 消去ボタン
     // 削除するデータを送信して，DBで削除されてからリロードするようにしたい
     $(document).on("click","#item_reg .reg_list .delete",function(){
-        var id = $(this).parents(".touroku_item").data("metatag_regiapri_item_id");
+        var id = $(this).parents(".touroku_item").data("metatag_regiapp_item_id");
         $.post("/m_regi/Items/delete",{id : id}, function(data){
             console.log(data);
         });
     });
     $(document).on("click","#ticket_reg .reg_list .delete",function(){
-        var id = $(this).parent().data("metatag_regiapri_ticket_id");
+        var id = $(this).parent().data("metatag_regiapp_ticket_id");
         alert(id);
     });
 //--------------------------------------------------------------------------
