@@ -218,6 +218,7 @@ $(function(){
             $(".item").show();
         }else{
             $('.item[data-metatag_regiapp_cat_id != '+selected+']').hide();
+            $('.item[data-metatag_regiapp_cat_id = '+selected+']').show();
         }
     });
 
