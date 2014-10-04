@@ -15,7 +15,7 @@
             </div>
             <div class="new_category"><b>新規カテゴリ：</b>
                 <input type="text" name="new_category" class="new_category4">
-                <input type = "button" value = "登録"  onclick ="***">
+                <input type = "button" value = "登録">
             </div>
            
         </div>
@@ -201,7 +201,7 @@ $(function(){
             json = {'Item':json};
             debugger;
             if(json.Item.length != 0){
-                $.post("/m_regi/items/test", json, function(data){
+                $.post("/m_regi/items/add", json, function(data){
                     console.log("data = "+data);
                 });
             }
@@ -420,6 +420,15 @@ $(function(){
         }else{
             console.log("null発見");
         }
+    });
+//--------------------------------------------------------------------------
+// カテゴリ登録
+    $(".new_category > input:button").on("click",function(){
+        var category_name = [$(this).prev().val()];
+        debugger;
+        $.post("/m_regi/Categorys/add",{"Cateogry" : category_name},function(data){
+            console.log(data);
+        })
     });
 //--------------------------------------------------------------------------
 // バザー用
