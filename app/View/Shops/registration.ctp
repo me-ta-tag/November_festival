@@ -264,12 +264,12 @@ $(function(){
         for(var i=0; i<count; i++){
             var target = $("#ticket_reg .reg_list > div").eq(i);
             ary[i] = {
-                "id" : target.data("metatag_regiapp_ticket_id") + "",
+                "id" : target.data("metatag_regiapp_ticket_id"),
                 "ticket_name" : $(".name > input:text",target).val(),
                 "ticket_price" : $(".price > input:text",target).val()
             }
         }
-        // compare(ary,tickets_back);
+        compare(ary,tickets_back);
     });
 //---------------------------------------------------------------------------------------
 // 商品の読み込み，書き込み
@@ -426,7 +426,7 @@ $(function(){
     $(".new_category > input:button").on("click",function(){
         var category_name = $(this).prev().val();
         var json = {Category:{shop_id:shop_id, category_name:category_name}}
-        $.post("/m_regi/Categorys/add",{"Cateogry" : category_name},function(data){
+        $.post("/m_regi/Categorys/add", json, function(data){
             console.log(data);
         })
     });
