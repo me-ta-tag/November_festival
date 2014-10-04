@@ -104,37 +104,27 @@ class ItemsController extends AppController {
     public function add(){
         //$items_base = array();
         // アイテム取得処理
-        if($this -> request -> is('ajax') ){
-            if ($this -> request -> is('post') ){
 
-                $addArray = [
-                    item_name => 1,
-                    item_price => 1,
-                    item_detail => 0,
-                    item_photo => 0,
-                    item_stock => 0,
-                    item_leader => 0,
-                    shop_id => "shop_id",
-                    category_id => "category_id"
-                ];//1はNot Null 0は Nullあり、その他はその他の処理
-            
-                // 試験運転のGET版 : 上記isをgetにした際に用いれる
-                //var_dump($this -> request -> data['item_name']);
-                // POST版
-                $items_base = $this->checkList($addArray,$this -> request -> data,'Item');
+        if($this->request->is('ajax')){
+            if($this->request->is('post')){
+                try{
+                    //var_dump($this->request->data);
+                    $data = $this->request->data['Item'];
+                    $insertArray = [];
+                    foreach($data as $value){
+                        array_push($insertArray,$value);
+                    }
 
-
-
-
-                // デ―タをInsert
-                /*$items_data = array('Item' => $items_base);
-                $items_fields = array();
-                foreach ($items_base as $items_key => $items_value) {
-                     array_push($items_fields, $items_key);
-                }*/
-                //$this->Item->save($items_data, false, $items_fields);
-                $this->Item->saveAll($items_base);
-            }   
+                    if ($this->Item->saveAll($insertArray)){
+                        //echo "true";
+                    }else{
+                        echo "error";
+                        //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
+                    }
+                }catch (Exception $e){
+                    echo $e;
+                }
+            }
         }
     }
 
@@ -384,46 +374,17 @@ class ItemsController extends AppController {
                 if($this->request->is('post')){
                     //var_dump($this->request->data);
                     $data = $this->request->data['Item'];
-                    $updateArray = [];
                     $insertArray = [];
                     foreach($data as $value){
-                        if(isset($value['id'])){
-                            array_push($updateArray,$value);
-                        }else{
-                            array_push($insertArray,$value);
-                        }
+                        array_push($insertArray,$value);
                     }
 
-//            var_dump($data);
                     if ($this->Item->saveAll($insertArray)){
                         //echo "true";
                     }else{
                         echo "error";
                         //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
                     }
-
-                    foreach($updateArray as $val) {
-                        //var_dump($val);
-                        foreach($val as $key => $value){
-                            if($key = "item_leader"){
-                                if($value){
-                                    $updateList[$key] = 1;
-                                }else{
-                                    $updateList[$key] = 0;
-                                }
-                            }else{
-                                $updateList[$key] = $value;
-                            }
-                        }
-                        if ($this->Item->updateAll($updateList,[id => $val['id']])) {
-
-                        } else {
-                            echo "error";
-                        }
-                        echo $this->element('sql_dump');
-                    }
-
-                    //$this->Item->save($this->request->data);
                 }
             }
         }catch (Exception $e){
