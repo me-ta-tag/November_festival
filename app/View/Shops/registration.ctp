@@ -264,12 +264,30 @@ $(function(){
         for(var i=0; i<count; i++){
             var target = $("#ticket_reg .reg_list > div").eq(i);
             ary[i] = {
-                "id" : target.data("metatag_regiapp_ticket_id"),
+                "id" : target.data("metatag_regiapp_ticket_id") *1,
                 "ticket_name" : $(".name > input:text",target).val(),
-                "ticket_price" : $(".price > input:text",target).val()
+                "ticket_price" : $(".price > input:text",target).val() *1
             }
         }
-        compare(ary,tickets_back);
+        var back = $.extend(true, {}, tickets_back),
+            json = [];
+            for(var i=0; i<ary.length; i++){
+                if(isNaN(ary[i].id)){
+                    delete ary[i].id;
+                    json.push(ary[i]);
+                }else{
+                    var flag = _.isEqual(ary[i], back[i]);
+                    if(flag){
+                        // json.push(ary[i]);
+                    }
+                }
+                json = {"Ticket" : json};
+                if(json.Ticket.length !== 0){
+                    $.post("/m_regi/tickets/add", json, function(data){
+                        console.log(data);
+                    })
+                }
+            }
     });
 //---------------------------------------------------------------------------------------
 // 商品の読み込み，書き込み
