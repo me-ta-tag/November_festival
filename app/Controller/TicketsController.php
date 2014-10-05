@@ -38,7 +38,7 @@ class TicketsController extends AppController {
                 try{
                     //var_dump($this->request->data);
                     $data = $this->request->data['Ticket'];
-                    if ($this->Ticket->save($data)){
+                    if ($this->Ticket->saveAll($data)){
                         //echo "true";
                     }else{
                         echo "error";

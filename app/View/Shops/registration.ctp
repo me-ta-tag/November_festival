@@ -286,7 +286,7 @@ $(function(){
                 json = {"Ticket" : json};
                 debugger;
                 if(json.Ticket.length !== 0){
-                    $.post("/m_regi/Tickets/add", json, function(data){
+                    $.post("/m_regi/tickets/add", json, function(data){
                         console.log(data);
                     });
                 }

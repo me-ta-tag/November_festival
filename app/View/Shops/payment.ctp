@@ -98,7 +98,7 @@
 
             <div class="right_contents" id="selected_list">
             <script id="selected_item_tmp" type="text/template">
-                <div class="item_<%-id%>">
+                <div class="item_<%-id%>" data-metatag_regiapp_item_id="<%-id%>">
                     <input type="checkbox">
                     <div class="id"><%-id%></div>
                     <span>:</span>
@@ -114,7 +114,7 @@
                 </div>
             </script>
             <script id="selected_ticket_tmp" type="text/template">
-                <div class="ticket_<%-id%>">
+                <div class="ticket_<%-id%>" data-metatag_regiapp_ticket_id="<%-id%>">
                     <input type="checkbox">
                     <span>券</span>
                     <span>:</span>
