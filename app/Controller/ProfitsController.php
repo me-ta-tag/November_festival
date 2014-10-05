@@ -90,4 +90,15 @@ class ProfitsController extends AppController {
             throw new NotFoundException();
         }
     }
+
+
+    // 該当するIDのカラムを削除する
+    public function delete(){
+        if($this-> request -> is('ajax')){
+            if ($this -> request -> is('post') ){
+                $id = $this -> request -> data['id'];
+                $this->Profit->delete($id);
+            }
+        }
+    }
 }
