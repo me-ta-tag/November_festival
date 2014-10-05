@@ -174,10 +174,14 @@
                 </div>
                 <div class="decide_case">
 					<div class = "decide_men">
-						<input type = "button" value = "幼" class ="men"><input type = "button" value = "成" class ="men"><input type = "button" value = "老" class ="men">
+						<input type = "button" value = "幼" class ="men">
+                        <input type = "button" value = "成" class ="men">
+                        <input type = "button" value = "老" class ="men">
 					</div>
 					<div class = "decide_women">
-						<input type = "button" value = "幼" class ="women"><input type = "button" value = "成" class ="women"><input type = "button" value = "老" class ="women">
+						<input type = "button" value = "幼" class ="women">
+                        <input type = "button" value = "成" class ="women">
+                        <input type = "button" value = "老" class ="women">
 					</div>
            		</div>
             </div>
@@ -363,11 +367,6 @@ $(function(){
     $(document).on("change","#selected_list .negiri_price > input:text",function(){
         chg_price();
     });
-    // 存在はしているsum_priceに代入
-    // $(document).on("change",".negiri_price > input:text",function(){
-    //     $(this).parent().prev(".sum_price").html($(this).val());
-    //     chg_price();
-    // });
 //---------------------------------------------------------------------------------------
     // 計何商品か
     function chg_qty(){
@@ -401,9 +400,38 @@ $(function(){
     });
 
     // phpにデータ送信
-    $(".take_pay input:button").click(function(){
-        alert($(this).attr("id"));
-        // $.post('ex.php',{送信するデータ}){...}
+    $(".decide_case input:button").on("click",function(){
+        // var customer_id = $(this).data("metatag_regiapp_customer_id");
+        var sale_ary = [], ticket_ary = [], sale_price;
+        $("#selected_list > div[class^=item_]").each(function(i){
+
+            if($(".sum_price", this).is(":visible")){
+                sale_price = parseInt($(".sum_price", this).html());
+            }else{
+                sale_price = parseInt($(".negiri_price", this).html());
+            }
+
+            sale_ary[i] = {
+                "item_id": $(this).data("metatag_regiapp_item_id"),
+                "sale_price": sale_price,
+                "sale_quantity": parseInt($(".qty", this).val())
+            }
+        });
+        $("#selected_list > div[class^=ticket_]").each(function(i){
+            ticket_ary[i] = {
+                "ticket_id": $(this).data("metatag_regiapp_ticket_id"),
+                "ticketuse_quantity": parseInt($(".qty", this).val())
+            }
+        });
+        var customer_id = 1;
+        var json = {
+            "Profits": {"shop_id": shop_id, "customer_id": customer_id},
+            "Sale": sale_ary,
+            "Tciketuse": ticket_ary
+        }
+        $.post("/m_regi/Profits/add", json, function(data){
+            debugger;
+        });
     });
 
 });
