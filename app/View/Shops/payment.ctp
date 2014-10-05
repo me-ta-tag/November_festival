@@ -425,11 +425,12 @@ $(function(){
         });
         var customer_id = 1;
         var json = {
-            "Profits": {"shop_id": shop_id, "customer_id": customer_id},
+            "Profit": {"shop_id": shop_id, "customer_id": customer_id},
             "Sale": sale_ary,
-            "Tciketuse": ticket_ary
+            "Ticketuse": ticket_ary
         }
-        $.post("/m_regi/Profits/add", json, function(data){
+        debugger;
+        $.post("/m_regi/profits/add", json, function(data){
             debugger;
         });
     });
