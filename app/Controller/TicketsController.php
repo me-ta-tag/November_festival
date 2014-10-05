@@ -57,7 +57,7 @@ class TicketsController extends AppController {
         if($this-> request -> is('ajax')){
             if ($this -> request -> is('post') ){
                 $items_id = $this -> request -> data['id'];
-                $this->Item->delete($items_id);
+                $this->Ticket->delete($items_id);
             }
         }
     }
