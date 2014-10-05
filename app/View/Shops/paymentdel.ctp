@@ -5,3 +5,8 @@
         <div class="btn">削除</div>
     </div>
 </script>
+<script type="text/javascript">
+	$.get("/m_regi/profits/read",{"shop_id": shop_id},function(data){
+		debugger;
+	});
+</script>

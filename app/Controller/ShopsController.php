@@ -58,7 +58,9 @@ class ShopsController extends AppController {
     public function sales(){
         $this->set('shop', $this->Auth->user());
     }
-
+    public function paymentdel(){
+        $this->set('shop', $this->Auth->user());
+    }
     /*public function login(){
         if($this->request->is('post')) {
             if($this->Auth->login())
