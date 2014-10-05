@@ -10,6 +10,7 @@ App::uses('AppController', 'Controller');
 
 class ProfitsController extends AppController {
 
+    var $uses = array('Profit', 'Customer');
 //    public $scaffold;
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
@@ -69,14 +70,14 @@ class ProfitsController extends AppController {
                             ]
                         ];
                         $profits = $this->Profit->find('all', $params);
-
-
+                        $customers = $this->Customer->find('all');
+                        $output = [Profits=>$profits,Customers=>$customers];
                         // viewにはjson形式のファイルを表示させるように。
                         $this->layout = 'ajax';
                         $this->RequestHandler->setContent('json');
                         $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
-                        $this->set('profit', $profits);
+                        $this->set('profit',$output) ;
                     } else {
                         throw new NotFoundException();
                     }
