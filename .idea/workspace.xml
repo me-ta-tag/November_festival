@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24909716-0bdc-4676-8aeb-c82a471a66f2" name="Default" comment="" />
+    <list default="true" id="24909716-0bdc-4676-8aeb-c82a471a66f2" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Model/Profit.php" afterPath="$PROJECT_DIR$/app/Model/Profit.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="m_regi.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,11 +46,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProfitsController.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ProfitsController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Controller/ProfitsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50672644" vertical-offset="696" max-vertical-offset="1575">
+            <state vertical-scroll-proportion="-14.125" vertical-offset="696" max-vertical-offset="1575">
               <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Profit.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Model/Profit.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.62780267" vertical-offset="0" max-vertical-offset="669">
+              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -108,6 +121,7 @@
         <option value="$PROJECT_DIR$/app/View/Items/metaread.ctp" />
         <option value="$PROJECT_DIR$/app/Controller/ItemsController.php" />
         <option value="$PROJECT_DIR$/app/Controller/ProfitsController.php" />
+        <option value="$PROJECT_DIR$/app/Model/Profit.php" />
       </list>
     </option>
   </component>
@@ -752,7 +766,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16356000" />
+    <option name="totallyTimeSpent" value="16394000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -953,8 +967,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Controller/ProfitsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50672644" vertical-offset="696" max-vertical-offset="1575">
+        <state vertical-scroll-proportion="-14.125" vertical-offset="696" max-vertical-offset="1575">
           <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Model/Profit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62780267" vertical-offset="0" max-vertical-offset="669">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
       </provider>
