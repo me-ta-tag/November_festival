@@ -96,8 +96,8 @@
 						<span class="delete"><input type="button" value="消去"></span>
 					<%}%>
 				</div>
-
 			</script>
+			
 		</div><!-- /.list -->
 		<p>
 			<input type="button" class="reset" value="リセット">

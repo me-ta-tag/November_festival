@@ -10,6 +10,7 @@ App::uses('AppController', 'Controller');
 
 class ProfitsController extends AppController {
 
+    var $uses = array('Profit', 'Customer');
 //    public $scaffold;
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
@@ -27,94 +28,25 @@ class ProfitsController extends AppController {
 
     //ログイン後にリダイレクトされるアクション
     public function index(){
-
         if($this->request->is('post')){
             if($this->Profit->saveAssociated($this->request->data)){
-                $this->Session->setFlash('成功！');
-                $this->redirect(array('action'=>'index'));
             }else{
-                $this->Session->setFlash(pr($this->request->data));
-                $this->Session->setFlash('失敗');
-
+                throw new NotFoundException();
+                return false;
             }
-            print_r(json_decode($this->request->data, true));
-            print_r($this->request, true);
         }
-
     }
 
  
 
      public function add(){
-
          // アイテム取得処理
          if($this -> request -> is('ajax') ){
-             if ($this -> request -> is('post') ){
-                 //var_dump($this->request->data);
-                 $profitBase = array();
-
-                 // 試験運転のGET版 : 上記isをgetにした際に用いれる
-                 /*
-                      if(isset($this -> request -> query['category_id'])){
-                         $profitBase['category_id'] = $this -> request -> query['category_id'];
-                     }
-                 */
-                 //var_dump($this -> request -> data['item_name']);
-                 // POST版
-                 $dataList = [
-                     'customer_id',
-                     'shop_id'
-                 ];
-
-                 for($i = 0; $i < count($dataList); $i++){
-                     if(isset($this -> request -> data[$dataList[$i]])){
-                         $profitBase[$dataList[$i]] = $this -> request -> data[$dataList[$i]];
-                     }else{
-                         insertError();
-                     }
-                 }
-
-                 // デ―タをInsert
-                 $profitsData = ['Profit' => $profitBase];
-                 $profitFields = [];
-                 foreach ($profitBase as $profitKey => $profitValue) {
-                     array_push($profitFields, $profitKey);
-                 }
-//                 $this->Item->save($profitsData, false, $profitFields);
-                 if($this->Profit->save($profitsData, false, $profitFields)){
-                     $this->loadModel('Sale');
-                     $profitId = $this->Profit->getLastInsertID();
-//                     print_r($last_id );
-                     $dataList = [
-                         'item_id',
-                         'sale_price',
-                         'sale_quantity'
-                     ];
-                     $salesBase = [];
-
-                     for($j = 0;$j < count($this->request->data['sale']);$j++){
-                         $saleBase = [];
-                         $saleBase['profit_id'] = $profitId;
-
-                         $dataArray = $this->request->data['sale'][$j];
-                         //var_dump($dataArray);
-                         if(isset($dataArray)){
-                             for($i = 0;$i < count($dataList);$i++){
-                                 //var_dump($dataArray[$dataList[$i]]);
-                                 if(isset($dataArray[$dataList[$i]])){
-                                     $saleBase[$dataList[$i]] = $dataArray[$dataList[$i]];
-                                 }else{
-                                     insertError();
-                                 }
-
-                             }
-                         }
-                         $salesBase[$j] = $saleBase;
-
-                     }
-                     $salesData = ['Sale' => $salesBase];
-                     //var_dump($salesData);
-                     $this->Sale->saveAll($salesData['Sale']);
+             if($this->request->is('post')){
+                 if($this->Profit->saveAssociated($this->request->data)){
+                 }else{
+                     throw new NotFoundException();
+                     return false;
                  }
              }
          }
@@ -137,19 +69,15 @@ class ProfitsController extends AppController {
                                 'Profit.shop_id' => $id
                             ]
                         ];
-                        $profits = $this->Profit->find('all', $params);
-
-
+                        $output = [];
+                        $output['Profits'] = $this->Profit->find('all', $params);
+                        $output['customers'] = $this->Customer->find('all');
                         // viewにはjson形式のファイルを表示させるように。
                         $this->layout = 'ajax';
                         $this->RequestHandler->setContent('json');
                         $this->RequestHandler->respondAs('application/json; charset=UTF-8');
-//                        $this->viewClass = 'Json';
 
-//                        $this->set(compact('result'));
-
-                        // $studentsの配列をviewに渡す。
-                        $this->set('profit', $profits);
+                        $this->set('profit',$output) ;
                     } else {
                         throw new NotFoundException();
                     }
@@ -159,9 +87,19 @@ class ProfitsController extends AppController {
             }else{
                 throw new NotFoundException();
             }
-            //$this->disableCache();
         }else{
             throw new NotFoundException();
+        }
+    }
+
+
+    // 該当するIDのカラムを削除する
+    public function delete(){
+        if($this-> request -> is('ajax')){
+            if ($this -> request -> is('post') ){
+                $id = $this -> request -> data['id'];
+                $this->Profit->delete($id);
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ class UsersController extends AppController
         }
     }
 
+    // マイページ
     function index(){
         $this->redirect('/users/login');
     }
@@ -41,5 +42,12 @@ class UsersController extends AppController
         $this->Auth->logout(); //ログアウト処理
         $this->redirect('login');
     }*/
+
+    function payment(){
+    }
+    function  registration(){
+    }
+    function sales(){
+    }
 }
 ?>
