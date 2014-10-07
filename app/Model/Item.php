@@ -10,6 +10,24 @@ App::uses('AppModel', 'Model');
 class Item extends AppModel{
     var $name = 'Item';
 
+    var $validate = [
+        'item_name' => [
+            'notempty' => [
+                'rule' => ['notempty'],
+            ]
+        ],
+        'item_price' => [
+            'notempty' => [
+                'rule' => ['notempty'],
+            ]
+        ],
+        'item_stock' => [
+            'notempty' => [
+                'rule' => ['notempty'],
+            ]
+        ]
+    ];
+    //$conditions = array('NOT' => array('item_name' => null,'item_price' => null);
     var $belongsTo = array(
     'Category' => array (               // ここから追加
         'className' => 'Category',
