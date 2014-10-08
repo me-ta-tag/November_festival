@@ -25,7 +25,10 @@ class Item extends AppModel{
             'notempty' => [
                 'rule' => ['notempty'],
             ]
+        ],
+        'item_photo' =>[
         ]
+
     ];
     //$conditions = array('NOT' => array('item_name' => null,'item_price' => null);
     var $belongsTo = array(
