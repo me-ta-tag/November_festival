@@ -30,20 +30,15 @@
         height: 50px;
         margin: 30px;
     }
-    div[class^="item_"] > *{
+    [class^="item_"] > *{
         float: left;
         text-align: center;
     }
-    div[class^="item_"] > .name{
-    }
-    div[class^="item_"] > .price{
-    }
-    div[class^="item_"] > .sum_price{
-    }
-
-    div[class^="ticket_"] > *{
+    [class^="ticket_"] > *{
         float: left;
         text-align: center;
+    }
+    .negiri_item{
     }
 </style>
     <div class="all_container">
@@ -101,20 +96,20 @@
                 <div class="item_<%-id%>" data-metatag_regiapp_item_id="<%-id%>">
                     <input type="checkbox">
                     <div class="id"><%-id%></div>
-                    <span>:</span>
+                    <div class="colon">:</div>
                     <div class="name"><%-item_name%></div>
-                    <span class="yen_mark">¥</span>
+                    <div class="yen_mark">¥</div>
                     <div class="price"><%-item_price%></div>
-                    <div><input type="button" class="minus" value="▼"></div>
-                    <div><input type="text" size="1" class="qty" value=1></div>
-                    <div><input type="button" class="plus" value="▲"></div>
-                    <span class="yen_mark">¥</span>
+                    <div class=""><input type="button" class="minus" value="▼"></div>
+                    <div class=""><input type="text" size="1" class="qty" value=1></div>
+                    <div class=""><input type="button" class="plus" value="▲"></div>
+                    <div class="yen_mark">¥</div>
                     <div class="sum_price"><%-item_price%></div>
                     <div class="negiri_price" style="display:none;"><input type="text" size="3" value=""></div>
                 </div>
             </script>
             <script id="selected_ticket_tmp" type="text/template">
-                <div class="ticket_<%-id%>" data-metatag_regiapp_ticket_id="<%-id%>">
+                <div class="ticket_<%-ticket_price%>" data-metatag_regiapp_ticket_price="<%-id%>">
                     <input type="checkbox">
                     <span>券</span>
                     <span>:</span>
@@ -133,13 +128,13 @@
             <div class = "option">
                 <ul>
                 <li class = "reset">
-                    <input type = "button" value = "リセット" class="btn" id="selected_list_reset">
+                    <input type = "button" value = "リセット" class="btn">
                 </li>
                 <li class = "check_reset">
-                    <input type = "button" value = "チェックを削除" class="btn" id="check_remove">
+                    <input type = "button" value = "チェックを削除" class="btn">
                 </li>
                 <li class = "pay_down">
-                    <input type = "button" value = "値切り" class="btn" id="negiri_btn">
+                    <input type = "button" value = "値切り" class="btn">
                 </li>
                 </ul>
             </div><!-- option -->
@@ -147,7 +142,7 @@
                 <select name="ticket" class="ticket_sentaku" id="ticket_list">
                     <option value="">金券を選択</option>
                     <script id="ticket_tmp" type="text/template">
-                    <option value="<%-id%>"><%-ticket_name%></option>
+                        <option value="<%-ticket_price%>"><%-ticket_name%></option>
                     </script>
                 </select>
                 <input type = "button" value = "使用" class="ticket_use">
@@ -174,14 +169,14 @@
                 </div>
                 <div class="decide_case">
 					<div class = "decide_men">
-						<input type = "button" value = "幼" class ="men">
-                        <input type = "button" value = "成" class ="men">
-                        <input type = "button" value = "老" class ="men">
+						<input type = "button" value = "~20代" class ="men" data-metatag_regiapp_customer_id = "1">
+                        <input type = "button" value = "30~50代" class ="men" data-metatag_regiapp_customer_id = "2">
+                        <input type = "button" value = "50代~" class ="men" data-metatag_regiapp_customer_id = "3">
 					</div>
 					<div class = "decide_women">
-						<input type = "button" value = "幼" class ="women">
-                        <input type = "button" value = "成" class ="women">
-                        <input type = "button" value = "老" class ="women">
+						<input type = "button" value = "~20代" class ="women" data-metatag_regiapp_customer_id = "4">
+                        <input type = "button" value = "30~50代" class ="women" data-metatag_regiapp_customer_id = "5">
+                        <input type = "button" value = "50代~" class ="women" data-metatag_regiapp_customer_id = "6">
 					</div>
            		</div>
             </div>
@@ -190,27 +185,34 @@
 <script type="text/javascript">
 // グローバル変数
 var items=[], categorys=[], tickets=[];
-// 選択された商品のIDを格納する配列 eachで回す代わりとして使ってます IDでソートするときにも使います
-var selected_item_id = [], selected_ticket_id = [];
+var selected_item_id = [], selected_ticket_price = [];
 
 $(function(){
 //---------------------------------------------------------------------------------------
 // 商品，カテゴリ，金券取得
-    $.get("/m_regi/items/read",{shop_id : shop_id}, function(data){
+    $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
         var tmp_c = _.template($("#category_tmp").html()),
             tmp_i = _.template($("#item_tmp").html()),
-            tmp_t = _.template($("#ticket_tmp").html());
+            tmp_t = _.template($("#ticket_tmp").html()),
+            i, ary = [];
 
-        for(var i=0; i<data.category.length; i++){
+        for(i=0; i<data.category.length; i++){
             categorys.push(data.category[i].Category);
             $("#category_list").append(tmp_c(categorys[i]));
         }
-        for(var i=0; i<data.item.length; i++){
+        for(i=0; i<data.item.length; i++){
             items.push(data.item[i].Item);
             $("#item_list").append(tmp_i(items[i]));
         }
-        for(var i=0; i<data.ticket.length; i++){
+        for(i=0; i<data.ticket.length; i++){
             tickets.push(data.ticket[i].ticket);
+            // $("#ticket_list").append(tmp_t(tickets[i]));
+            ary[i] = [ tickets[i].ticket_price, tickets[i] ];
+        }
+        ary = _.sortBy(ary);
+        tickets = [];
+        for(i=0; i<ary.length; i++){
+            tickets.push(ary[i][1]);
             $("#ticket_list").append(tmp_t(tickets[i]));
         }
     });
@@ -251,17 +253,17 @@ $(function(){
     });
     // 会計へ金券を追加する
     $(".ticket_use").on("click",function(){
-        var ticket_id = $("#ticket_list option:selected").val(),
+        var ticket_price = $("#ticket_list option:selected").val(),
             num = $("#ticket_list option").index($("#ticket_list option:selected")) -1,
             tmp = _.template($("#selected_ticket_tmp").html());
-        if(ticket_id !== ""){
-            var flag = _.contains(selected_ticket_id, ticket_id)
+        if(ticket_price !== ""){
+            var flag = _.contains(selected_ticket_price, ticket_price)
             if(flag){
-                var qty = $("#selected_list > .ticket_"+ticket_id+" .qty");
+                var qty = $("#selected_list > .ticket_"+ticket_price+" .qty");
                 if(qty.val() == ""){qty.val(0);}
                 qty.val(parseInt(qty.val())+1).trigger("change",true);
             }else{
-                selected_ticket_id.push(ticket_id);
+                selected_ticket_price.push(ticket_price);
                 $("#selected_list").append(tmp(tickets[num]));
                 selected_sort();
             }
@@ -274,15 +276,15 @@ $(function(){
     function selected_sort(){
         // ソート
         selected_item_id = _.sortBy(selected_item_id);
-        selected_ticket_id = _.sortBy(selected_ticket_id);
+        selected_ticket_price = _.sortBy(selected_ticket_price);
         // ソート順に一時退避
         var shelter_i = [],
             shelter_t = [];
         for(var i=0; i<selected_item_id.length; i++){
             shelter_i.push($("#selected_list .item_"+selected_item_id[i]));
         }
-        for(var i=0; i<selected_ticket_id.length; i++){
-            shelter_t.push($("#selected_list .ticket_"+selected_ticket_id[i]));
+        for(var i=0; i<selected_ticket_price.length; i++){
+            shelter_t.push($("#selected_list .ticket_"+selected_ticket_price[i]));
         }
         // 消去
         $("#selected_list > div").remove();
@@ -310,78 +312,82 @@ $(function(){
 
     // 個数が変更されたら価格を変更
     $(document).on("change","#selected_list .qty",function(){
-        // 値切りでなければ（.negiri_priceが見えていなければ）
-        if(!$(this).parent().nextAll(".negiri_price").is(":visible")){
-            $(this).parent().nextAll(".sum_price").html(parseInt($(this).parent().prevAll(".price").html()) * parseInt($(this).val()));
+        // 値切りでなければ（.negiri_itemでなければ）
+        // if(!$(this).parent().nextAll(".negiri_price").is(":visible")){
+            if(!$(this).parents("[class^=item_]").hasClass("negiri_item")){
+                $(this).parent().nextAll(".sum_price").html(parseInt($(this).parent().prevAll(".price").html()) * parseInt($(this).val()));
         }
         chg_price();
     });
 //---------------------------------------------------------------------------------------
     // 会計に追加された商品を全消去
-    $("#selected_list_reset").click(function(){
+    $(".reset").click(function(){
         $("#selected_list > div").remove();
         for(var i=0; i<selected_item_id.length; i++){
-            $("#item_list div[data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("selected_btn");
+            $("#item_list [data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("selected_btn");
         }
         // 配列リセット
         selected_item_id = [];
-        selected_ticket_id = [];
+        selected_ticket_price = [];
         chg_qty();
         chg_price();
     });
+
     // チェックされているものを消去する
-    $("#check_remove").click(function(){
+    $(".check_reset").click(function(){
         var rm_i = [];
         var rm_t = [];
-        $("#selected_list > div[class^=item]").each(function(i){
-            if($("input:checkbox",this).prop("checked") == true){
+        $("#selected_list > [class^=item]").each(function(i){
+            if($("input:checkbox",this).prop("checked")){
                 $(this).remove();
                 rm_i.push(selected_item_id[i]);
-                $("#item_list div[data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("selected_btn");
+                $("#item_list [data-metatag_regiapp_item_id="+selected_item_id[i]+"]").toggleClass("selected_btn");
             }
         });
-        $("#selected_list > div[class^=ticket]").each(function(i){
-            if($("input:checkbox",this).prop("checked") == true){
+        $("#selected_list > [class^=ticket]").each(function(i){
+            if($("input:checkbox",this).prop("checked")){
                 $(this).remove();
-                rm_t.push(selected_ticket_id[i]);
+                rm_t.push(selected_ticket_price[i]);
             }
         });
         // 第２引数にはない第１引数の要素
         selected_item_id = _.difference(selected_item_id,rm_i);
-        selected_ticket_id = _.difference(selected_ticket_id,rm_t);
+        selected_ticket_price = _.difference(selected_ticket_price,rm_t);
         chg_qty();
         chg_price();
     });
-    // 値切り，チェックされているものの価格部分をtextと取り替える
-    $("#negiri_btn").on("click",function(){
-        $("#selected_list > div[class^=item_]").each(function(){
-            if($("input:checkbox",this).prop("checked") == true){
-                    $(".sum_price",this).hide();
-                    $(".price",this).html("---");
-                    $(".negiri_price",this).val($(".sum_price",this).html());
-                    $(".negiri_price",this).show();
-                    $("input:checkbox",this).prop("checked",false);
+
+    // チェックされているものの価格部分をtextと取り替える（値切り）
+    $(".pay_down").on("click",function(){
+        $("#selected_list > [class^=item_]").each(function(){
+            if($("input:checkbox", this).prop("checked")){
+                $(".sum_price",this).hide();
+                // $(".price",this).html("---");
+                $(".negiri_price > input:text",this).val($(".sum_price",this).html());
+                $(".negiri_price",this).show();
             }
         });
     });
+    // 入力が終了したらHTMLに戻す
     $(document).on("change","#selected_list .negiri_price > input:text",function(){
+        var this_item = $(this).parents("[class^=item_]");
+        this_item.addClass("negiri_item");
+        $(this).parent().hide();
+        $(".sum_price", this_item).html($(this).val()).show().css("color","#FF6600");
+        $("input:checkbox",this_item).prop("checked",false);
         chg_price();
     });
 //---------------------------------------------------------------------------------------
     // 計何商品か
     function chg_qty(){
-        var count = $("#selected_list div[class^=item]").length;
+        var count = $("#selected_list [class^=item]").length;
         $(".total_item > span").html(count);
     }
     // 計何円か
     function chg_price(){
         var sum = 0;
         $("#selected_list .sum_price").each(function(){
-            if($(this).is(":visible")){
-                sum += parseInt($(this).html());
-            }else{
-                sum += parseInt($("input:text", $(this).next()).val());
-            }
+            sum += parseInt($(this).html());
         });
         if(sum < 0){sum = 0;}
         $(".total_yen > span").html(sum).trigger("change",true);
@@ -392,7 +398,11 @@ $(function(){
             var oturi = parseInt($(".pay_text").val()) - parseInt($(".total_yen > span").html());
             if(!isNaN(oturi) && oturi !== parseInt($(".pay_text").val())){
                 $(".exchange_text").val(oturi);
-                if(oturi < 0){$(".exchange_text").css("color","red")}else{$(".exchange_text").css("color","black")}
+                if(oturi < 0){
+                    $(".exchange_text").css("color","red")
+                }else{
+                    $(".exchange_text").css("color","black")
+                }
             }else{
                 $(".exchange_text").val(0);
             }
@@ -401,38 +411,54 @@ $(function(){
 
     // phpにデータ送信
     $(".decide_case input:button").on("click",function(){
-        // var customer_id = $(this).data("metatag_regiapp_customer_id");
-        var sale_ary = [], ticket_ary = [], sale_price;
-        $("#selected_list > div[class^=item_]").each(function(i){
+        if($("#selected_list > div").length){
+            var customer_id = $(this).data("metatag_regiapp_customer_id");
+            var name, qty, sum_price, msg = "";
+            $("#selected_list > div").each(function(){
+                name = $(".name", this).html();
+                qty = parseInt($(".qty", this).val());
+                sum_price = parseInt($(".sum_price", this).html());
+                if(!$(this).hasClass("negiri_item")){
+                    msg += name + "    " + qty + "  個\n";
+                }else{
+                    msg += name + "    " + qty + "  個    " + sum_price + "  円\n";                    
+                }
+            });
+            msg += "\n客層"+ customer_id +"\n\nでよろしいですか？"
+            var cfm = confirm(msg);
+            if(cfm){
 
-            if($(".sum_price", this).is(":visible")){
-                sale_price = parseInt($(".sum_price", this).html());
-            }else{
-                sale_price = parseInt($(".negiri_price", this).html());
+                var sale_ary = [], ticket_ary = [], sale_price;
+                $("#selected_list > [class^=item_]").each(function(i){
+                    sale_price = parseInt($(".sum_price", this).html());
+                    sale_ary[i] = {
+                        "item_id": $(this).data("metatag_regiapp_item_id"),
+                        "sale_price": sale_price,
+                        "sale_quantity": parseInt($(".qty", this).val())
+                    }
+                });
+                $("#selected_list > [class^=ticket_]").each(function(i){
+                    ticket_ary[i] = {
+                        "ticket_id": $(this).data("metatag_regiapp_ticket_id"),
+                        "ticketuse_quantity": parseInt($(".qty", this).val())
+                    }
+                });
+                var customer_id = 1;
+                var json = {
+                    "Profit": {"shop_id": shop_id, "customer_id": customer_id},
+                    "Sale": sale_ary,
+                    "Ticketuse": ticket_ary
+                }
+                console.log(json);
+                $.post("/m_regi/profits/add", json, function(data){
+                    $(".reset").trigger("click");
+                    $(".pay_text").val(0);
+                    $("select option").eq(0).prop("selected", true);
+                    $("select[name=left_category] option").eq(0).prop("selected", true);
+                    $("select[name=ticket] option").eq(0).prop("selected", true);
+                });
             }
-
-            sale_ary[i] = {
-                "item_id": $(this).data("metatag_regiapp_item_id"),
-                "sale_price": sale_price,
-                "sale_quantity": parseInt($(".qty", this).val())
-            }
-        });
-        $("#selected_list > div[class^=ticket_]").each(function(i){
-            ticket_ary[i] = {
-                "ticket_id": $(this).data("metatag_regiapp_ticket_id"),
-                "ticketuse_quantity": parseInt($(".qty", this).val())
-            }
-        });
-        var customer_id = 1;
-        var json = {
-            "Profit": {"shop_id": shop_id, "customer_id": customer_id},
-            "Sale": sale_ary,
-            "Ticketuse": ticket_ary
         }
-        debugger;
-        $.post("/m_regi/profits/add", json, function(data){
-            debugger;
-        });
     });
 
 });

@@ -310,6 +310,7 @@ width:93px;
         height: 33px;
         font-size: 100%;
         float: right;
+        text-align: right;
     }
     .decide{
         clear: both;
@@ -463,7 +464,7 @@ width:93px;
         .touroku_head, .which, .touroku_item{
             text-align: center;
         }
-         .new_category, .new_category2, .new_category3, .category_touroku, .category_touroku2, .cancel, .ok, .touroku_1_1, .touroku_1_2, .touroku_1_3, .touroku_1_4, .touroku_item_1, .touroku_item_2, .touroku_item_3, .touroku_item_4, .touroku_item_5,  .touroku_2_1, .touroku_2_2, .touroku_3_1, .touroku_3_2, .touroku_1_medama, .touroku_item_medama{
+         .new_category, .new_category2, .new_category3, .category_touroku, .category_touroku2, .cancel, .ok, .touroku_1_1, .touroku_1_2, .touroku_1_3, .touroku_1_4, .touroku_item_1, .touroku_item_2, .touroku_item_3, .touroku_item_4, .touroku_item_5,  .touroku_2_1, .touroku_2_2, .touroku_3_1, .touroku_3_2{
             display: inline-block;
         }
 
@@ -500,14 +501,6 @@ width:93px;
         .numtxt {
             width: 60px;
         }
-        .touroku_1_medama{
-            margin-left: 125px;
-        }
-        .touroku_item_medama{
-            position: relative;
-            left: -60;
-        }
-
         #item_reg .touroku_item_1{
             position: relative;        
             left: -80;
