@@ -568,6 +568,38 @@ width:93px;
             margin-top: 10px;
         }
 
+        form div.metaupload{
+            margin: auto;
+            /* margin-left: auto; */
+            /* margin-right: auto; */
+            width: 720;
+            height: 260;
+            background-color: aquamarine;
+            /* border: red; */
+            margin-bottom: 10px;
+        }
+        form div.metaupload .file{
+            position: relative;
+            left: 320px;
+            top: -130px;
+        }
+        form div.metaupload .file ~ div{
+            position: relative;
+            top: -20px;
+        }
+        form div.metaupload img{
+            position: relative;
+            top: -200px;
+            left: 350px;
+        }
+        form div.submitbtn{
+            margin-left: auto;
+            margin-right: auto;
+            width: 0;
+        }
+
+
+}
 @charaset "utf-8";
 /*==================================
  一部タブレット縦向け、スマートフォン横向けのスタイル
