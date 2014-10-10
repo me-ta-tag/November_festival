@@ -11,6 +11,8 @@ App::uses('AppController', 'Controller');
 class ShopsController extends AppController {
 //    public $scaffold;
 
+    var $uses = array('Item', 'Category', 'ticket','Shop');
+
     //読み込むコンポーネントの指定
     public $components = array('Session', 'Auth');
 
@@ -28,6 +30,7 @@ class ShopsController extends AppController {
     //ログイン後にリダイレクトされるアクション
     public function index(){
         $this->set('shop', $this->Auth->user());
+
     }
     public function logout(){
         $this->Auth->logout();
@@ -53,6 +56,33 @@ class ShopsController extends AppController {
     // 商品登録ページ
     public function registration(){
         $this->set('shop', $this->Auth->user());
+        $user = $this->Auth->user();
+        if($user['id'] == 1 ){
+            $params = array(
+                'conditions' => array('Item.shop_id'=> $user['id']),
+                'order' => 'Item.id ASC'
+            );
+            $pdo = $this->Item->getDatasource()->getConnection();
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
+            $items = $this->Item->find('all',$params);
+
+            $ticparams = [
+            ];
+            $tickets = $this->ticket->find('all', $ticparams);
+
+            $cateparamas = [
+                'conditions' => array('shop_id'=> $user['id']),
+                'order' => 'id ASC'
+            ];
+            $categorys = $this->Category->find('all',$cateparamas);
+            // viewにはjson形式のファイルを表示させるように。
+//            $this->layout = 'ajax';
+//            $this->RequestHandler->setContent('json');
+//            $this->RequestHandler->respondAs('application/json; charset=UTF-8');
+
+            // $studentsの配列をviewに渡す。
+            $this->set('items', ['item' => $items,'category' => $categorys,'ticket' =>$tickets]);
+        }
     }
     // 売上詳細ページ
     public function sales(){

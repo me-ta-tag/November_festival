@@ -10,6 +10,27 @@ App::uses('AppModel', 'Model');
 class Item extends AppModel{
     var $name = 'Item';
 
+    var $validate = [
+        'item_name' => [
+            'notempty' => [
+                'rule' => ['notempty'],
+            ]
+        ],
+        'item_price' => [
+            'notempty' => [
+                'rule' => ['notempty'],
+            ]
+        ],
+        'item_stock' => [
+            'notempty' => [
+                'rule' => ['notempty'],
+            ]
+        ],
+        'item_photo' =>[
+        ]
+
+    ];
+    //$conditions = array('NOT' => array('item_name' => null,'item_price' => null);
     var $belongsTo = array(
     'Category' => array (               // ここから追加
         'className' => 'Category',
@@ -42,11 +63,13 @@ class Item extends AppModel{
                     'PNG'
                 ],
                 'mimetypes' => ['image/jpeg', 'image/gif', 'image/png'],
-                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}',
+                'path' => 'webroot/img{DS}{model}{DS}{field}{DS}',
                 'thumbnailMethod' => 'php'
             ]
         ]
     ];
+    //                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}',
+    //'path' => '{ROOT}img{DS}{model}{DS}{field}{DS}',
 //    public $actsAs = [
 //        'Upload.Upload' => [
 //            'item_photo' => [

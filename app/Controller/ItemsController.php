@@ -10,7 +10,7 @@ App::uses('AppController', 'Controller');
 
 class ItemsController extends AppController {
 //    public $scaffold;
-    var $uses = array('Item', 'Category', 'ticket');
+    var $uses = array('Item', 'Category', 'ticket','Cost');
 
 
     public $components = array('RequestHandler');
@@ -56,13 +56,19 @@ class ItemsController extends AppController {
                         'order' => 'id ASC'
                     ];
                     $categorys = $this->Category->find('all',$cateparamas);
+
+                    $costparams = [
+                        'conditions' => array('shop_id' => $id),
+                        'order' => 'id ASC'
+                    ];
+                    $costs = $this->Cost->find('all',$costparams);
                     // viewにはjson形式のファイルを表示させるように。
                     $this->layout = 'ajax';
                     $this->RequestHandler->setContent('json');
                     $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
                     // $studentsの配列をviewに渡す。
-                    $this->set('items', ['item' => $items,'category' => $categorys,'ticket' =>$tickets]);
+                    $this->set('items', ['item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs]);
                 }
             }
 //            $this->disableCache();
@@ -117,6 +123,26 @@ class ItemsController extends AppController {
 
                     if ($this->Item->saveAll($insertArray)){
                         //echo "true";
+
+                    }else{
+                        echo "error";
+                        //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
+                    }
+                    $this->response->header('Location', "../shops/registration");
+                }catch (Exception $e){
+                    echo $e;
+                }
+            }
+        }else{
+            if($this->request->is('post')){
+                try{
+                    //var_dump($this->request->data);
+                    $data = $this->request->data['Item'];
+
+                    if ($this->Item->saveAll($data)){
+                        //echo "true";
+
+
                     }else{
                         echo "error";
                         //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));

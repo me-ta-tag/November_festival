@@ -18,6 +18,6 @@ Icon?
 ehthumbs.db
 Thumbs.db
 .idea
-app/View/Categorys/add.ctp
 plugins/empty
 vendors/empty
+/app/webroot/img/item
