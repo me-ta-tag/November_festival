@@ -28,43 +28,7 @@
         		<div class="touroku_1_4"><b>在庫(0を入力で無限)</b></div>
         	</div>
             <div class="reg_list">
-                <?php
-                //var_dump(count($items['item']));
-                if( $shop['id'] == 1){
-                    //var_dump($items['item'][0]['Item']);
-                    echo $this->Form->create('Item', array("url" => "/Items/add",'type' => 'file'));
-                    $option = [
-                        'id' => ['type' => 'hidden'],
-                        'item_name' => [],
-                        'item_price' => [],
-                        'item_detail' => ['type' => 'textarea'],
-                        'item_photo' => ['type' => 'file'],
-                        'item_photo_dir' => ['type' => 'hidden'],
-                        'item_leader' => [],
-                        'item_stock' => [],
-                        'shop_id' => ['type' => 'text'],
-                        'category_id' => ['type' => 'text']
-                    ];
 
-                    foreach($items['item'] as $k => $val){
-                            foreach($val['Item'] as $key => $value){
-                                echo $this->Form->input("Item.".$k.".".$key,listSetting($value,$option[$key]));
-                            }
-                    }
-                    for($i = count($items['item'])-1;$i < count($items['item']);$i++){
-                        $option['shop_id'] = ['type' => 'text','value' => 1];
-                        foreach($option as $key => $value){
-                            echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
-                        }
-                    }
-                    echo $this->Form->end('Submit');
-                    //echo $upload->url;
-                    //$path = $this->Html->webroot;
-
-                    //echo $this->html->image('test.png',array('alt' =>'img'));
-                    echo $this->html->image('item/item_photo/6/スクリーンショット 2014-10-10 17.38.18.png',array('alt' =>'img'));
-                }
-                ?>
 <!-- 
             	<div class="touroku_item">
         		<div class="touroku_item_1">1:<input type="text" name="item_name1"></div>
@@ -92,7 +56,45 @@
                 </div>
 
                 <% }else{ %>
+                <?php
+                //var_dump(count($items['item']));
+                if( $shop['id'] == 1){
+                    //var_dump($items['item'][0]['Item']);
+                    echo $this->Form->create('Item', array("url" => "/Items/add",'type' => 'file'));
+                    $option = [
+                        'id' => ['type' => 'hidden'],
+                        'item_name' => [],
+                        'item_price' => [],
+                        'item_detail' => ['type' => 'textarea'],
+                        'item_photo' => ['type' => 'file'],
+                        'item_photo_dir' => ['type' => 'hidden'],
+                        'item_leader' => [],
+                        'item_stock' => [],
+                        'shop_id' => ['type' => 'text'],
+                        'category_id' => ['type' => 'text']
+                    ];
 
+                foreach($items['item'] as $k => $val){
+                    foreach($val['Item'] as $key => $value){
+                        echo $this->Form->input("Item.".$k.".".$key,listSetting($value,$option[$key]));
+                    }
+                    echo $this->html->image('item/item_photo/'.$val['Item']['item_photo_dir'].'/'.$val['Item']['item_photo'],array('alt' =>'img'));
+                }
+                for($i = count($items['item'])-1;$i < count($items['item']);$i++){
+                    $option['shop_id'] = ['type' => 'text','value' => 1];
+                    foreach($option as $key => $value){
+                        echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
+                    }
+                }
+                echo $this->Form->end('Submit');
+                //echo $upload->url;
+                //$path = $this->Html->webroot;
+
+                //echo $this->html->image('test.png',array('alt' =>'img'));
+
+                }
+                ?>
+                <% if(false){ %>
                 <div class="touroku_item" data-metatag_regiapp_item_id="<%-id%>" data-metatag_regiapp_category_id="<%-category_id%>" style="background-color:#C6C6C6; width:480px;height:280px; margin:30px auto;">
                     <div class="item_num" style="float:left; width:60px;">
                         <%if(id !== "new"){%>
@@ -117,8 +119,9 @@
                     </div>
                     <p style="clear:both;"></p>
                 </div>
-
                 <% } %>
+                <% } %>
+
                 </script>
             </div><!-- .reg_list -->
         	
