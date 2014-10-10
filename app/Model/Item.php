@@ -63,11 +63,13 @@ class Item extends AppModel{
                     'PNG'
                 ],
                 'mimetypes' => ['image/jpeg', 'image/gif', 'image/png'],
-                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}',
+                'path' => 'webroot/img{DS}{model}{DS}{field}{DS}',
                 'thumbnailMethod' => 'php'
             ]
         ]
     ];
+    //                'path' => '{ROOT}tmp{DS}files{DS}{model}{DS}{field}{DS}',
+    //'path' => '{ROOT}img{DS}{model}{DS}{field}{DS}',
 //    public $actsAs = [
 //        'Upload.Upload' => [
 //            'item_photo' => [
