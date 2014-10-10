@@ -565,7 +565,7 @@ $(function(){
 </script>
 <?php
     function listSetting($value,$option){
-        $output = [];
+        $output = array();
         if(isset($value)){
             $output['value'] = $value;
         }

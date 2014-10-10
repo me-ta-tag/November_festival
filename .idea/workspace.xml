@@ -49,8 +49,8 @@
       <file leaf-file-name="registration.ctp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/View/Shops/registration.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.68720376" vertical-offset="1305" max-vertical-offset="8745">
-              <caret line="116" column="81" selection-start-line="116" selection-start-column="81" selection-end-line="116" selection-end-column="81" />
+            <state vertical-scroll-proportion="0.62085307" vertical-offset="8112" max-vertical-offset="8745">
+              <caret line="567" column="25" selection-start-line="567" selection-start-column="25" selection-end-line="567" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -776,12 +776,12 @@
       <workItem from="1412918864299" duration="643000" />
       <workItem from="1412925552394" duration="7204000" />
       <workItem from="1412934675430" duration="6026000" />
-      <workItem from="1412951479633" duration="1450000" />
+      <workItem from="1412951479633" duration="1873000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33383000" />
+    <option name="totallyTimeSpent" value="33806000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -1236,8 +1236,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Shops/registration.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.68720376" vertical-offset="1305" max-vertical-offset="8745">
-          <caret line="116" column="81" selection-start-line="116" selection-start-column="81" selection-end-line="116" selection-end-column="81" />
+        <state vertical-scroll-proportion="0.62085307" vertical-offset="8112" max-vertical-offset="8745">
+          <caret line="567" column="25" selection-start-line="567" selection-start-column="25" selection-end-line="567" selection-end-column="25" />
           <folding />
         </state>
       </provider>
