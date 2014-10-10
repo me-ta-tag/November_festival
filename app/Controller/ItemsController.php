@@ -88,6 +88,8 @@ class ItemsController extends AppController {
                     'conditions' => array('Item.shop_id' => 1),
                     'order' => 'Item.id DESC'
                 );
+                $pdo = $this->Item->getDatasource()->getConnection();
+                $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                 $items = $this->Item->find('all', $params);
                 // viewにはjson形式のファイルを表示させるように。
                 $this->layout = 'ajax';
