@@ -6,7 +6,7 @@
         <div class = "link">
             <ul>
                 <li>
-                    <input type = "button" value = "売上詳細、各種削除へ" class="btn" onclick = "location.href='/m_regi/shops/sales'">
+                    <input type = "button" value = "売上詳細、各種削除へ" class="btn" onclick = "location.href='<?php $this->Html->url(‘/shops/sales’, true); ?>'">
                 </li>
                 <li>
                     <input type = "button" value = "登録画面へ" class="btn" onclick = "location.href='/m_regi/shops/registration'">
