@@ -453,7 +453,6 @@ $(function(){
                 $.post("/m_regi/profits/add", json, function(data){
                     $(".reset").trigger("click");
                     $(".pay_text").val(0);
-                    $("select option").eq(0).prop("selected", true);
                     $("select[name=left_category] option").eq(0).prop("selected", true);
                     $("select[name=ticket] option").eq(0).prop("selected", true);
                 });
