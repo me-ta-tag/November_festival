@@ -5,8 +5,11 @@
     <div class = "login_container">
         <div class = "link">
             <ul>
+                <?php
+                    $linkSales = $this->Html->url("/shops/sales", true);
+                ?>
                 <li>
-                    <input type = "button" value = "売上詳細、各種削除へ" class="btn" onclick = "location.href='<?php $this->Html->url(‘/shops/sales’, true); ?>'">
+                    <input type = "button" value = "売上詳細、各種削除へ" class="btn" onclick = "location.href='<?php echo $linkSales;?>'">
                 </li>
                 <li>
                     <input type = "button" value = "登録画面へ" class="btn" onclick = "location.href='/m_regi/shops/registration'">

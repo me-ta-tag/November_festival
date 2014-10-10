@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="24909716-0bdc-4676-8aeb-c82a471a66f2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/View/Shops/index.ctp" afterPath="$PROJECT_DIR$/app/View/Shops/index.ctp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="m_regi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,8 +49,8 @@
       <file leaf-file-name="index.ctp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/View/Shops/index.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18957347" vertical-offset="0" max-vertical-offset="633">
-              <caret line="8" column="101" selection-start-line="8" selection-start-column="101" selection-end-line="8" selection-end-column="101" />
+            <state vertical-scroll-proportion="0.2606635" vertical-offset="0" max-vertical-offset="633">
+              <caret line="11" column="113" selection-start-line="11" selection-start-column="113" selection-end-line="11" selection-end-column="113" />
               <folding />
             </state>
           </provider>
@@ -812,12 +813,12 @@
       <workItem from="1412918864299" duration="643000" />
       <workItem from="1412925552394" duration="7204000" />
       <workItem from="1412934675430" duration="6026000" />
-      <workItem from="1412951479633" duration="3712000" />
+      <workItem from="1412951479633" duration="3968000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35645000" />
+    <option name="totallyTimeSpent" value="35901000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -1279,8 +1280,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Shops/index.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18957347" vertical-offset="0" max-vertical-offset="633">
-          <caret line="8" column="101" selection-start-line="8" selection-start-column="101" selection-end-line="8" selection-end-column="101" />
+        <state vertical-scroll-proportion="0.2606635" vertical-offset="0" max-vertical-offset="633">
+          <caret line="11" column="113" selection-start-line="11" selection-start-column="113" selection-end-line="11" selection-end-column="113" />
           <folding />
         </state>
       </provider>
