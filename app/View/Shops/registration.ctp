@@ -114,7 +114,7 @@
                         echo ('</div>');
                     }
                     if(count($items['item']) == 0){
-                        $option['shop_id'] = ['type' => 'text','value' => 1];
+                        $option['shop_id'] = array('type' => 'text','value' => 1);
                         echo ('<div class="metaupload">');
                         foreach($option as $key => $value){
                             echo $this->Form->input("Item.0.".$key,listSetting("",$value));
