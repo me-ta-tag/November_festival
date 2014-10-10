@@ -20,3 +20,4 @@ Thumbs.db
 .idea
 plugins/empty
 vendors/empty
+/app/webroot/img/item

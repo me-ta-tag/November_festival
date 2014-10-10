@@ -17,7 +17,7 @@
                 <input type="text" name="new_category" class="new_category4">
                 <input type = "button" value = "登録">
             </div>
-           
+
         </div>
         <div class="touroku_body">
         	<div class="touroku_1">
@@ -28,6 +28,7 @@
         		<div class="touroku_1_4"><b>在庫(0を入力で無限)</b></div>
         	</div>
             <div class="reg_list">
+
 <!-- 
             	<div class="touroku_item">
         		<div class="touroku_item_1">1:<input type="text" name="item_name1"></div>
@@ -56,6 +57,7 @@
 
                 <% }else{ %>
 
+                <% if(false){ %>
                 <div class="touroku_item" data-metatag_regiapp_item_id="<%-id%>" data-metatag_regiapp_category_id="<%-category_id%>" style="background-color:#C6C6C6; width:480px;height:280px; margin:30px auto;">
                     <div class="item_num" style="float:left; width:60px;">
                         <%if(id !== "new"){%>
@@ -80,21 +82,85 @@
                     </div>
                     <p style="clear:both;"></p>
                 </div>
-
                 <% } %>
+                <% } %>
+
+
                 </script>
+                <?php
+                //var_dump(count($items['item']));
+                if( $shop['id'] == 1){
+                    //var_dump($items['item'][0]['Item']);
+                    echo $this->Form->create('Item', array("url" => "/Items/add",'type' => 'file'));
+                    $option = [
+                        'id' => ['type' => 'hidden'],
+                        'item_name' => [],
+                        'item_price' => [],
+                        'item_detail' => ['type' => 'textarea'],
+                        'item_photo' => ['type' => 'file'],
+                        'item_photo_dir' => ['type' => 'hidden'],
+                        'item_leader' => [],
+                        'item_stock' => ['class' => 'up20'],
+                        'shop_id' => ['type' => 'text'],
+                        'category_id' => ['type' => 'text']
+                    ];
+
+                    foreach($items['item'] as $k => $val){
+                        echo ('<div class="metaupload">');
+                        foreach($val['Item'] as $key => $value){
+                            echo $this->Form->input("Item.".$k.".".$key,listSetting($value,$option[$key]));
+                        }
+                        echo $this->html->image('item/item_photo/'.$val['Item']['item_photo_dir'].'/'.$val['Item']['item_photo'],array('alt' =>'img','width' => '200','height' => '200'));
+                        echo ('</div>');
+                    }
+                    if(count($items['item']) == 0){
+                        $option['shop_id'] = ['type' => 'text','value' => 1];
+                        echo ('<div class="metaupload">');
+                        foreach($option as $key => $value){
+                            echo $this->Form->input("Item.0.".$key,listSetting("",$value));
+                        }
+                        echo ('</div>');
+                    }else{
+                        echo ('<div class="metaupload">');
+                        for($i = count($items['item'])-1;$i < count($items['item']);$i++){
+                            $option['shop_id'] = ['type' => 'text','value' => 1];
+                            foreach($option as $key => $value){
+                                echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
+                            }
+                        }
+                        echo ('</div>');
+                    }
+                    echo ('<div class="submitbtn">');
+                    echo $this->Form->end('Submit');
+                    echo ('</div>');
+                    //echo $upload->url;
+                    //$path = $this->Html->webroot;
+
+                    //echo $this->html->image('test.png',array('alt' =>'img'));
+
+                }
+                ?>
             </div><!-- .reg_list -->
         	
         </div>
-         
-        <div class = "which">
-            <div class="cancel">
+        <?php
+        if( $shop['id'] == 1){
+        ?>
+        <?php
+        }else{
+        ?>
+            <div class = "which">
+                <div class="cancel">
                 <input type="button" value="キャンセル" class = "btn">
             </div>
-            <div class="ok">
-               <input type="button" value="確定" class = "btn">
+                <div class="ok">
+                    <input type="button" value="確定" class = "btn">
+                </div>
             </div>
-        </div>
+
+        <?php
+        }
+        ?>
     </div><!-- #item_reg -->
 
     <div class="touroku_container" id="ticket_reg">
@@ -497,3 +563,16 @@ $(function(){
 
 });
 </script>
+<?php
+    function listSetting($value,$option){
+        $output = [];
+        if(isset($value)){
+            $output['value'] = $value;
+        }
+        foreach($option as $key => $value){
+            $output[$key] = $value;
+        }
+        return $output;
+    }
+
+?>

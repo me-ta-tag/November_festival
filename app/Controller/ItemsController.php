@@ -123,6 +123,26 @@ class ItemsController extends AppController {
 
                     if ($this->Item->saveAll($insertArray)){
                         //echo "true";
+
+                    }else{
+                        echo "error";
+                        //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
+                    }
+                    $this->response->header('Location', "../shops/registration");
+                }catch (Exception $e){
+                    echo $e;
+                }
+            }
+        }else{
+            if($this->request->is('post')){
+                try{
+                    //var_dump($this->request->data);
+                    $data = $this->request->data['Item'];
+
+                    if ($this->Item->saveAll($data)){
+                        //echo "true";
+
+
                     }else{
                         echo "error";
                         //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));

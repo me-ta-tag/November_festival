@@ -11,7 +11,7 @@ App::uses('AppController', 'Controller');
 class ShopsController extends AppController {
 //    public $scaffold;
 
-    var $uses = array('Item', 'Category', 'ticket');
+    var $uses = array('Item', 'Category', 'ticket','Shop');
 
     //読み込むコンポーネントの指定
     public $components = array('Session', 'Auth');
