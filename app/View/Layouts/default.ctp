@@ -67,16 +67,22 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
   <header>
         <ul>
+            <?php
+                $linkLogout = $this->Html->url("/shops/logout", true);
+                $linkShop = $this->Html->url("/shops", true);
+                $linkRegi = $this->Html->url("/shops/registration",true);
+                $linkPay = $this->Html->url("/shops/payment", true);
+            ?>
         	<?php if(isset($shop['id'])){?>
             <div class="toggle t_left">
             	<li class = "shop_name"><?php echo ( $shop['shop_name'] ); ?></li>
-            	<input type = "button" value = ログアウト class="btn" onClick = "location.href='/m_regi/shops/logout'"></li></div>
+            	<input type = "button" value = ログアウト class="btn" onClick = "location.href='<?php echo $linkLogout ?>'"></li></div>
             </div>
             <div class = "head_left">
-            <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='/m_regi/shops'"></li>
+            <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='<?php echo $linkShop ?>'"></li>
             <li class = "shop_name"><?php echo ( $shop['id'] );  ?></li>
             <li class = "logout">
-                <input type = "button" value = "ログアウト" class="btn" onclick = "location.href='/m_regi/shops/logout'">
+                <input type = "button" value = "ログアウト" class="btn" onclick = "location.href='<?php echo $linkLogout ?>'">
             </li>
             </div>
             
@@ -84,9 +90,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 <form method=post>
             	<select id="#eazy-select" onchange="navi(this)">
 					<option>menu</option>
-					<option value="/m_regi/shops">マイページへ</option>
-					<option value="/m_regi/shops/registration">登録画面へ</option>
-					<option value="/m_regi/shops/payment">会計画面へ</option>
+					<option value="<?php echo $linkShop ?>">マイページへ</option>
+					<option value="<?php echo $linkRegi ?>">登録画面へ</option>
+					<option value="<?php echo $linkPay ?>">会計画面へ</option>
            		</select>
            		</form>
            		<script type="text/javascript">
@@ -98,10 +104,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
             </div>
             <div class = "head_right"> 
             <li class = "touroku">
-                <input type = "button" value = "登録" class="btn" onclick ="location.href='/m_regi/shops/registration'">
+                <input type = "button" value = "登録" class="btn" onclick ="location.href='<?php echo $linkRegi ?>'">
             </li>
             <li class = "kaikei">
-                <input type = "button" value = "会計" class="btn" onclick ="location.href='/m_regi/shops/payment'">
+                <input type = "button" value = "会計" class="btn" onclick ="location.href='<?php echo $linkPay ?>'">
             </li>
             </div>
             <?php }else{ ?>

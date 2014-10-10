@@ -5,11 +5,14 @@
         <div class="btn">削除</div>
     </div>
 </script>
+<?php
+    $readProfits = $this->Html->url("/profits/read", true);
+?>
 <script type="text/javascript">
 var profits = [], sales = [], ticketuses = [];
 $(function(data){
 //---------------------------------------------------------------------------------------
-	$.get("/m_regi/profits/read",{"shop_id": shop_id},function(data){
+	$.get("<?php echo $readProfits; ?>",{"shop_id": shop_id},function(data){
 		for(var i=0; i<data.Profits.length; i++){
 			profits.push(data.Profits[i].Profit);
 			sales.push(data.Profits[i].Sale);
