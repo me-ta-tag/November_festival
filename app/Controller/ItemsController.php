@@ -67,7 +67,7 @@ class ItemsController extends AppController {
                     $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
                     // $studentsの配列をviewに渡す。
-                    $this->set('items', ['item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs]);
+                    $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs));
                 }
             }
 //            $this->disableCache();
