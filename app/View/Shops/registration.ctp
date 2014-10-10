@@ -17,7 +17,7 @@
                 <input type="text" name="new_category" class="new_category4">
                 <input type = "button" value = "登録">
             </div>
-           
+
         </div>
         <div class="touroku_body">
         	<div class="touroku_1">
@@ -28,6 +28,31 @@
         		<div class="touroku_1_4"><b>在庫(0を入力で無限)</b></div>
         	</div>
             <div class="reg_list">
+                <?php
+                var_dump(count($items['item']));
+                if( $shop['id'] == 1){
+                    //var_dump($items);
+                    echo $this->Form->create('Item', array('type' => 'file'));
+
+                    for($count = 0; $count < count($items['item']);$count++){
+                if(isset(items['item'][$count]['item_name']){
+                items['item'][$count]['item_name']
+                }else{
+                ""
+                }));
+                        echo $this->Form->input('Item.'.$count.'.item_name',array('value' =>)
+
+                        echo $this->Form->input('Item.'.$count.'.item_price',array('value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""}));
+                        echo $this->Form->input('Item.'.$count.'.item_detail', array('type' => 'textarea','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
+                        echo $this->Form->input('Item.'.$count.'.item_photo', array('type' => 'file','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
+                        echo $this->Form->input('Item.'.$count.'.item_photo_dir', array('type' => 'hidden','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
+                        echo $this->Form->input('Item.'.$count.'.item_leader',array('value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
+                        echo $this->Form->input('Item.'.$count.'.shop_id' , array('type'=> 'text','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
+                        echo $this->Form->input('Item.'.$count.'.category_id' , array('type'=> 'text','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
+                    }
+                    echo $this->Form->end('Submit');
+                }
+                ?>
 <!-- 
             	<div class="touroku_item">
         		<div class="touroku_item_1">1:<input type="text" name="item_name1"></div>
@@ -497,3 +522,7 @@ $(function(){
 
 });
 </script>
+<?php
+    function list
+
+?>
