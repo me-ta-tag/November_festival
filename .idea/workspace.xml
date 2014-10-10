@@ -88,8 +88,8 @@
       <file leaf-file-name="ShopsController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Controller/ShopsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41795665" vertical-offset="690" max-vertical-offset="2160">
-              <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.55727553" vertical-offset="690" max-vertical-offset="2160">
+              <caret line="75" column="67" selection-start-line="75" selection-start-column="67" selection-end-line="75" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -716,12 +716,12 @@
       <workItem from="1412918864299" duration="643000" />
       <workItem from="1412925552394" duration="7204000" />
       <workItem from="1412934675430" duration="6026000" />
-      <workItem from="1412951479633" duration="57000" />
+      <workItem from="1412951479633" duration="378000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31990000" />
+    <option name="totallyTimeSpent" value="32311000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -1175,8 +1175,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Controller/ShopsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41795665" vertical-offset="690" max-vertical-offset="2160">
-          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.55727553" vertical-offset="690" max-vertical-offset="2160">
+          <caret line="75" column="67" selection-start-line="75" selection-start-column="67" selection-end-line="75" selection-end-column="67" />
           <folding />
         </state>
       </provider>

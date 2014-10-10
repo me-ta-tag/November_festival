@@ -69,10 +69,10 @@ class ShopsController extends AppController {
             $ticparams = array();
             $tickets = $this->ticket->find('all', $ticparams);
 
-            $cateparamas = [
+            $cateparamas = array(
                 'conditions' => array('shop_id'=> $user['id']),
                 'order' => 'id ASC'
-            ];
+            );
             $categorys = $this->Category->find('all',$cateparamas);
             // viewにはjson形式のファイルを表示させるように。
 //            $this->layout = 'ajax';
@@ -80,7 +80,7 @@ class ShopsController extends AppController {
 //            $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
             // $studentsの配列をviewに渡す。
-            $this->set('items', ['item' => $items,'category' => $categorys,'ticket' =>$tickets]);
+            $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets));
         }
     }
     // 売上詳細ページ
