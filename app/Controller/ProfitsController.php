@@ -64,11 +64,11 @@ class ProfitsController extends AppController {
                 if (isset($id)) {
                     if ($id != 0) {
                        //echo "test";
-                       $params = [
-                            'conditions' => [
+                       $params = array(
+                            'conditions' => array(
                                 'Profit.shop_id' => $id
-                            ]
-                        ];
+                            )
+                        );
                         $output = [];
                         $output['Profits'] = $this->Profit->find('all', $params);
                         $output['customers'] = $this->Customer->find('all');

@@ -47,20 +47,19 @@ class ItemsController extends AppController {
                     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                     $items = $this->Item->find('all',$params);
 
-                    $ticparams = [
-                    ];
+                    $ticparams = array();
                     $tickets = $this->ticket->find('all', $ticparams);
 
-                    $cateparamas = [
+                    $cateparamas = array(
                         'conditions' => array('shop_id'=> $id),
                         'order' => 'id ASC'
-                    ];
+                    );
                     $categorys = $this->Category->find('all',$cateparamas);
 
-                    $costparams = [
+                    $costparams = array(
                         'conditions' => array('shop_id' => $id),
                         'order' => 'id ASC'
-                    ];
+                    );
                     $costs = $this->Cost->find('all',$costparams);
                     // viewにはjson形式のファイルを表示させるように。
                     $this->layout = 'ajax';
@@ -116,7 +115,7 @@ class ItemsController extends AppController {
                 try{
                     //var_dump($this->request->data);
                     $data = $this->request->data['Item'];
-                    $insertArray = [];
+                    $insertArray = array();
                     foreach($data as $value){
                         array_push($insertArray,$value);
                     }

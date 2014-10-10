@@ -9,9 +9,8 @@
 App::uses('AppModel', 'Model');
 class Profit extends AppModel{
     var $name = 'Profit';
-    var $hasMany = [
-        'Sale' =>
-            [
+    var $hasMany = array(
+        'Sale' => array(
                 'className' => 'Sale',
                 'conditions' => '',
                 'order' => '',
@@ -19,9 +18,8 @@ class Profit extends AppModel{
                 'dependent' => true,
                 'exclusive' => false,
                 'finderQuery' => ''
-            ],
-        'Ticketuse' =>
-            [
+        ),
+        'Ticketuse' => array(
                 'className' => 'Ticketuse',
                 'conditions' => '',
                 'order' => '',
@@ -29,6 +27,6 @@ class Profit extends AppModel{
                 'dependent' => true,
                 'exclusive' => false,
                 'finderQuery' => ''
-            ]
-    ];
+        )
+    );
 }
