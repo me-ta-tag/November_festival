@@ -29,28 +29,40 @@
         	</div>
             <div class="reg_list">
                 <?php
-                var_dump(count($items['item']));
+                //var_dump(count($items['item']));
                 if( $shop['id'] == 1){
-                    //var_dump($items);
-                    echo $this->Form->create('Item', array('type' => 'file'));
+                    //var_dump($items['item'][0]['Item']);
+                    echo $this->Form->create('Item', array("url" => "/Items/add",'type' => 'file'));
+                    $option = [
+                        'id' => ['type' => 'hidden'],
+                        'item_name' => [],
+                        'item_price' => [],
+                        'item_detail' => ['type' => 'textarea'],
+                        'item_photo' => ['type' => 'file'],
+                        'item_photo_dir' => ['type' => 'hidden'],
+                        'item_leader' => [],
+                        'item_stock' => [],
+                        'shop_id' => ['type' => 'text'],
+                        'category_id' => ['type' => 'text']
+                    ];
 
-                    for($count = 0; $count < count($items['item']);$count++){
-                if(isset(items['item'][$count]['item_name']){
-                items['item'][$count]['item_name']
-                }else{
-                ""
-                }));
-                        echo $this->Form->input('Item.'.$count.'.item_name',array('value' =>)
-
-                        echo $this->Form->input('Item.'.$count.'.item_price',array('value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""}));
-                        echo $this->Form->input('Item.'.$count.'.item_detail', array('type' => 'textarea','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
-                        echo $this->Form->input('Item.'.$count.'.item_photo', array('type' => 'file','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
-                        echo $this->Form->input('Item.'.$count.'.item_photo_dir', array('type' => 'hidden','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
-                        echo $this->Form->input('Item.'.$count.'.item_leader',array('value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
-                        echo $this->Form->input('Item.'.$count.'.shop_id' , array('type'=> 'text','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
-                        echo $this->Form->input('Item.'.$count.'.category_id' , array('type'=> 'text','value' => if(isset(items['item'][$count]['item_price']){items['item'][$count]['item_price'];}else{""})));
+                    foreach($items['item'] as $k => $val){
+                            foreach($val['Item'] as $key => $value){
+                                echo $this->Form->input("Item.".$k.".".$key,listSetting($value,$option[$key]));
+                            }
+                    }
+                    for($i = count($items['item'])-1;$i < count($items['item']);$i++){
+                        $option['shop_id'] = ['type' => 'text','value' => 1];
+                        foreach($option as $key => $value){
+                            echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
+                        }
                     }
                     echo $this->Form->end('Submit');
+                    //echo $upload->url;
+                    //$path = $this->Html->webroot;
+
+                    //echo $this->html->image('test.png',array('alt' =>'img'));
+                    echo $this->html->image('item/item_photo/6/スクリーンショット 2014-10-10 17.38.18.png',array('alt' =>'img'));
                 }
                 ?>
 <!-- 
@@ -523,6 +535,15 @@ $(function(){
 });
 </script>
 <?php
-    function list
+    function listSetting($value,$option){
+        $output = [];
+        if(isset($value)){
+            $output['value'] = $value;
+        }
+        foreach($option as $key => $value){
+            $output[$key] = $value;
+        }
+        return $output;
+    }
 
 ?>
