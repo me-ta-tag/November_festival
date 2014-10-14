@@ -1,15 +1,24 @@
-    <div class="touroku_container" id="category_reg">
+    <div class="touroku_cotainer" style="margin-top:20px;" id="category_reg">
         <table>
-            <tr><td style="font-size:140%;"><b>カテゴリ登録</b></td><td class="line"><hr size = "5"></td></tr>
+           <tr><td style="font-size:140%;"><b>カテゴリ登録</b></td><td class="line5"><hr size = "5"></td></tr>
         </table>
-        <div class="new_category">
-            <b>新規カテゴリ：</b>
-            <span>
-                <input type="text" name="new_category" class="new_category4">
-            </span>
-            <span class="ok">
-                <input type = "button" class="btn" value = "登録">
-            </span>
+        <div class = "touroku_head">
+            <div class="item_number">
+                <b style="position: relative; right: 175px;">カテゴリ名</b>
+            </div>
+            <div style="margin-left: 380px; float: left;">
+                <span class="name"><input type="text" style="width:150px;"></span>
+                <span class="ok"><input type="button" class="btn" value="登録"></span>
+            </div>
+            <div style="margin-left: 50px; float: left;">
+                <select name="category_list" style="width:150px;">
+                    <option value="0">どれを消す？</option>
+                    <script id="category_tmp" type="text/template">
+                        <option value="<%-id%>"><%-category_name%></option>
+                    </script>
+                </select>
+                <span class="delete"><input type="button" class="btn" value="消去"></span>
+            </div>
         </div>
     </div>
 
@@ -42,9 +51,9 @@
         		<div class="touroku_1_4"><b>在庫(0を入力で無限)</b></div>
         	</div>
             <div class="reg_list">
-                <script id="item_tmp" type="text/template">
-                <% if(shop_id != 1){ %>
 
+                <script id="item_tmp" type="text/template">
+                <% if(shop_id != 1){%>
                 <div class="touroku_item" data-metatag_regiapp_item_id="<%-id%>" data-metatag_regiapp_category_id="<%-category_id%>">
                     <span class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-item_name%>"></span>
                     <span class="touroku_item_2 price">¥<input type="text" class="numtxt" value="<%-item_price%>"></span>
@@ -56,38 +65,7 @@
                     <span class="touroku_item_5" style="visibility:hidden;"><input type="button" class="btn" value="消去"></span>
                     <% } %>
                 </div>
-
-                <% }else{ %>
-
-                <% if(false){ %>
-                <div class="touroku_item" data-metatag_regiapp_item_id="<%-id%>" data-metatag_regiapp_category_id="<%-category_id%>" style="background-color:#C6C6C6; width:480px;height:280px; margin:30px auto;">
-                    <div class="item_num" style="float:left; width:60px;">
-                        <%if(id !== "new"){%>
-                        <span class="delete"><input type="button" value="削除"></span>
-                        <%}else{%>
-                        <span style="visibility:hidden;"><input type="button" value="削除"></span>
-                        <%}%>
-                        <br><%-num%>
-                    </div>
-                    <div class="item_value" style="float:left; margin:30px 10px;">
-                        商品名<br><span  class="name"><input type="text" style="width:150px;" value="<%-item_name%>"></span><br>
-                        目玉商品 <input type="checkbox" <% if(item_leader){%>checked<% } %> >
-                        <br>
-                        単価 <span class="price numtxt"><input type="text" style="width:50px;" value="<%-item_price%>"></span>
-                        在庫 <span class="stock numtxt"><input type="text" style="width:50px;" value="<%-item_stock%>"></span><br>
-                        カテゴリ<br><span class="category"><select style="width:150px;"><%=option%></select></span><br>
-                        商品詳細<br><textarea class="detail" style="width:200px; height:100px;"><%-item_detail%></textarea>
-                    </div>
-                    <div class="dropzone" id="<%-num%>_dropzone" style="color:#6E6E6E; float:left; border:dashed; text-align:center; width:120px; height:90px; margin:70px 20px; padding:13px;">
-                        <span class="guide">DROP PHOTO HERE!</span>
-                        <img src="" class="item_img" id="<%-num%>_img" style="display:none; width:120px; height:90px;">
-                    </div>
-                    <p style="clear:both;"></p>
-                </div>
                 <% } %>
-                <% } %>
-
-
                 </script>
 
                 <?php
@@ -220,32 +198,148 @@
         </div>
     </div><!-- #ticket_reg -->
 
-    <div class="touroku_container" id="expence_reg">
+    <div class="touroku_container" id="cost_reg">
         <table>
            <tr><td style="font-size:140%;"><b>費用登録</b></td><td class="line"><hr size = "5"></td></tr>
         </table>
+        <div class = "touroku_head">
+            <div class="item_number"><b>追加：</b>
+                <select name="item_number">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+        </div>
         <div class="touroku_1">
         		<div class="touroku_3_1"><b>費用名</b></div>
         		<div class="touroku_3_2"><b>費用の値段</b></div>
         </div>
-        	<div class="touroku_item">
-        		<div class="touroku_item_1"><input type="text" name="item_name1"></div>
-        		<div class="touroku_item_2">￥<input type="text" class="numtxt" name="item_yen1"></div>
-        		<div class="touroku_item_5"><input type="button" value="登録" class = "btn"></div>
-        	</div>
-    </div><!-- #expence_reg -->
+        <div class="reg_list">
 
+            <script id="cost_tmp" type="text/template">
+                <div class="touroku_item" data-metatag_regiapp_cost_id="<%-id%>">
+                    <div class="touroku_item_1 name"><input type="text" value="<%-name%>"></div>
+                    <div class="touroku_item_2 price">￥<input type="text" class="numtxt" value="<%-price%>"></div>
+                    <%if(id !== "new"){%>
+                        <span class="touroku_item_5 delete"><input type="button" class="btn" value="消去"></span>
+                    <%}else{%>
+                        <span class="touroku_item_5"><input type="button" class="btn" style="visibility:hidden;" value="消去"></span>
+                    <%}%>
+                </div>
+            </script>
 
+        </div><!-- .reg_list -->
+        <div class = "which">
+            <div class="cancel">
+                <input type="button" value="取り消し" class = "btn">
+            </div>
+            <div class="ok">
+               <input type="button" value="確定" class = "btn">
+                
+            </div>
+        </div>
+    </div><!-- #cost_reg -->
 <!-- ------------------------------ 以下JavaScript ------------------------------ -->
 <script type="text/javascript">
 var items=[],
     items_back=[],
     tickets=[],
     tickets_back=[],
+    costs=[],
+    costs_back=[],
     categorys=[],
-    opt;
+    category_option;
 
 $(function(){
+//---------------------------------------------------------------------------------------
+// 初めの動作。商品の読み込み，書き込み
+    $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+        for(var i=0; i<data.item.length; i++){
+            items.push(data.item[i].Item);
+            delete items[i].item_photo_dir;
+        }
+        for(var i=0; i<data.category.length; i++){
+            categorys.push(data.category[i].Category);
+        }
+        for(var i=0; i<data.ticket.length; i++){
+            tickets.push(data.ticket[i].ticket);
+        }
+        for(var i=0; i<data.cost.length; i++){
+            costs.push(data.cost[i].Cost);
+        }
+        items_back = $.extend(true, {}, items);
+        tickets_back = $.extend(true, {}, tickets);
+        costs_back = $.extend(true, {}, costs);
+
+        firstAdd("category",categorys);
+        firstAdd("item",items);
+        firstAdd("ticket",tickets);
+        firstAdd("cost",costs);
+    });
+
+    function firstAdd(tgt, ary){
+        // 既存の品を出力
+        if(tgt === "category"){
+            var tmp = _.template($("#category_tmp").html());
+            for(var i=0; i<categorys.length; i++){
+                $("#category_reg select[name=category_list]").append(tmp(ary[i]));
+            }
+        }else{
+
+            // リセット用
+            $("#"+tgt+"_reg select[name=item_number] option").eq(0).prop("selected", true);
+
+            var target = $("#"+tgt+"_reg .reg_list"),
+                tmp = _.template($("#"+tgt+"_tmp").html());
+
+            if(tgt === "item"){
+                // カテゴリをプルダウンメニュで表示するため
+                category_option = '<option value="0">すべて</option>';
+                for(var i=0; i<categorys.length; i++){
+                    category_option += '<option value="'+categorys[i].id+'">'+categorys[i].category_name+'</option>';
+                }
+                var count = items.length;
+                for(var i=0; i<count; i++){
+                    // テンプレートのためにプロパティ追加
+                    ary[i].num = i+1;
+                    ary[i].option = category_option;
+                    target.append(tmp(ary[i]));
+                }
+                // カテゴリを合わせる
+                $("#item_reg .touroku_item .category select").each(function(){
+                    var id = $(this).closest(".touroku_item").data("metatag_regiapp_category_id");
+                    for(var i=0; i<$("option",this).length; i++){
+                        if($("option",this).eq(i).val() == id){
+                            $("option",this).eq(i).prop("selected", true);
+                        }
+                    }
+                });
+            }
+            if(tgt === "ticket"){
+                var count = tickets.length;
+                for(var i=0; i<count; i++){
+                    ary[i].num = i+1;
+                    target.append(tmp(ary[i]));
+                }
+            }
+            if(tgt === "cost"){
+                var count = costs.length;
+                for(var i=0; i<count; i++){
+                    ary[i].num = i+1;
+                    target.append(tmp(ary[i]));
+                }
+            }
+        }
+    }
 //--------------------------------------------------------------------------
 // 確定ボタン（登録，更新）
     $("#item_reg .ok").on("click",function(){
@@ -272,41 +366,21 @@ $(function(){
             if(cfm){
                 // リストの値を配列に格納
                 var len = $("#item_reg .reg_list > div").length,
-                    ary = [];
-                if(shop_id != 1){
+                    ary = [],
+                    back = $.extend(true, {}, items_back),
+                    json = [];
+
                     for(var i=0; i<len; i++){
                         var target = $("#item_reg .reg_list > div").eq(i);
                         ary[i] = {
                                 "id" : target.data("metatag_regiapp_item_id"),
                                 "item_name" : $(".name > input:text", target).val(),
-                                "item_price" : $(".price > input:text", target).val() *1,
-                                "item_stock" : $(".stock > input:text", target).val() *1,
+                                "item_price" : parseInt($(".price > input:text", target).val(), 10),
+                                "item_stock" : parseInt($(".stock > input:text", target).val(), 10),
                                 "shop_id" : shop_id,
-                                "category_id" : $(".category > select option:selected",target).val() *1
+                                "category_id" : parseInt($(".category > select option:selected",target).val(), 10)
                              }
                     }
-                }else{
-                    for(var i=0; i<len; i++){
-                        var target = $("#item_reg .reg_list > div").eq(i),
-                            img_src = $(".item_img", target).attr("src"),
-                            leader = $("input:checkbox", target).prop("checked");
-                        if(img_src==""){img_src=null};
-                        ary[i] = {
-                                "id" : target.data("metatag_regiapp_item_id") *1,
-                                "item_name" : $(".name > input:text", target).val(),
-                                "item_price" : $(".price > input:text", target).val() *1,
-                                "item_stock" : $(".stock > input:text", target).val() *1,
-                                "item_detail" : $(".detail", target).val(),
-                                "item_photo" : img_src,
-                                "shop_id" : shop_id,
-                                "category_id" : $(".category > select option:selected",target).val() *1,
-                                "item_leader" : leader
-                             }
-                    }
-                }
-
-                var back = $.extend(true, {}, items_back),
-                    json = [];
                 for(var i=0; i<ary.length; i++){
                     if(ary[i].id == "new"){
                         delete ary[i].id;
@@ -355,17 +429,20 @@ $(function(){
         var cfm = confirm("登録を確定しますか？");
         if(cfm){
             var len = $("#ticket_reg .reg_list > div").length,
-                ary = [];
+                ary = [],
+                back = $.extend(true, {}, tickets_back),
+                json = [];
+
             for(var i=0; i<len; i++){
                 var target = $("#ticket_reg .reg_list > div").eq(i);
                 ary[i] = {
                     "id" : target.data("metatag_regiapp_ticket_id"),
                     "ticket_name" : $(".name > input:text", target).val(),
-                    "ticket_price" : $(".price > input:text", target).val() *1
+                    "ticket_price" : parseInt($(".price > input:text", target).val(), 10)
+                    // "shop_id" : shop_id
+
                 }
             }
-            var back = $.extend(true, {}, tickets_back),
-            json = [];
             for(var i=0; i<ary.length; i++){
                 if(ary[i].id == "new"){
                     delete ary[i].id;
@@ -380,7 +457,7 @@ $(function(){
             json = {"Ticket" : json};
             if(json.Ticket.length !== 0){
                 $.post("/m_regi/tickets/add", json, function(data){
-                    $.get("/m_regi/items/read",{shop_id : shop_id}, function(data){
+                    $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
                         tickets = [], tickets_back = [];
                         for(var i=0; i<data.ticket.length; i++){
                             tickets.push(data.ticket[i].ticket);
@@ -395,157 +472,134 @@ $(function(){
         }
     });// END-$("#ticket_reg .ok").on("click")
 
-    $("#category_reg .ok").on("click", function(){
-        var cfm = confirm("カテちゃん登録すーん？");
+
+    $("#cost_reg .ok").on("click", function(){
+        var cfm = confirm("登録を確定しますか？");
         if(cfm){
-            var category_name = $(this).parent().prev().val();
-            var json = {Category:{"shop_id": shop_id, "category_name": category_name}}
+            var len = $("#cost_reg .reg_list > div").length,
+                ary = [],
+                back = $.extend(true, {}, costs_back),
+                json = [];
+
+            for(var i=0; i<len; i++){
+                var target = $("#cost_reg .reg_list > div").eq(i);
+                ary[i] = {
+                    "id": String(target.data("metatag_cost_id")),
+                    "name": $(".name > input:text", target).val(),
+                    "price": $(".price > input:text", target).val(),
+                    "shop_id" : String(shop_id)
+                }
+            }
+            
+            for(var i=0; i<ary.length; i++){
+                if(ary[i].id == "new"){
+                    delete ary[i].id;
+                    json.push(ary[i]);
+                }else{
+                    var flag = _.isEqual(ary[i], back[i]);
+                    if(!flag){
+                        json.push(ary[i]);
+                    }
+                }
+            }
+            json = {"Cost": json};
+            if(json.Cost.length !== 0){
+                $.post("/m_regi/Costs/add", json, function(data){
+                    $.get("/m_regi/Items/read", {"shop_id": shop_id}, function(data){
+                        costs = [];
+                        for(var i=0; i<data.cost.length; i++){
+                            costs.push(data.cost[i].Cost);
+                        }
+                        costs_back = $.extend(true, {}, costs);
+                        $("#cost_reg .reg_list > div").remove();
+                        firstAdd("cost", costs);
+                        alert("登録が完了しました！");
+                    });
+                });
+            }
+        }
+    });
+    $("#category_reg .ok").on("click", function(){
+        var cfm = confirm("カテゴリを登録しますか？");
+        if(cfm){
+            var category_name = $(">input:text", $(this).prev()).val(),
+                json = {Category:{"shop_id": shop_id, "category_name": category_name}}
             $.post("/m_regi/Categorys/add", json, function(data){
                 $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
                     categorys = [];
-                   for(var i=0; i<data.category.length; i++){
+                    for(var i=0; i<data.category.length; i++){
                        categorys.push(data.category[i].Category);
                     }
-                    alert("カテちゃんは永遠の存在になった！！");
+                    $("#category_reg select[name=category_list] option").each(function(i){
+                        if(i > 0){
+                            $(this).remove();
+                        }
+                    });
+                    firstAdd("category", categorys);
+                    alert("カテゴリの登録が完了しました！");
                 });
             });
         }
     });
-//---------------------------------------------------------------------------------------
-// 商品の読み込み，書き込み
-    $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
-        for(var i=0; i<data.item.length; i++){
-            items.push(data.item[i].Item);
-            delete items[i].item_photo_dir;
-        }
-        for(var i=0; i<data.category.length; i++){
-            categorys.push(data.category[i].Category);
-        }
-        for(var i=0; i<data.ticket.length; i++){
-            tickets.push(data.ticket[i].ticket);
-        }
-
-        items_back = $.extend(true, {}, items);
-        tickets_back = $.extend(true, {}, tickets);
-        // カテゴリをプルダウンメニュで表示するため
-        opt = '<option value="0">すべて</option>';
-        for(var i=0; i<categorys.length; i++){
-            opt += '<option value="'+categorys[i].id+'">'+categorys[i].category_name+'</option>';
-        }
-        firstAdd("item",items);
-        firstAdd("ticket",tickets);
-    });
-
-    function firstAdd(tgt, ary){
-        // 既存の品を出力
-        target = $("#"+tgt+"_reg .reg_list");
-        tmp = _.template($("#"+tgt+"_tmp").html());
-        $("#"+tgt+"_reg select[name=item_number] option").eq(0).prop("selected", true);
-        if(tgt=="item"){
-            var count = items.length;
-            for(var i=0; i<count; i++){
-                // テンプレートのためにプロパティ追加
-                ary[i].num = i+1;
-                ary[i].option = opt;
-                target.append(tmp(ary[i]));
-            }
-            // カテゴリを合わせる
-            $("#item_reg .touroku_item .category select").each(function(){
-                var id = $(this).parents(".touroku_item").data("metatag_regiapp_category_id");
-                for(var i=0; i<$("option",this).length; i++){
-                    if($("option",this).eq(i).val() == id){
-                        $("option",this).eq(i).prop("selected", true);
-                    }
-                }
-            });
-        }else if(tgt=="ticket"){
-            var count = tickets.length;
-            for(var i=0; i<count; i++){
-                ary[i].num = i+1;
-                target.append(tmp(ary[i]));
-            }
-        }
-    }
 //--------------------------------------------------------------------------
 // プルダウン選択でリストを追加
-    $("#item_reg select[name=item_number]").on("change",function(){
-        var target = $("#item_reg .reg_list"),
-            tmp =_.template($("#item_tmp").html()),
+    $("select[name=item_number]").on("change",function(){
+        var target = $(this).closest("[id$=_reg]"),
+            target_list = $(".reg_list", target),
+            tmp = _.template($("[id$=_tmp]", target_list).html()),
+            count = parseInt($(this).val()),
             shelter = [],
-            len = items.length,
-            // 追加数
-            count = parseInt($("#item_reg select[name=item_number] option:selected").val());
+            len;
+        if(target.is("#item_reg")){len=items.length;}
+        if(target.is("#ticket_reg")){len=tickets.length;}
+        if(target.is("#cost_reg")){len=costs.length;}
         for(var i=0; i<len; i++){
-           shelter.push($("#item_reg .reg_list > div").eq(i));
+            shelter.push($(">div", target_list).eq(i));
+            // shelter.push($(">div"), target_list).eq(i);
         }
-        // 削除してから
-        $(">div",target).remove();
+        $(">div", target_list).remove();
         for(var i=0; i<len + count; i++){
             if(i < len){
-                target.append(shelter[i]);
+                target_list.append(shelter[i]);
             }else{
-                target.append(tmp({
-                    "id": "new", "category_id": 0,"num": i+1, "item_name": "", "item_price": 0, "item_stock": 0, "option": opt, "item_detail": "", "item_photo": null, "item_leader": null
-                }));
-            }
-        }
-    });
-    $("#ticket_reg select[name=item_number]").on("change",function(){
-        var target = $("#ticket_reg .reg_list"),
-            tmp =_.template($("#ticket_tmp").html()),
-            shelter = [],
-            len = tickets.length,
-            count = parseInt($("#ticket_reg select[name=item_number] option:selected").val());
-        for(var i=0; i<len; i++){
-           shelter.push($("#ticket_reg .reg_list > div").eq(i));
-        }
-        $(">div",target).remove();
-        for(var i=0; i<len + count; i++){
-            if(i < len){
-                target.append(shelter[i]);
-            }else{
-                target.append(tmp({
-                    "id": "new", "num": i+1, "ticket_name": "", "ticket_price": 0
-                }));
+                if(target.is("#item_reg")){
+                     target_list.append(tmp({
+                        "id": "new", "category_id": 0, "num": i+1, "item_name": "", "item_price": 0, "item_stock": 0, "option": category_option, "item_detail": "", "item_photo": null, "item_leader": null
+                    }));                   
+                }
+                if(target.is("#ticket_reg")){
+                    target_list.append(tmp({
+                        "id": "new", "num": i+1, "ticket_name": "", "ticket_price": 0
+                    }));                 
+                }
+                if(target.is("#cost_reg")){
+                    target_list.append(tmp({
+                        "id":"new", "name":"", "price":0
+                    }));
+                }
             }
         }
     });
 //--------------------------------------------------------------------------
 // リセットボタン（そこのリストを初期状態に戻す）
-    function resetList(tgt, ary){
-        var target = $("#"+tgt+"_reg .reg_list"),
-            tmp = _.template($("#"+tgt+"_tmp").html());
-        $("div",target).remove();
-        for(var i=0; i<ary.length; i++){
-            target.append(tmp(ary[i]));
-        }
-        // selectedも初期状態に戻す
-        $("#"+tgt+"_reg select[name=item_number] option").eq(0).prop("selected", true);
-        $("#item_reg .touroku_item .category select").each(function(){
-            var id = $(this).parents(".touroku_item").data("metatag_regiapp_category_id");
-            for(var i=0; i<$("option",this).length; i++){
-                if($("option",this).eq(i).val() == id){
-                    $("option",this).eq(i).prop("selected", true);
-                }
-            }
-        });
-    }
-    $("#item_reg .cancel").on("click",function(){
-        resetList("item",items);
-    });
-    $("#ticket_reg .cancel").on("click",function(){
-        resetList("ticket",tickets);
+    $(".cancel").on("click",function(){
+        var target = $(this).closest("[id$=_reg]"),
+            target_list = $(".reg_list", target),
+            tmp = _.template($("[id$=_tmp]", target_list).html());
+        $(">div", target_list).remove();
+        if(target.is("#item_reg")){firstAdd("item", items)}     
+        if(target.is("#ticket_reg")){firstAdd("ticket", tickets)}
+        if(target.is("#cost_reg")){firstAdd("cost", costs)}
     });
 //--------------------------------------------------------------------------
 // 消去ボタン
-    // 削除するデータを送信して，DBで削除されてからリロードするようにしたい
-    $(document).on("click","#item_reg .reg_list .delete",function(){
+    $(document).on("click", "#item_reg .reg_list .delete", function(){
         var cfm = confirm( "商品 " + $("input:text", $(this).prevAll(".name")).val() + " を削除しますか？" );
         if(cfm){
-            var id = $(this).parents(".touroku_item").data("metatag_regiapp_item_id");
+            var id = $(this).closest(".touroku_item").data("metatag_regiapp_item_id");
             $.post("/m_regi/Items/delete",{"id": id}, function(data){
                 $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
-                    items = [], items_back = [];
+                    items = [];
                     for(var i=0; i<data.item.length; i++){
                         items.push(data.item[i].Item);
                         delete items[i].item_photo_dir;
@@ -558,13 +612,13 @@ $(function(){
             });
         }
     });
-    $(document).on("click","#ticket_reg .reg_list .delete",function(){
+    $(document).on("click", "#ticket_reg .reg_list .delete", function(){
         var cfm = confirm( "金券 " + $("input:text", $(this).prevAll(".name")).val() + " を削除しますか？" );
         if(cfm){
-            var id = $(this).parents(".touroku_item").data("metatag_regiapp_ticket_id");
+            var id = $(this).closest(".touroku_item").data("metatag_regiapp_ticket_id");
             $.post("/m_regi/tickets/delete", {"id" : id}, function(data){
                 $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
-                    tickets = [], tickets_back = [];
+                    tickets = [];
                     for(var i=0; i<data.ticket.length; i++){
                         tickets.push(data.ticket[i].ticket);
                     }
@@ -576,17 +630,49 @@ $(function(){
             });
         }
     });
-//--------------------------------------------------------------------------
-// 出費登録 未完成
-    $("#expense_reg .reg_btn").on("click",function(){
-        var val1 = $("#expense_reg textarea").val();
-            val2 = $("#expense_reg input:text").val();
-            obj = {content:val1,expense:val2};
-        if(obj.content !== "" && obj.expense !== ""){
-            console.log(obj.content + obj.expense);
-        }else{
-            console.log("null発見");
+    $(document).on("click", "#cost_reg .reg_list .delete", function(){
+        var cfm = confirm( $("input:text", $(this).prevAll(".name")).val() + " を削除しますか？" );
+        if(cfm){
+            var id = $(this).closest(".touroku_item").data("metatag_regiapp_cost_id");
+            debugger;
+            $.post("/m_regi/costs/delete", {"id" : id}, function(data){
+                $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+                    costs = [];
+                    for(var i=0; i<data.cost.length; i++){
+                        costs.push(data.cost[i].Cost);
+                    }
+                    costs_back = $.extend(true, {}, costs);
+                    $("#cost_reg .reg_list > div").remove();
+                    firstAdd("cost", costs);
+                    alert("費用の削除が完了しました！")
+                });
+            });
         }
+    });
+    $("#category_reg .delete").on("click", function(){
+        var id = parseInt($("#category_reg select[name=category_list]").val(), 10);
+        debugger;
+        $.post("/m_regi/Categorys/delete", {"id": id}, function(data){
+            $.get("/m_regi/items/read", {"shop_id" : shop_id}, function(data){
+                categorys = [], items = [];
+                for(var i=0; i<data.item.length; i++){
+                    items.push(data.item[i].Item);
+                    delete items[i].item_photo_dir;
+                }
+                for(var i=0; i<data.category.length; i++){
+                    categorys.push(data.category[i].Category);
+                }
+                items_back = $.extend(true, {}, items);
+                $("#category_reg select[name=category_list] option").each(function(i){
+                    if(i > 0){
+                        $(this).remove();
+                    }
+                });
+                $("#item_reg .reg_list > div").remove();
+                firstAdd("item", items);
+                firstAdd("category", categorys);
+            });
+        });
     });
 //--------------------------------------------------------------------------
     $(document).on("click","input:text.numtxt",function(){
@@ -594,49 +680,6 @@ $(function(){
         return false;
     });
 //--------------------------------------------------------------------------
-// バザー用
-// 画像関連
-    // ドラッグ&ドロップされたらブラウザでファイルが開かれてしまうのを防ぐ
-    $("body").on("dragover",function(){
-        event.preventDefault();
-    });
-    $(document).on("drop",".dropzone",function(){
-        event.preventDefault();
-        event.stopPropagation();
-        // FileListオブジェクトを取得
-        var files = event.dataTransfer.files,
-            file = files[0],
-            fileReader = new FileReader();
-        target_dropzone = $(event.target).attr("id");
-        if(file.type.indexOf("image/") === 0){
-            fileReader.onload = function(event){
-                $("#"+target_dropzone+" > .guide").hide();
-                var src = event.target.result;
-                $("#"+target_dropzone+" > .item_img").attr("src", src);
-                $("#"+target_dropzone+" > .item_img").show();
-            }
-            fileReader.readAsDataURL(file);
-        }else{
-            alert("画像ファイル以外はむりだわ");
-      }
-    });
-//--------------------------------------------------------------------------
-// 外にドラッグ&ドロップで既存の画像を削除
-    $(document).on("dragstart",".item_img",function(){
-        event.dataTransfer.setData("text", event.target.id);
-    })
-    $("body").on("drop",function(){
-        event.preventDefault();
-        var targetclass = $(event.target).attr("class") + "";
-        if (targetclass !== "item_img" && targetclass !== "dropzone"){
-            event.stopPropagation();
-            $("#"+event.dataTransfer.getData("text")).attr("src", "").hide();
-            $("#"+event.dataTransfer.getData("text")).prevAll(".guide").show(); 
-        }
-    })
-
-
-
 
 });
 </script>

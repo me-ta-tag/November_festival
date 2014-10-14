@@ -443,7 +443,6 @@ $(function(){
                         "ticketuse_quantity": parseInt($(".qty", this).val())
                     }
                 });
-                var customer_id = 1;
                 var json = {
                     "Profit": {"shop_id": shop_id, "customer_id": customer_id},
                     "Sale": sale_ary,
