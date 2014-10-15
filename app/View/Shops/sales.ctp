@@ -13,7 +13,7 @@
                 <tr class="cost_tr">
                     <td class="cost_name">100000</td>
                     <td class="cost_yen">10000</td>
-                    <td class="cost_yen">10000</td>   
+                    <td class="cost_yen">10000</td>
 
                 </tr>
             </table>

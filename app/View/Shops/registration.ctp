@@ -1,3 +1,15 @@
+<?php
+    $ItemsRead = $this->Html->url("/Items/read", true);
+    $CategorysAdd = $this->Html->url("/Categorys/add", true);
+    $CategorysDelete = $this->Html->url("/Categorys/delete", true);
+    $ItemsAdd = $this->Html->url("/Items/add", true);
+    $ItemsDelete = $this->Html->url("/Items/delete", true);
+    $TicketsAdd = $this->Html->url("/Tickets/add", true);
+    $TicketsDelete = $this->Html->url("/Tickets/delete", true);
+    $CostsAdd = $this->Html->url("/Costs/add", true);
+    $CostsDelete = $this->Html->url("/Costs/delete", true);
+?>
+
     <div class="touroku_cotainer" style="margin-top:20px;" id="category_reg">
         <table>
            <tr><td style="font-size:140%;"><b>カテゴリ登録</b></td><td class="line5"><hr size = "5"></td></tr>
@@ -257,12 +269,12 @@ var items=[],
     costs=[],
     costs_back=[],
     categorys=[],
-    category_option;
+    category_options;
 
 $(function(){
 //---------------------------------------------------------------------------------------
 // 初めの動作。商品の読み込み，書き込み
-    $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+    $.get("<?php echo $ItemsRead ?>",{"shop_id" : shop_id}, function(data){
         for(var i=0; i<data.item.length; i++){
             items.push(data.item[i].Item);
             delete items[i].item_photo_dir;
@@ -302,16 +314,16 @@ $(function(){
                 tmp = _.template($("#"+tgt+"_tmp").html());
 
             if(tgt === "item"){
-                // カテゴリをプルダウンメニュで表示するため
-                category_option = '<option value="0">すべて</option>';
+                // テンプレートで一度にオプションを表示するため
+                category_options = '<option value="0">すべて</option>';
                 for(var i=0; i<categorys.length; i++){
-                    category_option += '<option value="'+categorys[i].id+'">'+categorys[i].category_name+'</option>';
+                    category_options += '<option value="'+categorys[i].id+'">'+categorys[i].category_name+'</option>';
                 }
                 var count = items.length;
                 for(var i=0; i<count; i++){
                     // テンプレートのためにプロパティ追加
                     ary[i].num = i+1;
-                    ary[i].option = category_option;
+                    ary[i].option = category_options;
                     target.append(tmp(ary[i]));
                 }
                 // カテゴリを合わせる
@@ -342,25 +354,33 @@ $(function(){
     }
 //--------------------------------------------------------------------------
 // 確定ボタン（登録，更新）
-    $("#item_reg .ok").on("click",function(){
+
+    function NumCheck(tgt){
         var flag = true,
             nav = "";
-        $("#item_reg .reg_list .numtxt").each(function(){
+        $("#" + tgt + "_reg .reg_list .numtxt").each(function(){
             if($(this).val().match(/[^0-9]/)){
+                $(this).css("background-color","LightSalmon");
                 flag = false;
-                nav = "金額・在庫は半角数字のみを入力してください";
+                if(tgt === "item"){
+                    nav = "価格・在庫は半角数字のみを入力してください";
+                }
+                if(tgt === "ticket"){
+                    nav = "価格は半角数字のみを入力してください";
+                }
+                if(tgt === "cost"){
+                    nav = "価格は半角数字のみを入力してください";
+                }
             }
         });
         if(nav !== ""){
             alert(nav);
         }
-        // $("#item_reg .reg_list input:text").each(function(){
-        //     if($(this).val() == ""){
-        //         flag = false;
-        //         alert("値を入力してください");
-        //     }
-        // });
-
+        return flag;
+    }
+    
+    $("#item_reg .ok").on("click",function(){
+        var flag = NumCheck("item");
         if(flag){
             var cfm = confirm("登録を確定しますか？");
             if(cfm){
@@ -382,19 +402,19 @@ $(function(){
                              }
                     }
                 for(var i=0; i<ary.length; i++){
-                    if(ary[i].id == "new"){
+                    if(ary[i].id === "new"){
                         delete ary[i].id;
-                        if(shop_id == 1){if(ary[i].item_leader){ary[i].item_leader=1;}else{ary[i].item_leader=0;}}
-                        // nullって送ってもnullにならないから削除，でもnullとしてDBからデータがくるから比較のためnullに1度変換していた
-                        if(ary[i].item_photo == null){delete ary[i].item_photo;}
+                        if(shop_id === 1){if(ary[i].item_leader){ary[i].item_leader=1;}else{ary[i].item_leader=0;}}
+                        // nullって送ってもnullにならないから消去，でもnullとしてDBからデータがくるから比較のためnullに1度変換していた
+                        if(ary[i].item_photo === null){delete ary[i].item_photo;}
                         json.push(ary[i]);
                     }
                     // 更新判断
                     else{
-                        if(shop_id != 1){
+                        if(shop_id !== 1){
                             delete back[i].item_detail; delete back[i].item_photo; delete back[i].item_leader;
                         }else{
-                            if(ary[i].item_photo==null){delete ary[i].item_photo}
+                            if(ary[i].item_photo === null){delete ary[i].item_photo}
                             if(ary[i].item_leader){ary[i].item_leader=1}else{ary[i].item_leader=0}
                         }
                         flag = _.isEqual(ary[i], back[i]);
@@ -407,8 +427,8 @@ $(function(){
 
                 json = {"Item":json};
                 if(json.Item.length !== 0){
-                    $.post("/m_regi/items/add", json, function(data){
-                        $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+                    $.post("<?php echo $ItemsAdd ?>", json, function(data){
+                        $.get("<?php echo $ItemsRead ?>",{"shop_id" : shop_id}, function(data){
                             items = [], items_back = [];
                             for(var i=0; i<data.item.length; i++){
                                 items.push(data.item[i].Item);
@@ -426,96 +446,103 @@ $(function(){
     });// END-$("#item_reg .ok").on("click");
 
     $("#ticket_reg .ok").on("click",function(){
-        var cfm = confirm("登録を確定しますか？");
-        if(cfm){
-            var len = $("#ticket_reg .reg_list > div").length,
-                ary = [],
-                back = $.extend(true, {}, tickets_back),
-                json = [];
+        var flag = NumCheck("ticket");
+        if(flag){
+            var cfm = confirm("登録を確定しますか？");
+            if(cfm){
+                var len = $("#ticket_reg .reg_list > div").length,
+                    ary = [],
+                    back = $.extend(true, {}, tickets_back),
+                    json = [];
 
-            for(var i=0; i<len; i++){
-                var target = $("#ticket_reg .reg_list > div").eq(i);
-                ary[i] = {
-                    "id" : target.data("metatag_regiapp_ticket_id"),
-                    "ticket_name" : $(".name > input:text", target).val(),
-                    "ticket_price" : parseInt($(".price > input:text", target).val(), 10)
-                    // "shop_id" : shop_id
+                for(var i=0; i<len; i++){
+                    var target = $("#ticket_reg .reg_list > div").eq(i);
+                    ary[i] = {
+                        "id" : target.data("metatag_regiapp_ticket_id"),
+                        "ticket_name" : $(".name > input:text", target).val(),
+                        "ticket_price" : parseInt($(".price > input:text", target).val(), 10)
+                        // "shop_id" : shop_id
 
-                }
-            }
-            for(var i=0; i<ary.length; i++){
-                if(ary[i].id == "new"){
-                    delete ary[i].id;
-                    json.push(ary[i]);
-                }else{
-                    var flag = _.isEqual(ary[i], back[i]);
-                    if(!flag){
-                        json.push(ary[i]);
                     }
                 }
-            }
-            json = {"Ticket" : json};
-            if(json.Ticket.length !== 0){
-                $.post("/m_regi/tickets/add", json, function(data){
-                    $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
-                        tickets = [], tickets_back = [];
-                        for(var i=0; i<data.ticket.length; i++){
-                            tickets.push(data.ticket[i].ticket);
+                for(var i=0; i<ary.length; i++){
+                    if(ary[i].id === "new"){
+                        delete ary[i].id;
+                        json.push(ary[i]);
+                    }else{
+                        var flag = _.isEqual(ary[i], back[i]);
+                        if(!flag){
+                            json.push(ary[i]);
                         }
-                        tickets_back = $.extend(true, {}, tickets);
-                        $("#ticket_reg .reg_list > div").remove();
-                        firstAdd("ticket", tickets);
-                        alert("金券の登録が完了しました！")
+                    }
+                }
+                json = {"Ticket" : json};
+                if(json.Ticket.length !== 0){
+                    $.post("<?php echo $TicketsAdd ?>", json, function(data){
+                        $.get("<?php echo $ItemsRead ?>",{"shop_id" : shop_id}, function(data){
+                            tickets = [], tickets_back = [];
+                            for(var i=0; i<data.ticket.length; i++){
+                                tickets.push(data.ticket[i].ticket);
+                            }
+                            tickets_back = $.extend(true, {}, tickets);
+                            $("#ticket_reg .reg_list > div").remove();
+                            firstAdd("ticket", tickets);
+                            alert("金券の登録が完了しました！")
+                        });
                     });
-                });
+                }
             }
         }
     });// END-$("#ticket_reg .ok").on("click")
 
 
     $("#cost_reg .ok").on("click", function(){
-        var cfm = confirm("登録を確定しますか？");
-        if(cfm){
-            var len = $("#cost_reg .reg_list > div").length,
-                ary = [],
-                back = $.extend(true, {}, costs_back),
-                json = [];
+        var flag = NumCheck("cost");
+        if(flag){
+            var cfm = confirm("登録を確定しますか？");
+            if(cfm){
+                var len = $("#cost_reg .reg_list > div").length,
+                    ary = [],
+                    back = $.extend(true, {}, costs_back),
+                    json = [];
 
-            for(var i=0; i<len; i++){
-                var target = $("#cost_reg .reg_list > div").eq(i);
-                ary[i] = {
-                    "id": String(target.data("metatag_cost_id")),
-                    "name": $(".name > input:text", target).val(),
-                    "price": $(".price > input:text", target).val(),
-                    "shop_id" : String(shop_id)
-                }
-            }
-            
-            for(var i=0; i<ary.length; i++){
-                if(ary[i].id == "new"){
-                    delete ary[i].id;
-                    json.push(ary[i]);
-                }else{
-                    var flag = _.isEqual(ary[i], back[i]);
-                    if(!flag){
-                        json.push(ary[i]);
+                for(var i=0; i<len; i++){
+                    var target = $("#cost_reg .reg_list > div").eq(i);
+                    ary[i] = {
+                        "id": String(target.data("metatag_regiapp_cost_id")),
+                        "name": $(".name > input:text", target).val(),
+                        "price": $(".price > input:text", target).val(),
+                        "shop_id" : String(shop_id)
                     }
                 }
-            }
-            json = {"Cost": json};
-            if(json.Cost.length !== 0){
-                $.post("/m_regi/Costs/add", json, function(data){
-                    $.get("/m_regi/Items/read", {"shop_id": shop_id}, function(data){
-                        costs = [];
-                        for(var i=0; i<data.cost.length; i++){
-                            costs.push(data.cost[i].Cost);
+                
+                for(var i=0; i<ary.length; i++){
+                    if(ary[i].id === "new"){
+                        delete ary[i].id;
+                        json.push(ary[i]);
+                    }else{
+                        var flag = _.isEqual(ary[i], back[i]);
+                        if(!flag){
+                            json.push(ary[i]);
                         }
-                        costs_back = $.extend(true, {}, costs);
-                        $("#cost_reg .reg_list > div").remove();
-                        firstAdd("cost", costs);
-                        alert("登録が完了しました！");
+                    }
+                }
+                json = {"Cost": json};
+                debugger;
+                if(json.Cost.length !== 0){
+                    $.post("<?php echo $CostsAdd ?>", json, function(data){
+                        $.get("<?php echo $ItemsRead ?>", {"shop_id": shop_id}, function(data){
+                            costs = [];
+                            for(var i=0; i<data.cost.length; i++){
+                                costs.push(data.cost[i].Cost);
+                            }
+                            costs_back = $.extend(true, {}, costs);
+                            $("#cost_reg .reg_list > div").remove();
+                            firstAdd("cost", costs);
+                            alert("登録が完了しました！");
+                        });
                     });
-                });
+                }
             }
         }
     });
@@ -524,8 +551,8 @@ $(function(){
         if(cfm){
             var category_name = $(">input:text", $(this).prev()).val(),
                 json = {Category:{"shop_id": shop_id, "category_name": category_name}}
-            $.post("/m_regi/Categorys/add", json, function(data){
-                $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+            $.post("<?php echo $CategorysAdd ?>", json, function(data){
+                $.get("<?php echo $ItemsRead ?>",{"shop_id" : shop_id}, function(data){
                     categorys = [];
                     for(var i=0; i<data.category.length; i++){
                        categorys.push(data.category[i].Category);
@@ -535,6 +562,8 @@ $(function(){
                             $(this).remove();
                         }
                     });
+                    $("#item_reg .reg_list > div").remove();
+                    firstAdd("item", items);
                     firstAdd("category", categorys);
                     alert("カテゴリの登録が完了しました！");
                 });
@@ -564,7 +593,7 @@ $(function(){
             }else{
                 if(target.is("#item_reg")){
                      target_list.append(tmp({
-                        "id": "new", "category_id": 0, "num": i+1, "item_name": "", "item_price": 0, "item_stock": 0, "option": category_option, "item_detail": "", "item_photo": null, "item_leader": null
+                        "id": "new", "category_id": 0, "num": i+1, "item_name": "", "item_price": 0, "item_stock": 0, "option": category_options, "item_detail": "", "item_photo": null, "item_leader": null
                     }));                   
                 }
                 if(target.is("#ticket_reg")){
@@ -594,11 +623,11 @@ $(function(){
 //--------------------------------------------------------------------------
 // 消去ボタン
     $(document).on("click", "#item_reg .reg_list .delete", function(){
-        var cfm = confirm( "商品 " + $("input:text", $(this).prevAll(".name")).val() + " を削除しますか？" );
+        var cfm = confirm( "商品 「" + $("input:text", $(this).prevAll(".name")).val() + "」 を消去しますか？" );
         if(cfm){
             var id = $(this).closest(".touroku_item").data("metatag_regiapp_item_id");
-            $.post("/m_regi/Items/delete",{"id": id}, function(data){
-                $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+            $.post("<?php echo $ItemsDelete ?>",{"id": id}, function(data){
+                $.get("<?php echo $ItemsRead ?>",{"shop_id" : shop_id}, function(data){
                     items = [];
                     for(var i=0; i<data.item.length; i++){
                         items.push(data.item[i].Item);
@@ -607,17 +636,17 @@ $(function(){
                     items_back = $.extend(true, {}, items);
                     $("#item_reg .reg_list > div").remove();
                     firstAdd("item", items);
-                    alert("商品の削除が完了しました！");
+                    alert("商品の消去が完了しました！");
                 });
             });
         }
     });
     $(document).on("click", "#ticket_reg .reg_list .delete", function(){
-        var cfm = confirm( "金券 " + $("input:text", $(this).prevAll(".name")).val() + " を削除しますか？" );
+        var cfm = confirm( "金券 「" + $("input:text", $(this).prevAll(".name")).val() + "」 を消去しますか？" );
         if(cfm){
             var id = $(this).closest(".touroku_item").data("metatag_regiapp_ticket_id");
-            $.post("/m_regi/tickets/delete", {"id" : id}, function(data){
-                $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+            $.post("<?php echo $TicketsDelete ?>", {"id" : id}, function(data){
+                $.get("<?php echo $ItemsRead ?>",{"shop_id" : shop_id}, function(data){
                     tickets = [];
                     for(var i=0; i<data.ticket.length; i++){
                         tickets.push(data.ticket[i].ticket);
@@ -625,18 +654,17 @@ $(function(){
                     tickets_back = $.extend(true, {}, tickets);
                     $("#ticket_reg .reg_list > div").remove();
                     firstAdd("ticket", tickets);
-                    alert("金券の削除が完了しました！")
+                    alert("金券の消去が完了しました！")
                 });
             });
         }
     });
     $(document).on("click", "#cost_reg .reg_list .delete", function(){
-        var cfm = confirm( $("input:text", $(this).prevAll(".name")).val() + " を削除しますか？" );
+        var cfm = confirm("費用「" + $("input:text", $(this).prevAll(".name")).val() + "」 を消去しますか？" );
         if(cfm){
             var id = $(this).closest(".touroku_item").data("metatag_regiapp_cost_id");
-            debugger;
-            $.post("/m_regi/costs/delete", {"id" : id}, function(data){
-                $.get("/m_regi/items/read",{"shop_id" : shop_id}, function(data){
+            $.post("<?php echo $CostsDelete ?>", {"id" : id}, function(data){
+                $.get("<?php echo $ItemsRead ?>",{"shop_id" : shop_id}, function(data){
                     costs = [];
                     for(var i=0; i<data.cost.length; i++){
                         costs.push(data.cost[i].Cost);
@@ -644,39 +672,43 @@ $(function(){
                     costs_back = $.extend(true, {}, costs);
                     $("#cost_reg .reg_list > div").remove();
                     firstAdd("cost", costs);
-                    alert("費用の削除が完了しました！")
+                    alert("費用の消去が完了しました！")
                 });
             });
         }
     });
     $("#category_reg .delete").on("click", function(){
-        var id = parseInt($("#category_reg select[name=category_list]").val(), 10);
-        debugger;
-        $.post("/m_regi/Categorys/delete", {"id": id}, function(data){
-            $.get("/m_regi/items/read", {"shop_id" : shop_id}, function(data){
-                categorys = [], items = [];
-                for(var i=0; i<data.item.length; i++){
-                    items.push(data.item[i].Item);
-                    delete items[i].item_photo_dir;
-                }
-                for(var i=0; i<data.category.length; i++){
-                    categorys.push(data.category[i].Category);
-                }
-                items_back = $.extend(true, {}, items);
-                $("#category_reg select[name=category_list] option").each(function(i){
-                    if(i > 0){
-                        $(this).remove();
+        var cfm = confirm("カテゴリ 「" + $("#category_reg select[name=category_list] option:selected").html() +"」 を消去しますか？");
+        if(cfm){
+            var id = parseInt($("#category_reg select[name=category_list]").val(), 10);
+            $.post("<?php echo $CategorysDelete ?>", {"id": id}, function(data){
+                $.get("<?php echo $ItemsRead ?>", {"shop_id" : shop_id}, function(data){
+                    categorys = [], items = [];
+                    for(var i=0; i<data.item.length; i++){
+                        items.push(data.item[i].Item);
+                        delete items[i].item_photo_dir;
                     }
+                    for(var i=0; i<data.category.length; i++){
+                        categorys.push(data.category[i].Category);
+                    }
+                    items_back = $.extend(true, {}, items);
+                    $("#category_reg select[name=category_list] option").each(function(i){
+                        if(i > 0){
+                            $(this).remove();
+                        }
+                    });
+                    $("#item_reg .reg_list > div").remove();
+                    firstAdd("item", items);
+                    firstAdd("category", categorys);
+                    alert("カテゴリの消去が完了しました！")
                 });
-                $("#item_reg .reg_list > div").remove();
-                firstAdd("item", items);
-                firstAdd("category", categorys);
             });
-        });
+        }
     });
 //--------------------------------------------------------------------------
     $(document).on("click","input:text.numtxt",function(){
         $(this).select();
+        $(this).css("background-color","");
         return false;
     });
 //--------------------------------------------------------------------------
