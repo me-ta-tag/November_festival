@@ -124,23 +124,44 @@
                         echo $this->html->image('item/item_photo/'.$val['Item']['item_photo_dir'].'/'.$val['Item']['item_photo'],array('alt' =>'img','width' => '200','height' => '200'));
                         echo ('</div>');
                     }
-                    if(count($items['item']) == 0){
+                    //if(count($items['item']) == 0){
+                        /*
                         $option['shop_id'] = array('type' => 'text','value' => 1);
                         echo ('<div class="metaupload">');
+
                         foreach($option as $key => $value){
                             echo $this->Form->input("Item.0.".$key,listSetting("",$value));
                         }
                         echo ('</div>');
-                    }else{
-                        echo ('<div class="metaupload">');
-                        for($i = count($items['item'])-1;$i < count($items['item']);$i++){
-                            $option['shop_id'] = array('type' => 'text','value' => 1);
-                            foreach($option as $key => $value){
-                                echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
+                        */
+                    //}else{
+
+                        //var_dump($getListValue);
+                        //for($i = count($items['item']) - 1;$i < count($items['item']);$i++){
+                        if(empty($getListValue)){
+
+                            for($i = count($items['item']);$i < 0;$i++){
+                                echo ('<div class="metaupload">');
+
+                                $option['shop_id'] = array('type' => 'text','value' => 1);
+                                foreach($option as $key => $value){
+                                    echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
+                                }
+                                echo ('</div>');
+                            }
+                        }else{
+                            //var_dump($_GET['list_value']);
+                            for($i = count($items['item']) ;$i < $getListValue;$i++){
+                                echo ('<div class="metaupload">');
+
+                                $option['shop_id'] = array('type' => 'text','value' => 1);
+                                foreach($option as $key => $value){
+                                    echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
+                                }
+                                echo ('</div>');
                             }
                         }
-                        echo ('</div>');
-                    }
+                    //}
                     echo ('<div class="submitbtn">');
                     echo $this->Form->end('Submit');
                     echo ('</div>');
@@ -373,35 +394,41 @@ $(function(){
     function firstadd(tgt, ary){
         // プルダウンメニュの内容を生成
         var target = $("#"+tgt+"_reg select[name=item_number]"),
-            tmp = _.template($("#op_tmp").html()),
-            len = ary.length;
-        for(var i=len; i<=len+10; i++){
-            target.append(tmp({len:i}));
-        }
-        // 既存の品を出力
-        target = $("#"+tgt+"_reg .reg_list");
-        tmp = _.template($("#"+tgt+"_tmp").html());
-        var count = $("#"+tgt+"_reg select[name=item_number] option:selected").val();
-        if(tgt=="item"){
-            for(var i=0; i<count; i++){
-                // テンプレートのためにプロパティ追加
-                ary[i].num = i+1;
-                ary[i].option = opt;
-                target.append(tmp(ary[i]));
+                tmp = _.template($("#op_tmp").html())
+        if(shop_id == 1 && tgt == "item" ) {
+            for(var i=$(".metaupload").length; i<=$(".metaupload").length+10; i++){
+                target.append(tmp({len:i}));
             }
-            // カテゴリを合わせる
-            $("#item_reg .touroku_item .category select").each(function(){
-                var id = $(this).parents(".touroku_item").data("metatag_regiapp_category_id");
-                for(var i=0; i<$("option",this).length; i++){
-                    if($("option",this).eq(i).val() == id){
-                        $("option",this).eq(i).prop("selected", true);
-                    }
+        }else{
+            var len = ary.length;
+            for(var i=len; i<=len+10; i++){
+                target.append(tmp({len:i}));
+            }
+            // 既存の品を出力
+            target = $("#"+tgt+"_reg .reg_list");
+            tmp = _.template($("#"+tgt+"_tmp").html());
+            var count = $("#"+tgt+"_reg select[name=item_number] option:selected").val();
+            if(tgt=="item"){
+                for(var i=0; i<count; i++){
+                    // テンプレートのためにプロパティ追加
+                    ary[i].num = i+1;
+                    ary[i].option = opt;
+                    target.append(tmp(ary[i]));
                 }
-            });
-        }else if(tgt=="ticket"){
-            for(var i=0; i<count; i++){
-                ary[i].num = i+1;
-                target.append(tmp(ary[i]));
+                // カテゴリを合わせる
+                $("#item_reg .touroku_item .category select").each(function(){
+                    var id = $(this).parents(".touroku_item").data("metatag_regiapp_category_id");
+                    for(var i=0; i<$("option",this).length; i++){
+                        if($("option",this).eq(i).val() == id){
+                            $("option",this).eq(i).prop("selected", true);
+                        }
+                    }
+                });
+            }else if(tgt=="ticket"){
+                for(var i=0; i<count; i++){
+                    ary[i].num = i+1;
+                    target.append(tmp(ary[i]));
+                }
             }
         }
     }
@@ -462,7 +489,11 @@ $(function(){
         }
     }
     $("#item_reg select[name=item_number]").on("change",function(){
-        listadd("item");
+        if(shop_id == 1){
+            location.href = '?list_value='+ $("#item_reg select[name=item_number]").val();
+        }else{
+            listadd("item");
+        }
     });
     $("#ticket_reg select[name=item_number]").on("change",function(){
         listadd("ticket");
@@ -502,6 +533,15 @@ $(function(){
             console.log(data);
         });
     });
+    /*
+    $(document).on("click","#ItemRegistrationForm .metaupload .delete",function(){
+        //var id = $(this).parents(".touroku_item").data("metatag_regiapp_item_id");
+        $.post("/m_regi/Items/delete",{id : $($(this).parent("div").children("input")[0]).val()}, function(data){
+            console.log(data);
+        });
+    });
+    */
+
     $(document).on("click","#ticket_reg .reg_list .delete",function(){
         var id = $(this).parent().data("metatag_regiapp_ticket_id");
         alert(id);
@@ -578,8 +618,6 @@ $(function(){
 
         }
     });
-
-
 
 });
 

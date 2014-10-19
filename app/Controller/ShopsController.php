@@ -85,6 +85,14 @@ class ShopsController extends AppController {
 
             // $studentsの配列をviewに渡す。
             $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets));
+//            var_dump((int)$this->params['url']['list_value']);
+            if(empty($this->params['url']['list_value'])){
+                $outValue ="";
+            }else{
+                $outValue = (int)$this->params['url']['list_value'];
+
+            }
+            $this->set('getListValue', $outValue);
         }
     }
     // 売上詳細ページ
