@@ -25,7 +25,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	echo $this->Html->script( 'jquery-1.11.1.min' );
 	echo $this->Html->script( 'underscore-min' );
     echo $this->Html->script( 'easyselectbox' );
-
+    
     if(isset($shop['id'])){ echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>';}
 ?>
 <!DOCTYPE html>
@@ -39,9 +39,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <!-- 	
 	<?php
 		echo $this->Html->meta('icon');
-
 		echo $this->Html->css('cake.generic');
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -85,7 +83,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
             	<select id="#eazy-select" onchange="navi(this)">
 					<option>menu</option>
 					<option value="/m_regi/shops">マイページへ</option>
-					<option value="/m_regi/shops/registration">登録画面へ</option>
+                    <option value="/m_regi/sales">売上画面へ</option>
+                    <option value="/m_regi/registration">各種登録・削除画面へ</option>
 					<option value="/m_regi/shops/payment">会計画面へ</option>
            		</select>
            		</form>
@@ -96,7 +95,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 				</script>
 
             </div>
-            <div class = "head_right"> 
+            <div class = "head_right">
+            <li class = "kaikei">
+                <input type = "button" value = "売上" class="btn" onclick ="location.href='/m_regi/Shops/sales'">
+            </li>
             <li class = "touroku">
                 <input type = "button" value = "登録" class="btn" onclick ="location.href='/m_regi/shops/registration'">
             </li>

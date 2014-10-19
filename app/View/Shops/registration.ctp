@@ -9,7 +9,7 @@
     $CostsAdd = $this->Html->url("/Costs/add", true);
     $CostsDelete = $this->Html->url("/Costs/delete", true);
 ?>
-
+<!--
     <div class="touroku_cotainer" style="margin-top:20px;" id="category_reg">
         <table>
            <tr><td style="font-size:140%;"><b>カテゴリ登録</b></td><td class="line5"><hr size = "5"></td></tr>
@@ -31,6 +31,32 @@
                 </select>
                 <span class="delete"><input type="button" class="btn" value="消去"></span>
             </div>
+        </div>
+    </div>
+-->
+
+    <div class="touroku_cotainer" style="margin-top:20px;" id="category_reg">
+        <table>
+           <tr><td style="font-size:140%;"><b>カテゴリ登録</b></td><td class="line5"><hr size = "5"></td></tr>
+        </table>
+        <div class="touroku_1">
+            <div class="category_name"><b>カテゴリ名</b></div>
+        </div>
+        <div class="touroku_item">
+            <!-- カテゴリ登録 -->
+            <div class="touroku_item_1 name"><input type="text" name="item_name1"></div>
+            <div class="touroku_item_5 ok"><input type="button" value="登録" class = "btn"></div>
+
+            <!-- カテゴリ消去 -->
+            <select name="category_name">
+                <option value="0">どれを消す？</option>
+
+                <script id="category_tmp" type="text/template">
+                    <option value="<%-id%>"><%-category_name%></option>
+                </script>
+
+            </select>
+            <div class="touroku_item_5 delete"><input type="button" value="消去" class = "btn" onclick="***"></div>
         </div>
     </div>
 
@@ -67,14 +93,14 @@
                 <script id="item_tmp" type="text/template">
                 <% if(shop_id != 1){%>
                 <div class="touroku_item" data-metatag_regiapp_item_id="<%-id%>" data-metatag_regiapp_category_id="<%-category_id%>">
-                    <span class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-item_name%>"></span>
-                    <span class="touroku_item_2 price">¥<input type="text" class="numtxt" value="<%-item_price%>"></span>
-                    <span class="touroku_item_3 category"><select><%=option%></select></span>
-                    <span class="touroku_item_4 stock"><input type="text" class="numtxt" value="<%-item_stock%>"></span>
+                    <div class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-item_name%>"></div>
+                    <div class="touroku_item_2 price">¥<input type="text" class="numtxt" value="<%-item_price%>"></div>
+                    <div class="touroku_item_3 category"><select><%=option%></select></div>
+                    <div class="touroku_item_4 stock"><input type="text" class="numtxt" value="<%-item_stock%>"></div>
                     <% if(id !== "new"){ %>
-                    <span class="touroku_item_5 delete"><input type="button" class="btn" value="消去"></span>
+                    <div class="touroku_item_5 delete"><input type="button" class="btn" value="消去"></div>
                     <% }else{ %>
-                    <span class="touroku_item_5" style="visibility:hidden;"><input type="button" class="btn" value="消去"></span>
+                    <div class="touroku_item_5" style="visibility:hidden;"><input type="button" class="btn" value="消去"></div>
                     <% } %>
                 </div>
                 <% } %>
@@ -187,12 +213,12 @@
 
             <script id="ticket_tmp" type="text/template">
                 <div class="touroku_item" data-metatag_regiapp_ticket_id="<%-id%>">
-                    <span class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-ticket_name%>"></span>
-                    <span class="touroku_item_2 price"><input type="text" class="numtxt" size="3" value="<%-ticket_price%>"></span>
+                    <div class="touroku_item_1 name"><%-num%>:<input type="text" value="<%-ticket_name%>"></div>
+                    <div class="touroku_item_2 price"><input type="text" class="numtxt" size="3" value="<%-ticket_price%>"></div>
                     <%if(id !== "new"){%>
-                        <span class="touroku_item_5 delete"><input type="button" class="btn" value="消去"></span>
+                        <div class="touroku_item_5 delete"><input type="button" class="btn" value="消去"></div>
                     <%}else{%>
-                        <span class="touroku_item_5"><input type="button" class="btn" style="visibility:hidden;" value="消去"></span>
+                        <div class="touroku_item_5"><input type="button" class="btn" style="visibility:hidden;" value="消去"></div>
                     <%}%>
                 </div>
             </script>
@@ -242,9 +268,9 @@
                     <div class="touroku_item_1 name"><input type="text" value="<%-name%>"></div>
                     <div class="touroku_item_2 price">￥<input type="text" class="numtxt" value="<%-price%>"></div>
                     <%if(id !== "new"){%>
-                        <span class="touroku_item_5 delete"><input type="button" class="btn" value="消去"></span>
+                        <div class="touroku_item_5 delete"><input type="button" class="btn" value="消去"></div>
                     <%}else{%>
-                        <span class="touroku_item_5"><input type="button" class="btn" style="visibility:hidden;" value="消去"></span>
+                        <div class="touroku_item_5"><input type="button" class="btn" style="visibility:hidden;" value="消去"></div>
                     <%}%>
                 </div>
             </script>
@@ -303,7 +329,7 @@ $(function(){
         if(tgt === "category"){
             var tmp = _.template($("#category_tmp").html());
             for(var i=0; i<categorys.length; i++){
-                $("#category_reg select[name=category_list]").append(tmp(ary[i]));
+                $("#category_reg select[name=category_name]").append(tmp(ary[i]));
             }
         }else{
 
@@ -528,7 +554,6 @@ $(function(){
                     }
                 }
                 json = {"Cost": json};
-                debugger;
                 if(json.Cost.length !== 0){
                     $.post("<?php echo $CostsAdd ?>", json, function(data){
                         $.get("<?php echo $ItemsRead ?>", {"shop_id": shop_id}, function(data){
@@ -557,11 +582,12 @@ $(function(){
                     for(var i=0; i<data.category.length; i++){
                        categorys.push(data.category[i].Category);
                     }
-                    $("#category_reg select[name=category_list] option").each(function(i){
+                    $("#category_reg select[name=category_name] option").each(function(i){
                         if(i > 0){
                             $(this).remove();
                         }
                     });
+                    $("#category_reg .name > input:text").val("");
                     $("#item_reg .reg_list > div").remove();
                     firstAdd("item", items);
                     firstAdd("category", categorys);
@@ -678,9 +704,9 @@ $(function(){
         }
     });
     $("#category_reg .delete").on("click", function(){
-        var cfm = confirm("カテゴリ 「" + $("#category_reg select[name=category_list] option:selected").html() +"」 を消去しますか？");
+        var cfm = confirm("カテゴリ 「" + $("#category_reg select[name=category_name] option:selected").html() +"」 を消去しますか？");
         if(cfm){
-            var id = parseInt($("#category_reg select[name=category_list]").val(), 10);
+            var id = parseInt($("#category_reg select[name=category_name]").val(), 10);
             $.post("<?php echo $CategorysDelete ?>", {"id": id}, function(data){
                 $.get("<?php echo $ItemsRead ?>", {"shop_id" : shop_id}, function(data){
                     categorys = [], items = [];
@@ -692,7 +718,7 @@ $(function(){
                         categorys.push(data.category[i].Category);
                     }
                     items_back = $.extend(true, {}, items);
-                    $("#category_reg select[name=category_list] option").each(function(i){
+                    $("#category_reg select[name=category_name] option").each(function(i){
                         if(i > 0){
                             $(this).remove();
                         }
