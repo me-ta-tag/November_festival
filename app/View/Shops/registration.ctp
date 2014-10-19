@@ -91,6 +91,12 @@
                 //var_dump(count($items['item']));
                 if( $shop['id'] == 1){
                     //var_dump($items['item'][0]['Item']);
+                    //var_dump($items['category']);
+                    $categorys = array();
+                    foreach($items['category'] as $key => $value){
+                        //var_dump($value);
+                        $categorys[$value["Category"]['id']] = $value["Category"]['category_name'];
+                    }
                     echo $this->Form->create('Item', array("url" => "/Items/add",'type' => 'file'));
 
                     $option = array(
@@ -103,8 +109,8 @@
                         'item_leader' => array('class' => 'checkChange'),
                         'item_stock' => array(),
                         'shop_id' => array('type' => 'text'),
-                        'category_id' => array('type' => 'text')
-                    );
+                        'category_id' => array( 'type' => 'select','options' => $categorys)
+                );
 
                     foreach($items['item'] as $k => $val){
                         echo ('<div class="metaupload">');
