@@ -66,7 +66,7 @@
         -webkit-border-radius: 0px;
         border-radius: 0px;
     }
-    button.regi, input[type="button"].regi, button.button_item, input[type="button"].button_item, button.category_touroku, input[type="button"].category_touroku{
+    div.submit > input[type="submit"], button.regi, input[type="button"].regi, button.button_item, input[type="button"].button_item, button.category_touroku, input[type="button"].category_touroku{
         -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 2px rgba(255, 255, 255, 0.7);
         -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 2px rgba(255, 255, 255, 0.7);
         box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 2px rgba(255, 255, 255, 0.7);
@@ -158,58 +158,6 @@ width:93px;
 	position:relative;
 	top:1px;
 }
-.left_container div.divButtonOff {
-  padding: 10px;
-  background: #a9a9a9;
-  width: 350px;
-  margin-top: 5px;
-  margin-left: 5px;
-}
-.left_container div.divButtonOff span {
-  font: 15px;
-}
-.left_container div.divButtonOff span.id {
-  margin-left: -5px;
-}
-.left_container div.divButtonOff span.name {
-  margin-left: 20px;
-}
-.left_container div.divButtonOff span.price {
-  margin-left: 100px;
-}
-.left_container div.divButtonOff span.number {
-  margin-left: 30px;
-}
-.left_container div.divButtonOff span.money {
-  margin-left: 15px;
-}
-.right_container div.divButtonOn {
-  padding: 10px;
-  background: lightskyblue;
-  width: 450px;
-  margin-left: 5px;
-  margin-top: 5px;
-}
-.right_container div.divButtonOn span {
-  font: 15px;
-}
-.right_container div.divButtonOn span.id {
-  margin-left: -5px;
-}
-.right_container div.divButtonOn span.name {
-  margin-left: 20px;
-}
-.right_container div.divButtonOn span.price {
-  margin-left: 100px;
-}
-.right_container div.divButtonOn span.number {
-  margin-left: 30px;
-}
-.right_container div.divButtonOn span.money {
-  margin-left: 15px;
-}
-
-
 
 
 /*
@@ -254,7 +202,7 @@ width:93px;
         width:400px;
         border:1px solid black;
         overflow: scroll;
-        text-align: center;
+        /*text-align: center;*/
         background: #fff;
     }
 
@@ -264,14 +212,11 @@ width:93px;
     }
 
     .sell{
+        border: solid 2px #333;
         width: 400px;
         height: 180px;
         margin: 20px 0;
-		border: 2px solid black;
     }
-	.sell li{
-		font-size: 120%;
-	}
     /*
     ここまで左側コンテンツ
     */
@@ -315,7 +260,7 @@ width:93px;
         float: right;
         border:1px solid black;
         overflow: scroll;
-        text-align: center;
+/*         text-align: center; */
         margin-bottom: 20px;
         background: #fff;
     }
@@ -365,6 +310,7 @@ width:93px;
         height: 33px;
         font-size: 100%;
         float: right;
+        text-align: right;
     }
     .decide{
         clear: both;
@@ -474,10 +420,10 @@ width:93px;
         height: 50px;
         padding-left: 10px;
     }
-    .sales_all3, .sales_other{
+    .sales_all, .sales_all3, .sales_other{
         border-right: 1px solid black;
     }
-    .sales_all2, .sales_all{
+    .sales_all2{
         border-right: 3px double black;
     }
     tfoot{
@@ -490,15 +436,14 @@ width:93px;
         padding-top: 10px;
         padding-left: 10px;
     }
+    .null{
+        width:50px;
+        height: 30px;
+        text-align: center;
+    }
     .line3{
         width:810px;
     }
-	.line4{
-		width: 870px;
-	}
-	.line5{
-		width: 800px;
-	}
 
 
 /*==============================================
@@ -541,42 +486,113 @@ width:93px;
             margin-top: 5px;
         }
         .touroku_1_1{
-            margin-left: 51px;
+            margin-left: 45px;
         }
         .touroku_1_2{
-            margin-left:  150px;
+            margin-left: 28px;
         }
         .touroku_1_3{
-            margin-left:  110px;
+            margin-left:  50px;
         }
         .touroku_1_4{
-            margin-left:  10px;
+            margin-left:  40px;
         }
+
+        .numtxt {
+            width: 60px;
+        }
+        #item_reg .touroku_item_1{
+            position: relative;        
+            left: -80;
+        }
+        #item_reg .touroku_item_2{
+            position: relative;
+            left: -20;
+        }
+		#item_reg .touroku_item_3 select{
+			width: 130px;
+		}
+		#item_reg .touroku_item_4{
+			position: relative;
+			left: 20;
+		}
+		#item_reg .touroku_item_5{
+			position: relative;
+			left: 50;
+		}
+
         .touroku_2_1{
             margin-left: 174px;
         }
         .touroku_2_2{
             margin-left: 150px;
         }
+		#ticket_reg .touroku_item_1{
+			position: relative;
+			left: -70px;
+		}
+		#ticket_reg .touroku_item_2{
+			position: relative;
+			left: -30px;
+		}
+		#ticket_reg .touroku_item_5{
+			position: relative;
+			left: 20px;
+		}
+		
         .touroku_3_1{
             margin-left: 174px;
         }
         .touroku_3_2{
             margin-left: 150px;
         }
-		.touroku_4_1{
-			margin-left: 320px;
+		#expence_reg .touroku_item_1{
+			position: relative;
+			left: -50px;
+		}
+		#expence_reg .touroku_item_2{
+			position: relative;
+			left: -40px;
 		}
         .touroku_body{
-            margin-top: 10px;
+            margin-top: 20px;
         }
         .touroku_item{
             margin-top: 10px;
         }
-		.category_name{
-			margin-left: 240px;
-		}
 
+        form div.metaupload{
+            margin: auto;
+            /* margin-left: auto; */
+            /* margin-right: auto; */
+            width: 720;
+            height: 260;
+            background-color: aquamarine;
+            /* border: red; */
+            margin-bottom: 10px;
+        }
+        form div.metaupload .file{
+            position: relative;
+            left: 320px;
+            top: -130px;
+        }
+        form div.metaupload .file ~ div{
+            position: relative;
+            top: -20px;
+        }
+        form div.metaupload img{
+            position: relative;
+            top: -200px;
+            left: 350px;
+        }
+        form div.submitbtn{
+            margin-left: auto;
+            margin-right: auto;
+            width: 0;
+        }
+
+
+}
 @charaset "utf-8";
 /*==================================
  一部タブレット縦向け、スマートフォン横向けのスタイル
@@ -606,9 +622,7 @@ width:93px;
     ここまでヘッダーｃｓｓ
     =============================================
     */
-	.sell{
-		width: 100px;
-	}
+
     /*ここまで会計ページCSS*/
     .link ul li{
         display: block;
@@ -618,9 +632,6 @@ width:93px;
     .link ul li input{
         width: 80%;
     }
-	.left_container div .divButtonOff,.right_container div.divButtonOn{
-		width:auto;
-	}
 /*==============================================
     売上詳細
 ================================================*/
@@ -642,12 +653,6 @@ width:93px;
     .line3{
         width: 630px;
     }
-	.line4{
-		width: 670px;
-	}
-	.line5{
-		width: 600px;
-	}
 
 }
 /*
@@ -705,14 +710,9 @@ body{
 
     .sell{
         position: absolute;
-        top: 750px;
+        top: 805px;
         width: 45%;
-		border: none;
     }
-	.sell li{
-		font-size: 100%;
-	}
-	
     /*
     ここまで左側コンテンツ
     */
@@ -729,7 +729,7 @@ body{
         margin: 0 auto 20px;
     }
 
-    .ticket,.sell{
+    .ticket{
         width: 50%;
         float: left;
     }

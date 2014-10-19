@@ -25,7 +25,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	echo $this->Html->script( 'jquery-1.11.1.min' );
 	echo $this->Html->script( 'underscore-min' );
     echo $this->Html->script( 'easyselectbox' );
-
+    
     if(isset($shop['id'])){ echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>';}
 ?>
 <!DOCTYPE html>
@@ -39,9 +39,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <!-- 	
 	<?php
 		echo $this->Html->meta('icon');
-
 		echo $this->Html->css('cake.generic');
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -77,6 +75,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 $linkShop = $this->Html->url("/shops", true);
                 $linkRegi = $this->Html->url("/shops/registration",true);
                 $linkPay = $this->Html->url("/shops/payment", true);
+                $linkSales = $this->Html->url("/shops/sales", true)
             ?>
         	<?php if(isset($shop['id'])){?>
             <div class="toggle t_left">
@@ -98,6 +97,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 					<option value="<?php echo $linkShop ?>">マイページへ</option>
 					<option value="<?php echo $linkRegi ?>">登録画面へ</option>
 					<option value="<?php echo $linkPay ?>">会計画面へ</option>
+                    <option value="<?php echo $linkSales ?>">売上画面へ</option>
            		</select>
            		</form>
            		<script type="text/javascript">
@@ -107,7 +107,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 				</script>
 
             </div>
-            <div class = "head_right"> 
+            <div class = "head_right">
+            <li class = "kaikei">
+                <input type = "button" value = "売上" class="btn" onclick ="location.href='<?php echo $linkSales ?>'">
+            </li>
             <li class = "touroku">
                 <input type = "button" value = "登録" class="btn" onclick ="location.href='<?php echo $linkRegi ?>'">
             </li>
