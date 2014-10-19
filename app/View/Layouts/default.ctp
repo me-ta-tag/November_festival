@@ -84,7 +84,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
             </div>
             <div class = "head_left">
             <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='<?php echo $linkShop ?>'"></li>
-            <li class = "shop_name"><?php echo ( $shop['id'] );  ?></li>
+            <li class = "shop_name"><?php echo ( $shop['shop_name'] );  ?></li>
             <li class = "logout">
                 <input type = "button" value = "ログアウト" class="btn" onclick = "location.href='<?php echo $linkLogout ?>'">
             </li>

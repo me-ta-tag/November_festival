@@ -358,13 +358,13 @@ $(function(){
 
     function firstAdd(tgt, ary){
         // 既存の品を出力
-        var target = $("#"+tgt+"_reg select[name=item_number]"),
-                tmp = _.template($("#op_tmp").html())
-        if(shop_id == 1 && tgt == "item" ) {
-            for(var i=$(".metaupload").length; i<=$(".metaupload").length+10; i++){
-                target.append(tmp({len:i}));
-            }
-        }else {
+        // var target = $("#"+tgt+"_reg select[name=item_number]"),
+        //         tmp = _.template($("#op_tmp").html())
+        // if(shop_id == 1 && tgt == "item" ) {
+        //     for(var i=$(".metaupload").length; i<=$(".metaupload").length+10; i++){
+        //         target.append(tmp({len:i}));
+        //     }
+        //  }else {
             if (tgt === "category") {
                 var tmp = _.template($("#category_tmp").html());
                 for (var i = 0; i < categorys.length; i++) {
@@ -416,7 +416,7 @@ $(function(){
                     }
                 }
             }
-        }
+        //}
     }
 //--------------------------------------------------------------------------
 // 確定ボタン（登録，更新）
@@ -580,7 +580,7 @@ $(function(){
                         "shop_id" : String(shop_id)
                     }
                 }
-            }else if(tgt=="ticket"){
+            // }else if(tgt=="ticket"){
                 for(var i=0; i<count; i++){
                     ary[i].num = i+1;
                     target.append(tmp(ary[i]));
@@ -612,7 +612,7 @@ $(function(){
                         });
                     });
                 }
-            }
+            // }
         }
     });
     $("#category_reg .ok").on("click", function(){
