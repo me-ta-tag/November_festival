@@ -39,12 +39,12 @@
                    <th class="sales_day"><b>日付</b></th>
                    <th class="sales_yen"><b>売上(円)</b></th>
                    <th class="sales_customer"><b>客数(人)</b></th>
-                   <th class="sales_other_big"><b>~20/男(人)</b></th>
-                   <th class="sales_other_big"><b>30~50/男(人)</b></th> 
-                   <th class="sales_other_big"><b>50~/男(人)</b></th> 
-                   <th class="sales_other_big"><b>~20/女(人)</b></th> 
-                   <th class="sales_other_big"><b>30~50/女(人)</b></th> 
-                   <th class="sales_other_big"><b>50~/女(人)</b></th>
+                   <th class="sales_other_big"><b>-20/男(人)</b></th>
+                   <th class="sales_other_big"><b>30-50/男(人)</b></th> 
+                   <th class="sales_other_big"><b>50-/男(人)</b></th> 
+                   <th class="sales_other_big"><b>-20/女(人)</b></th> 
+                   <th class="sales_other_big"><b>30-50/女(人)</b></th> 
+                   <th class="sales_other_big"><b>50-/女(人)</b></th>
                 </tr>
             </thead>
 

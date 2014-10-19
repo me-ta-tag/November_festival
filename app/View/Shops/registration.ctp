@@ -9,32 +9,6 @@
     $CostsAdd = $this->Html->url("/Costs/add", true);
     $CostsDelete = $this->Html->url("/Costs/delete", true);
 ?>
-<!--
-    <div class="touroku_cotainer" style="margin-top:20px;" id="category_reg">
-        <table>
-           <tr><td style="font-size:140%;"><b>カテゴリ登録</b></td><td class="line5"><hr size = "5"></td></tr>
-        </table>
-        <div class = "touroku_head">
-            <div class="item_number">
-                <b style="position: relative; right: 175px;">カテゴリ名</b>
-            </div>
-            <div style="margin-left: 380px; float: left;">
-                <span class="name"><input type="text" style="width:150px;"></span>
-                <span class="ok"><input type="button" class="btn" value="登録"></span>
-            </div>
-            <div style="margin-left: 50px; float: left;">
-                <select name="category_list" style="width:150px;">
-                    <option value="0">どれを消す？</option>
-                    <script id="category_tmp" type="text/template">
-                        <option value="<%-id%>"><%-category_name%></option>
-                    </script>
-                </select>
-                <span class="delete"><input type="button" class="btn" value="消去"></span>
-            </div>
-        </div>
-    </div>
--->
-
     <div class="touroku_cotainer" style="margin-top:20px;" id="category_reg">
         <table>
            <tr><td style="font-size:140%;"><b>カテゴリ登録</b></td><td class="line5"><hr size = "5"></td></tr>
@@ -580,11 +554,6 @@ $(function(){
                         "shop_id" : String(shop_id)
                     }
                 }
-            // }else if(tgt=="ticket"){
-                for(var i=0; i<count; i++){
-                    ary[i].num = i+1;
-                    target.append(tmp(ary[i]));
-                }
 
                 for(var i=0; i<ary.length; i++){
                     if(ary[i].id === "new"){
@@ -612,7 +581,7 @@ $(function(){
                         });
                     });
                 }
-            // }
+            }
         }
     });
     $("#category_reg .ok").on("click", function(){

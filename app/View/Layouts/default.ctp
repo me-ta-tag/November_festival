@@ -95,9 +95,9 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
             	<select id="#eazy-select" onchange="navi(this)">
 					<option>menu</option>
 					<option value="<?php echo $linkShop ?>">マイページへ</option>
-					<option value="<?php echo $linkRegi ?>">登録画面へ</option>
-					<option value="<?php echo $linkPay ?>">会計画面へ</option>
                     <option value="<?php echo $linkSales ?>">売上画面へ</option>
+                    <option value="<?php echo $linkRegi ?>">登録画面へ</option>
+                    <option value="<?php echo $linkPay ?>">会計画面へ</option>
            		</select>
            		</form>
            		<script type="text/javascript">
