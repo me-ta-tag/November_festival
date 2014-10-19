@@ -48,7 +48,7 @@ class Item extends AppModel{
                 ),
                 'thumbnailSizes' => array(
                     'thumb150' => '150x150',
-                    'longBig' => '[960x350]',
+                    'longBig' => '[960x365]',
                     'middle' => '[360x480]',
                     'small' => '[200x200]',
                     'normal' => '[400x400]'

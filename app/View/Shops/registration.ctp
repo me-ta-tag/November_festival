@@ -92,6 +92,7 @@
                 if( $shop['id'] == 1){
                     //var_dump($items['item'][0]['Item']);
                     echo $this->Form->create('Item', array("url" => "/Items/add",'type' => 'file'));
+
                     $option = array(
                         'id' => array('type' => 'hidden'),
                         'item_name' => array(),
@@ -99,7 +100,7 @@
                         'item_detail' => array('type' => 'textarea'),
                         'item_photo' => array('type' => 'file'),
                         'item_photo_dir' => array('type' => 'hidden'),
-                        'item_leader' => array(),
+                        'item_leader' => array('class' => 'checkChange'),
                         'item_stock' => array(),
                         'shop_id' => array('type' => 'text'),
                         'category_id' => array('type' => 'text')
@@ -108,7 +109,11 @@
                     foreach($items['item'] as $k => $val){
                         echo ('<div class="metaupload">');
                         foreach($val['Item'] as $key => $value){
-                            echo $this->Form->input("Item.".$k.".".$key,listSetting($value,$option[$key]));
+                            if($key == 'item_leader'){
+                                echo $this->Form->input("Item.".$k.".".$key,listSetting($value,$option[$key],true));
+                            }else{
+                                echo $this->Form->input("Item.".$k.".".$key,listSetting($value,$option[$key]));
+                            }
                         }
                         echo $this->html->image('item/item_photo/'.$val['Item']['item_photo_dir'].'/'.$val['Item']['item_photo'],array('alt' =>'img','width' => '200','height' => '200'));
                         echo ('</div>');
@@ -558,21 +563,42 @@ $(function(){
         }
     })
 
+    $('.checkChange').on('change', function(){
+        debugger;
+        if ($(this).is(':checked')) {
+            $(this).val(1);
+        } else {
+            $(this).val(0);
+
+        }
+    });
 
 
 
 });
+
+
 </script>
 <?php
-    function listSetting($value,$option){
-        $output = array();
+    function listSetting($value,$option,$boolean = false){
+        $ret = array();
         if(isset($value)){
-            $output['value'] = $value;
+            //var_dump($value);
+            if($boolean){
+                if($value){
+                    $ret['checked'] = "checked";
+                    $ret['value'] = 1;
+                }else{
+                    $ret['value'] = 0;
+                }
+            }else{
+                $ret['value'] = $value;
+            }
         }
         foreach($option as $key => $value){
-            $output[$key] = $value;
+            $ret[$key] = $value;
         }
-        return $output;
+        return $ret;
     }
 
 ?>

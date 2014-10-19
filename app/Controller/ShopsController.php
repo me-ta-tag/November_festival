@@ -40,12 +40,16 @@ class ShopsController extends AppController {
     public function register(){
         //$this->requestにPOSTされたデータが入っている
         //POSTメソッドかつユーザ追加が成功したら
-        if($this->request->is('post') && $this->Shop->save($this->request->data)){
-            //ログイン
-            //$this->request->dataの値を使用してログインする規約になっている
-            $this->Auth->login();
-            $this->Session->setFlash(__('ユーザーの新規登録が完了しました。'));
-            $this->redirect('index');
+        if($this->request->is('post') ){
+
+            $this->request->data["Shop"]["key"] = $this->makeRandStr(16);
+            if( $this->Shop->save($this->request->data)){
+                //ログイン
+                //$this->request->dataの値を使用してログインする規約になっている
+                $this->Auth->login();
+                $this->Session->setFlash(__('ユーザーの新規登録が完了しました。'));
+                $this->redirect('index');
+            }
         }
     }
     
@@ -89,6 +93,19 @@ class ShopsController extends AppController {
     }
     public function paymentdel(){
         $this->set('shop', $this->Auth->user());
+    }
+
+    /**
+     * ランダム文字列生成 (英数字)
+     * $length: 生成する文字数
+     */
+    function makeRandStr($length = 8) {
+        static $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ0123456789';
+        $str = '';
+        for ($i = 0; $i < $length; ++$i) {
+            $str .= $chars[mt_rand(0, 61)];
+        }
+        return $str;
     }
     /*public function login(){
         if($this->request->is('post')) {

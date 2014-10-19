@@ -142,7 +142,7 @@ class ItemsController extends AppController {
 
                     if ($this->Item->saveAll($data)){
                         //echo "true";
-
+                        $this->redirect('/shops/registration');
 
                     }else{
                         echo "error";

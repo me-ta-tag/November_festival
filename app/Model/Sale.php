@@ -9,4 +9,11 @@
 App::uses('AppModel', 'Model');
 class Sale extends AppModel{
 	var $name = 'Sale';
+    var $validate = array(
+        'sale_price' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
+        )
+    );
 }

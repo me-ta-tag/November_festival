@@ -8,6 +8,10 @@ PASS:<input type="password" name="data[Shop][shop_password]" id="ShopShopPasswor
 <?php
 print(
 $this->Form->input('category_display') .
-$this->Form->input('shop_goal',array('value' => 0)) .
+$this->Form->input('shop_goal',array('value' => 0)) );?>
+<input type="text" name="data[Shop][key]" style="display:none;">
+
+<?php
+print(
 $this->Form->end('Submit')
 ); ?>

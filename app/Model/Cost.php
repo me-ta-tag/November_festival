@@ -12,17 +12,17 @@
      public $useTable = "costs";
      var $name = 'Cost';
 
-     var $validate = [
-             'shop_id' => [
-                 'notempty' => [
-                     'rule' => ['notempty'],
-                 ]
-             ],
-             'price' => [
-                 'notempty' => [
-                     'rule' => ['notempty'],
-                 ]
-             ]
-         ];
+     var $validate = array(
+         'shop_id' => array(
+             'notempty' => array(
+                 'rule' => array('notempty'),
+             )
+         ),
+         'price' => array(
+             'notempty' => array(
+                 'rule' => array('notempty'),
+             )
+         )
+     );
 
  }

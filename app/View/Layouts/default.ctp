@@ -52,6 +52,11 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         $(document).ready(function(){
           $('#eazy-select').easySelectBox({speed:100});
         });
+
+        var shop_id = "<?php echo isset($shop['id'])? $shop['id']:''; ?>"
+        var shop_name = "<?php echo isset($shop['shop_name'])? $shop['shop_name']:''; ?>"
+        var shop_key = "<?php echo isset($shop['key'])? $shop['key']:''; ?>"
+
     </script>
     <script language="javascript">
         function navi(obj) {
@@ -65,7 +70,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
 </head>
 <body>
-  <header>
+    <header>
         <ul>
             <?php
                 $linkLogout = $this->Html->url("/shops/logout", true);
@@ -133,5 +138,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		?>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
+
+
  </body>
 </html>
