@@ -11,7 +11,7 @@ App::uses('AppController', 'Controller');
 class ShopsController extends AppController {
 //    public $scaffold;
 
-    var $uses = array('Item', 'Category', 'ticket','Shop');
+    var $uses = array('Item', 'Category', 'ticket','Shop','Exhibitor');
 
     //読み込むコンポーネントの指定
     public $components = array('Session', 'Auth');
@@ -78,6 +78,12 @@ class ShopsController extends AppController {
                 'order' => 'id ASC'
             );
             $categorys = $this->Category->find('all',$cateparamas);
+
+            $exhiparams = array(
+                'order' => 'id ASC'
+            );
+            $exhibitors = $this->Exhibitor->find('all',$exhiparams);
+
             // viewにはjson形式のファイルを表示させるように。
 //            $this->layout = 'ajax';
 //            $this->RequestHandler->setContent('json');
@@ -92,7 +98,16 @@ class ShopsController extends AppController {
                 $outValue = (int)$this->params['url']['list_value'];
 
             }
+               $outExhibitors = array(0 => "出展者を選択してください");
+            if(empty($exhibitors)){
+            }else{
+                foreach($exhibitors as $key => $value){
+                    $outExhibitors[$value['Exhibitor']['id']] = $value['Exhibitor']['name'];
+                }
+            }
             $this->set('getListValue', $outValue);
+
+            $this->set('exhibitor',$outExhibitors);
         }
     }
     // 売上詳細ページ
