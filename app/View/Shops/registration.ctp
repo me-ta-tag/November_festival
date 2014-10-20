@@ -483,10 +483,10 @@ $(function(){
                 for(var i=0; i<len; i++){
                     var target = $("#ticket_reg .reg_list > div").eq(i);
                     ary[i] = {
-                        "id" : target.data("metatag_regiapp_ticket_id"),
+                        "id" : String(target.data("metatag_regiapp_ticket_id")),
                         "ticket_name" : $(".name > input:text", target).val(),
-                        "ticket_price" : parseInt($(".price > input:text", target).val(), 10)
-                        // "shop_id" : shop_id
+                        "ticket_price" : String($(".price > input:text", target).val(), 10),
+                        "shop_id" : String(shop_id)
 
                     }
                 }
@@ -695,7 +695,7 @@ $(function(){
                     tickets_back = $.extend(true, {}, tickets);
                     $("#ticket_reg .reg_list > div").remove();
                     firstAdd("ticket", tickets);
-                    alert("金券の消去が完了しました！")
+                    alert("金券の消去が完了しました！");
                 });
             });
         }
@@ -713,7 +713,7 @@ $(function(){
                     costs_back = $.extend(true, {}, costs);
                     $("#cost_reg .reg_list > div").remove();
                     firstAdd("cost", costs);
-                    alert("費用の消去が完了しました！")
+                    alert("費用の消去が完了しました！");
                 });
             });
         }
@@ -741,7 +741,7 @@ $(function(){
                     $("#item_reg .reg_list > div").remove();
                     firstAdd("item", items);
                     firstAdd("category", categorys);
-                    alert("カテゴリの消去が完了しました！")
+                    alert("カテゴリの消去が完了しました！");
                 });
             });
         }
