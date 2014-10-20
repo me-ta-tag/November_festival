@@ -18,6 +18,11 @@
                  'rule' => array('notempty'),
              )
          ),
+         'name' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
+         )
          'price' => array(
              'notempty' => array(
                  'rule' => array('notempty'),
