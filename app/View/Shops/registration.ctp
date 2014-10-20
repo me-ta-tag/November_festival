@@ -117,44 +117,27 @@
                         echo $this->html->image('item/item_photo/'.$val['Item']['item_photo_dir'].'/'.$val['Item']['item_photo'],array('alt' =>'img','width' => '200','height' => '200'));
                         echo ('</div>');
                     }
-                    //if(count($items['item']) == 0){
-                        /*
-                        $option['shop_id'] = array('type' => 'text','value' => 1);
-                        echo ('<div class="metaupload">');
 
-                        foreach($option as $key => $value){
-                            echo $this->Form->input("Item.0.".$key,listSetting("",$value));
-                        }
-                        echo ('</div>');
-                        */
-                    //}else{
-
-                        //var_dump($getListValue);
-                        //for($i = count($items['item']) - 1;$i < count($items['item']);$i++){
-                        if(empty($getListValue)){
-
-                            for($i = count($items['item']);$i < 0;$i++){
-                                echo ('<div class="metaupload">');
-
-                                $option['shop_id'] = array('type' => 'text','value' => 1);
-                                foreach($option as $key => $value){
-                                    echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
-                                }
-                                echo ('</div>');
+                    if(empty($getListValue)){
+                        for($i = count($items['item']);$i < 0;$i++){
+                            echo ('<div class="metaupload">');
+                            $option['shop_id'] = array('type' => 'text','value' => 1);
+                            foreach($option as $key => $value){
+                                echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
                             }
-                        }else{
-                            //var_dump($_GET['list_value']);
-                            for($i = count($items['item']) ;$i < $getListValue;$i++){
-                                echo ('<div class="metaupload">');
-
-                                $option['shop_id'] = array('type' => 'text','value' => 1);
-                                foreach($option as $key => $value){
-                                    echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
-                                }
-                                echo ('</div>');
-                            }
+                            echo ('</div>');
                         }
-                    //}
+                    }else{
+                        for($i = count($items['item']) ;$i < count($items['item']) + $getListValue;$i++){
+                            echo ('<div class="metaupload">');
+
+                            $option['shop_id'] = array('type' => 'text','value' => 1);
+                            foreach($option as $key => $value){
+                                echo $this->Form->input("Item.".$i.".".$key,listSetting("",$value));
+                            }
+                            echo ('</div>');
+                        }
+                    }
                     echo ('<div class="submitbtn">');
                     echo $this->Form->end('Submit');
                     echo ('</div>');
