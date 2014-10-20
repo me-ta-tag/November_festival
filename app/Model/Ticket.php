@@ -11,4 +11,17 @@ App::uses('AppModel', 'Model');
 class Ticket extends AppModel{
     public $useTable = "tickets";
     var $name = 'Ticket';
+
+    var $validate = array(
+        'ticket_name' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
+        ),
+        'shop_id' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
+        )
+    );
 }

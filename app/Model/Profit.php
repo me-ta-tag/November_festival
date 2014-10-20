@@ -29,4 +29,11 @@ class Profit extends AppModel{
                 'finderQuery' => ''
         )
     );
+    var $validate = array(
+        'customer_id' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
+        )
+    );
 }

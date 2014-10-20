@@ -11,4 +11,11 @@ class Category extends AppModel{
     public $useTable = "categorys";
     var $name = 'Category';
 
+    var $validate = array(
+        'category_name' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
+        )
+    );
 }

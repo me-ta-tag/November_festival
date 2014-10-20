@@ -25,23 +25,24 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	echo $this->Html->script( 'jquery-1.11.1.min' );
 	echo $this->Html->script( 'underscore-min' );
     echo $this->Html->script( 'easyselectbox' );
-
+    
     if(isset($shop['id'])){ echo '<script type="text/javascript">var shop_id = '.$shop['id'].';</script>';}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title>
+    <meta name="viewport" content="width=device-width">
+
+    <title>
+
 		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
 <!-- 	
 	<?php
 		echo $this->Html->meta('icon');
-
 		echo $this->Html->css('cake.generic');
-
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -52,6 +53,11 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         $(document).ready(function(){
           $('#eazy-select').easySelectBox({speed:100});
         });
+
+        var shop_id = "<?php echo isset($shop['id'])? $shop['id']:''; ?>"
+        var shop_name = "<?php echo isset($shop['shop_name'])? $shop['shop_name']:''; ?>"
+        var shop_key = "<?php echo isset($shop['key'])? $shop['key']:''; ?>"
+
     </script>
     <script language="javascript">
         function navi(obj) {
@@ -65,18 +71,25 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 
 </head>
 <body>
-  <header>
+    <header>
         <ul>
+            <?php
+                $linkLogout = $this->Html->url("/shops/logout", true);
+                $linkShop = $this->Html->url("/shops", true);
+                $linkRegi = $this->Html->url("/shops/registration",true);
+                $linkPay = $this->Html->url("/shops/payment", true);
+                $linkSales = $this->Html->url("/shops/sales", true)
+            ?>
         	<?php if(isset($shop['id'])){?>
             <div class="toggle t_left">
             	<li class = "shop_name"><?php echo ( $shop['shop_name'] ); ?></li>
-            	<input type = "button" value = ログアウト class="btn" onClick = "location.href='/m_regi/shops/logout'"></li></div>
+            	<input type = "button" value = ログアウト class="btn" onClick = "location.href='<?php echo $linkLogout ?>'"></li></div>
             </div>
             <div class = "head_left">
-            <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='/m_regi/shops'"></li>
-            <li class = "shop_name"><?php echo ( $shop['id'] );  ?></li>
+            <li class = "mypage"><input type = "button" value = "マイページ" class="btn" onClick = "location.href='<?php echo $linkShop ?>'"></li>
+            <li class = "shop_name"><?php echo ( $shop['shop_name'] );  ?></li>
             <li class = "logout">
-                <input type = "button" value = "ログアウト" class="btn" onclick = "location.href='/m_regi/shops/logout'">
+                <input type = "button" value = "ログアウト" class="btn" onclick = "location.href='<?php echo $linkLogout ?>'">
             </li>
             </div>
             
@@ -84,9 +97,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 <form method=post>
             	<select id="#eazy-select" onchange="navi(this)">
 					<option>menu</option>
-					<option value="/m_regi/shops">マイページへ</option>
-					<option value="/m_regi/shops/registration">登録画面へ</option>
-					<option value="/m_regi/shops/payment">会計画面へ</option>
+					<option value="<?php echo $linkShop ?>">マイページへ</option>
+                    <option value="<?php echo $linkSales ?>">売上画面へ</option>
+                    <option value="<?php echo $linkRegi ?>">登録画面へ</option>
+                    <option value="<?php echo $linkPay ?>">会計画面へ</option>
            		</select>
            		</form>
            		<script type="text/javascript">
@@ -96,12 +110,15 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 				</script>
 
             </div>
-            <div class = "head_right"> 
+            <div class = "head_right">
+            <li class = "kaikei">
+                <input type = "button" value = "売上" class="btn" onclick ="location.href='<?php echo $linkSales ?>'">
+            </li>
             <li class = "touroku">
-                <input type = "button" value = "登録" class="btn" onclick ="location.href='/m_regi/shops/registration'">
+                <input type = "button" value = "登録" class="btn" onclick ="location.href='<?php echo $linkRegi ?>'">
             </li>
             <li class = "kaikei">
-                <input type = "button" value = "会計" class="btn" onclick ="location.href='/m_regi/shops/payment'">
+                <input type = "button" value = "会計" class="btn" onclick ="location.href='<?php echo $linkPay ?>'">
             </li>
             </div>
             <?php }else{ ?>
@@ -119,13 +136,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	</div>
 	
 	<div id="footer">
-		<?php echo $this->Html->link(
-				$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-				'http://www.cakephp.org/',
-				array('target' => '_blank', 'escape' => false)
-			);
-		?>
+
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php //echo $this->element('sql_dump'); ?>
+
+
  </body>
 </html>

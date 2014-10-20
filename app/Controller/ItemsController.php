@@ -10,8 +10,9 @@ App::uses('AppController', 'Controller');
 
 class ItemsController extends AppController {
 //    public $scaffold;
-    var $uses = array('Item', 'Category', 'ticket','Cost');
 
+    var $uses = array('Item', 'Category', 'ticket','Cost','Exhibitor');
+    //loadModel($uses);
 
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
@@ -39,6 +40,7 @@ class ItemsController extends AppController {
             if (isset($id)){
                 if($id != 0){
 
+
                     $params = array(
                         'conditions' => array('Item.shop_id'=> $id),
                         'order' => 'Item.id ASC'
@@ -47,7 +49,9 @@ class ItemsController extends AppController {
                     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                     $items = $this->Item->find('all',$params);
 
-                    $ticparams = array();
+                    $ticparams = array(
+                        'shop_id' => array('shop_id' => $id)
+                    );
                     $tickets = $this->ticket->find('all', $ticparams);
 
                     $cateparamas = array(
@@ -61,13 +65,28 @@ class ItemsController extends AppController {
                         'order' => 'id ASC'
                     );
                     $costs = $this->Cost->find('all',$costparams);
+                    if($id == 1){
+                        $exhiparams = array(
+                            'order' => 'id ASC'
+                        );
+                        $exhibitors = $this->Exhibitor->find('all',$exhiparams);
+
+                    }
+                    //var_dump($id);
+
                     // viewにはjson形式のファイルを表示させるように。
                     $this->layout = 'ajax';
                     $this->RequestHandler->setContent('json');
                     $this->RequestHandler->respondAs('application/json; charset=UTF-8');
 
                     // $studentsの配列をviewに渡す。
-                    $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs));
+                    if($id == 1){
+                        $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs,'exhibitor' => $exhibitors));
+                    }else{
+                        //var_dump('test');
+                        $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs));
+                    }
+
                 }
             }
 //            $this->disableCache();
@@ -85,13 +104,19 @@ class ItemsController extends AppController {
         if($this->request->is('ajax')) {
             if ($this->request->is('get')) {
                 $params = array(
+                    //'fields' => array( compact('item_exhibitor')),
                     'conditions' => array('Item.shop_id' => 1),
                     'order' => 'Item.id DESC'
                 );
+                // 'fields' => array('id','item_name','item_price','item_detail','item_photo','item_photo_dir','item_stock','item_leader','category_id','category_name'),
                 $pdo = $this->Item->getDatasource()->getConnection();
                 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                 $items = $this->Item->find('all', $params);
-                // viewにはjson形式のファイルを表示させるように。
+                foreach ($items as $key => $value) {
+                    unset($items[$key]["Item"]["item_exhibitor"],$items[$key]["Item"]["shop_id"],$items[$key]["Category"]["shop_id"]);
+                }
+
+            // viewにはjson形式のファイルを表示させるように。
                 $this->layout = 'ajax';
                 $this->RequestHandler->setContent('json');
                 $this->RequestHandler->respondAs('application/json; charset=UTF-8');
@@ -142,7 +167,7 @@ class ItemsController extends AppController {
 
                     if ($this->Item->saveAll($data)){
                         //echo "true";
-
+                        $this->redirect('/shops/registration');
 
                     }else{
                         echo "error";
