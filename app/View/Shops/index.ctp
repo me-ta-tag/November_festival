@@ -23,16 +23,16 @@
             </ul>
         </div>
         <div class="login_settei">
-            <p class="login_function1">
-                設定
-            </p>
-            <div class="login_function2">
-               <p class="ticket_use">
-                <input type="checkbox" name="function" value="ticket">金券を使用する
-                </p>
-                <p class="sonweki">
-                <input type="checkbox" name="function" value="sonweki">赤字・黒字を表示する
-                </p>
-            </div>
+            <!--<p class="login_function1">-->
+                <!--設定-->
+            <!--</p>-->
+            <!--<div class="login_function2">-->
+               <!--<p class="ticket_use">-->
+                <!--<input type="checkbox" name="function" value="ticket">金券を使用する-->
+                <!--</p>-->
+                <!--<p class="sonweki">-->
+                <!--<input type="checkbox" name="function" value="sonweki">赤字・黒字を表示する-->
+                <!--</p>-->
+            <!--</div>-->
         </div>
     </div>
