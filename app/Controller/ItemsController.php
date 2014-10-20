@@ -85,13 +85,19 @@ class ItemsController extends AppController {
         if($this->request->is('ajax')) {
             if ($this->request->is('get')) {
                 $params = array(
+                    //'fields' => array( compact('item_exhibitor')),
                     'conditions' => array('Item.shop_id' => 1),
                     'order' => 'Item.id DESC'
                 );
+                // 'fields' => array('id','item_name','item_price','item_detail','item_photo','item_photo_dir','item_stock','item_leader','category_id','category_name'),
                 $pdo = $this->Item->getDatasource()->getConnection();
                 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                 $items = $this->Item->find('all', $params);
-                // viewにはjson形式のファイルを表示させるように。
+                foreach ($items as $key => $value) {
+                    unset($items[$key]["Item"]["item_exhibitor"],$items[$key]["Item"]["shop_id"],$items[$key]["Category"]["shop_id"]);
+                }
+
+            // viewにはjson形式のファイルを表示させるように。
                 $this->layout = 'ajax';
                 $this->RequestHandler->setContent('json');
                 $this->RequestHandler->respondAs('application/json; charset=UTF-8');
