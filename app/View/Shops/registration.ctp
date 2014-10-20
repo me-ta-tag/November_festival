@@ -101,6 +101,7 @@
                         'item_photo_dir' => array('type' => 'hidden'),
                         'item_leader' => array('class' => 'checkChange'),
                         'item_stock' => array(),
+                        'item_exhibitor' => array('type' => 'text'),
                         'shop_id' => array('type' => 'text'),
                         'category_id' => array( 'type' => 'select','options' => $categorys)
                 );
