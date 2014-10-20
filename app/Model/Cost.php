@@ -14,19 +14,19 @@
 
      var $validate = array(
          'shop_id' => array(
-             'notempty' => array(
-                 'rule' => array('notempty'),
-             )
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
          ),
          'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
             )
-         )
+         ),
          'price' => array(
-             'notempty' => array(
-                 'rule' => array('notempty'),
-             )
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
          )
      );
 
