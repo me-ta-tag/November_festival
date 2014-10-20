@@ -17,6 +17,11 @@ class Ticket extends AppModel{
             'notempty' => array(
                 'rule' => array('notempty'),
             )
+        ),
+        'shop_id' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+            )
         )
     );
 }

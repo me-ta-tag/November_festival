@@ -49,7 +49,9 @@ class ItemsController extends AppController {
                     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                     $items = $this->Item->find('all',$params);
 
-                    $ticparams = array();
+                    $ticparams = array(
+                        'shop_id' => array('shop_id' => $id)
+                    );
                     $tickets = $this->ticket->find('all', $ticparams);
 
                     $cateparamas = array(
