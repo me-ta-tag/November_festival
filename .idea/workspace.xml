@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24909716-0bdc-4676-8aeb-c82a471a66f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Controller/ItemsController.php" afterPath="$PROJECT_DIR$/app/Controller/ItemsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Model/Ticket.php" afterPath="$PROJECT_DIR$/app/Model/Ticket.php" />
-    </list>
+    <list default="true" id="24909716-0bdc-4676-8aeb-c82a471a66f2" name="Default" comment="" />
     <ignored path="m_regi.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -858,12 +855,12 @@
       <workItem from="1413336730495" duration="765000" />
       <workItem from="1413436935483" duration="1142000" />
       <workItem from="1413536753297" duration="21128000" />
-      <workItem from="1413793600734" duration="1227000" />
+      <workItem from="1413793600734" duration="1268000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67169000" />
+    <option name="totallyTimeSpent" value="67210000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="22" width="1364" height="742" extended-state="6" />
