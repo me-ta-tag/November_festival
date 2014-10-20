@@ -94,12 +94,9 @@
       <file leaf-file-name="index.ctp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/View/Shops/index.ctp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.73913044" vertical-offset="23" max-vertical-offset="645">
-              <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-              <folding>
-                <marker date="1413795615000" expanded="true" signature="1305:1418" placeholder="..." />
-                <marker date="1413795615000" expanded="true" signature="1461:1578" placeholder="..." />
-              </folding>
+            <state vertical-scroll-proportion="0.638796" vertical-offset="23" max-vertical-offset="645">
+              <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -882,12 +879,12 @@
       <workItem from="1413336730495" duration="765000" />
       <workItem from="1413436935483" duration="1142000" />
       <workItem from="1413536753297" duration="21128000" />
-      <workItem from="1413793600734" duration="811000" />
+      <workItem from="1413793600734" duration="854000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66753000" />
+    <option name="totallyTimeSpent" value="66796000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="22" width="1364" height="742" extended-state="6" />
@@ -1324,12 +1321,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/View/Shops/index.ctp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73913044" vertical-offset="23" max-vertical-offset="645">
-          <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-          <folding>
-            <marker date="1413795615000" expanded="true" signature="1305:1418" placeholder="..." />
-            <marker date="1413795615000" expanded="true" signature="1461:1578" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="0.638796" vertical-offset="23" max-vertical-offset="645">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

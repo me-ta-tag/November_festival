@@ -23,9 +23,9 @@
             </ul>
         </div>
         <div class="login_settei">
-            <p class="login_function1">
-                設定
-            </p>
+            <!--<p class="login_function1">-->
+                <!--設定-->
+            <!--</p>-->
             <!--<div class="login_function2">-->
                <!--<p class="ticket_use">-->
                 <!--<input type="checkbox" name="function" value="ticket">金券を使用する-->
