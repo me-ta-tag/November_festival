@@ -21,3 +21,4 @@ Thumbs.db
 plugins/empty
 vendors/empty
 /app/webroot/img/item
+/app/Vendor/OAuth
