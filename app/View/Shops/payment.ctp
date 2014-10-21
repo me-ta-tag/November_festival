@@ -38,30 +38,40 @@
         <div class = "right_container">
 
             <div class="right_contents" id="selected_list">
+
                 <script id="selected_item_tmp" type="text/template">
-                <div class="item_<%-id%> divButtonOn" data-metatag_regiapp_item_id="<%-id%>">
-                    <input type="checkbox">
-                    <span class="name"><%-item_name%></span>
-                    <span class="price"><%-item_price%></span>
-                    <span class=""><input type="button" class="minus" value="▼"></span>
-                    <span class="number"><input type="text" size="1" class="qty" value=1></span>
-                    <span class=""><input type="button" class="plus" value="▲"></span>
-                    <span class="sum_price money"><%-item_price%></span>
-                    <span class="negiri_price money" style="display:none;"><input type="text" size="3" value=""></span>
+                <div class="item_<%-id%> pay_item" data-metatag_regiapp_item_id="<%-id%>">
+                    <span class="pay_item0"><input type="checkbox"></span>
+                    <span class="pay_item1 name"><%-item_name%></span>
+                    <span class="yen_mark">¥</span>
+                    <span class="pay_item2 price"><%-item_price%></span>
+
+                    <span class="pay_item3"><input type="button" class="minus" value="▼"></span>
+                    <span class="pay_item3"><input type="text" size="1" class="qty" value=1></span>
+                    <span class="pay_item3"><input type="button" class="plus" value="▲"></span>
+
+                    <span class="yen_mark">¥</span>
+                    <span class="sum_price pay_item4"><%-item_price%></span>
+                    <span class="negiri_price pay_item4" style="display:none;"><input type="text" size="3" value=""></span>
                 </div>
                 </script>
+
                 <script id="selected_ticket_tmp" type="text/template">
-                <div class="ticket_<%-ticket_price%> divButtonOn" data-metatag_regiapp_ticket_price="<%-id%>">
-                    <input type="checkbox">
-                    <span>券:</span>
-                    <span class="name"><%-ticket_name%></span>
-                    <span class="price">-<%-ticket_price%></span>
-                    <span><input type="button" class="minus" value="▼"></span>
-                    <span class="number"><input type="text" size="1" class="qty" value=1></span>
-                    <span><input type="button" class="plus" value="▲"></span>
+                <div class="ticket_<%-ticket_price%> pay_item" data-metatag_regiapp_ticket_price="<%-id%>">
+                    <span class="pay_item0"><input type="checkbox"></span>
+                    <span class="pay_item1 name"><%-ticket_name%></span>
+                    <span class="yen_mark">¥</span
+                    <span class="pay_item2 price">-<%-ticket_price%></span>
+
+                    <span class="pay_item3"><input type="button" class="minus" value="▼"></span>
+                    <span class="pay_item3 number"><input type="text" size="1" class="qty" value=1></span>
+                    <span class="pay_item3"><input type="button" class="plus" value="▲"></span>
+
+                    <span class="yen_mark">¥</span
                     <span class="sum_price money">-<%-ticket_price%></span>
                 </div>
                 </script>
+
             </div><!--#selected_list-->
 
             <div class = "option">
@@ -144,6 +154,9 @@ $(function(){
         }
         for(i=0; i<data.item.length; i++){
             items.push(data.item[i].Item);
+            if(countLength(items[i].item_name) > 24){
+                items[i].item_name = trimStr(items[i].item_name, 25);
+            }
             $("#item_list").append(tmp_i(items[i]));
         }
         // 金券は値段順にソート
@@ -318,7 +331,7 @@ $(function(){
         var this_item = $(this).parents("[class^=item_]");
         this_item.addClass("negiri_item");
         $(this).parent().hide();
-        $(".sum_price", this_item).html($(this).val()).show().css("color","#6c3524");
+        $(".sum_price", this_item).html($(this).val()).show().css("color","#3377ff");
         $("input:checkbox",this_item).prop("checked",false);
         chg_price();
     });
@@ -386,6 +399,34 @@ $(function(){
             }
             $(".shop_profit").append(tmp({today_sale: today_sale_price, total_sale: total_sale_price, profit: profit}));
         });
+    }
+
+    function countLength(str) { 
+        var r = 0; 
+        for (var i = 0; i < str.length; i++) { 
+            var c = str.charCodeAt(i); 
+            // Shift_JIS: 0x0 ～ 0x80, 0xa0 , 0xa1 ～ 0xdf , 0xfd ～ 0xff 
+            // Unicode : 0x0 ～ 0x80, 0xf8f0, 0xff61 ～ 0xff9f, 0xf8f1 ～ 0xf8f3 
+            if ( (c >= 0x0 && c < 0x81) || (c == 0xf8f0) || (c >= 0xff61 && c < 0xffa0) || (c >= 0xf8f1 && c < 0xf8f4)) { 
+                r += 1; 
+            } else { 
+                r += 2; 
+            } 
+        } 
+        return r; 
+    }
+
+    function trimStr(str,byteSize){
+    var byte = 0,trimStr="";
+    for (var j=0,len=str.length; j <len ; j++) {
+        str.charCodeAt(j) < 0x100 ? byte++ : byte += 2;
+        trimStr +=str.charAt(j)
+        if(byte>=byteSize){
+            trimStr = trimStr.substr(0,j-2)+"..."
+            break;
+        }
+    }
+    return trimStr;
     }
 
     // phpにデータ送信
