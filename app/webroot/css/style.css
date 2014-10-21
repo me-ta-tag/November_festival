@@ -183,31 +183,27 @@ width:93px;
 .left_container div.divButtonOff span.money {
   margin-left: 15px;
 }
-.right_container div.divButtonOn {
-  padding: 10px;
-  background: lightskyblue;
-  width: 450px;
-  margin-left: 5px;
-  margin-top: 5px;
+.left_container div.divButtonOn span {
+    font: 15px;
 }
-.right_container div.divButtonOn span {
-  font: 15px;
+.left_container div.divButtonOn span.id {
+    margin-left: -5px;
 }
-.right_container div.divButtonOn span.id {
-  margin-left: -5px;
+.left_container div.divButtonOn span.name {
+    margin-left: 20px;
 }
-.right_container div.divButtonOn span.name {
-  margin-left: 20px;
+.left_container div.divButtonOn span.price {
+    margin-left: 100px;
 }
-.right_container div.divButtonOn span.price {
-  margin-left: 100px;
+.left_container div.divButtonOn span.number {
+    margin-left: 30px;
 }
-.right_container div.divButtonOn span.number {
-  margin-left: 30px;
+.left_container div.divButtonOn span.money {
+    margin-left: 15px;
 }
-.right_container div.divButtonOn span.money {
-  margin-left: 15px;
-}
+
+
+
 
 
 
