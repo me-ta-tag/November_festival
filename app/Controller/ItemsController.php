@@ -7,6 +7,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::import('Vendor', 'OAuth/OAuthClient');
 
 class ItemsController extends AppController {
 //    public $scaffold;
@@ -154,7 +155,7 @@ class ItemsController extends AppController {
                         echo "error";
                         //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
                     }
-                    $this->response->header('Location', "../shops/registration");
+                    //$this->response->header('Location', "../shops/registration");
                 }catch (Exception $e){
                     echo $e;
                 }
@@ -166,6 +167,50 @@ class ItemsController extends AppController {
                     $data = $this->request->data['Item'];
 
                     if ($this->Item->saveAll($data)){
+                        $id_list = $this->Item->id_list;
+                        //var_dump($id_list);
+                        $act = 'act'; //Access token
+                        $ats = 'ats'; //Access token secret
+                        if(count($id_list) > 1){
+
+                            $tweet = "バザー商品".count($id_list).'品、バザーに追加登録しました。※バザーによるテストツイートです。';
+
+                            $client = $this->_createClient();
+                            $client->post(
+                                $act,
+                                $ats,
+                                'https://api.twitter.com/1.1/statuses/update.json',
+                                array(
+                                    'status' => $tweet
+                                )
+                            );
+                        }else{
+                            if(count($id_list)){
+                                //var_dump($id_list);
+                                $params = array(
+                                    'conditions' => array('Item.id'=> $id_list[0]),
+                                    'order' => 'Item.id ASC'
+                                );
+                                $pdo = $this->Item->getDatasource()->getConnection();
+                                $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
+                                $items = $this->Item->find('all',$params);
+
+                                $tweet = "商品名『".$items[0]['Item']['item_name'].'』価格：'.$items[0]['Item']['item_price'].'円でバザーに登録しました。※バザーによるテストツイートです。';
+
+                                $client = $this->_createClient();
+                                $client->post(
+                                    $act,
+                                    $ats,
+                                    'https://api.twitter.com/1.1/statuses/update.json',
+                                    array(
+                                        'status' => $tweet
+                                    )
+                                );
+
+                            }else{
+
+                            }
+                        }
                         //echo "true";
                         $this->redirect('/shops/registration');
 
@@ -210,5 +255,12 @@ class ItemsController extends AppController {
     public function testupload(){
         die(json_encode($_FILES));
     }
+    protected function _createClient() {
+       return new OAuthClient(
+           'cmk', //Consumer key
+           'cms' //Consumer secret
+       );
+    }
+
 
 }

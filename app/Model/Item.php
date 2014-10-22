@@ -9,7 +9,7 @@
 App::uses('AppModel', 'Model');
 class Item extends AppModel{
     var $name = 'Item';
-
+    //public $useTable = "items";
     var $validate = array(
         'item_name' => array(
             'notempty' => array(
@@ -29,6 +29,15 @@ class Item extends AppModel{
         'item_photo' =>array()
 
     );
+    public $id_list = array();
+
+    function afterSave($created,$options = Array()){
+        if($created)
+        {
+            $this->id_list[] = $this->getInsertID();
+        }
+        return true;
+    }
     //$conditions = array('NOT' => array('item_name' => null,'item_price' => null);
     var $belongsTo = array(
     'Category' => array (               // ここから追加
