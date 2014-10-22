@@ -104,7 +104,8 @@
                         'item_stock' => array(),
                         'exhibitor_id' => array('type' => 'select','options' => $exhibitor),
                         'shop_id' => array('type' => 'text'),
-                        'category_id' => array( 'type' => 'select','options' => $categorys)
+                        'category_id' => array( 'type' => 'select','options' => $categorys),
+                        'tweet' => array('type'=>'text')
                 );
 
                     foreach($items['item'] as $k => $val){
