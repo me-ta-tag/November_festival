@@ -39,12 +39,12 @@
                    <th class="sales_day"><b>日付</b></th>
                    <th class="sales_yen"><b>売上(円)</b></th>
                    <th class="sales_customer"><b>客数(人)</b></th>
-                   <th class="sales_other_big"><b>-20/男(人)</b></th>
-                   <th class="sales_other_big"><b>30-50/男(人)</b></th> 
-                   <th class="sales_other_big"><b>50-/男(人)</b></th> 
-                   <th class="sales_other_big"><b>-20/女(人)</b></th> 
-                   <th class="sales_other_big"><b>30-50/女(人)</b></th> 
-                   <th class="sales_other_big"><b>50-/女(人)</b></th>
+                   <th class="sales_other_big"><b>男幼(人)</b></th>
+                   <th class="sales_other_big"><b>男成(人)</b></th>
+                   <th class="sales_other_big"><b>男熟(人)</b></th>
+                   <th class="sales_other_big"><b>女幼(人)</b></th>
+                   <th class="sales_other_big"><b>女成(人)</b></th>
+                   <th class="sales_other_big"><b>女熟(人)</b></th>
                 </tr>
             </thead>
 
@@ -81,6 +81,7 @@
         </tr>
         </script>
 
+        <p style="font-size:80%; margin:0 auto; width:900px;">※幼＝～１０代、成＝２０～３０代、熟＝４０代以上を表します</p>
     </div>
     
  <!--===========================================
@@ -129,6 +130,8 @@
             <td class="sales_other_small"><%- sum_p3_p6 %></td> 
         </tr>
         </script>
+
+        <p style="font-size:80%; margin:0 auto; width:900px;">※幼＝～１０代、成＝２０～３０代、熟＝４０代以上を表します</p>
     </div>
 <!-- /日別 -->
 
@@ -180,12 +183,12 @@
                <th class="sales_day"><b><%- sale_date %></b></th>
                <th class="sales_yen"><b>売上(円)</b></th>
                <th class="sales_customer"><b>客数(人)</b></th>
-               <th class="sales_other_big"><b>-20男(人)</b></th>
-               <th class="sales_other_big"><b>30-40男(人)</b></th> 
-               <th class="sales_other_big"><b>50-男(人)</b></th> 
-               <th class="sales_other_big"><b>-20男(人)</b></th> 
-               <th class="sales_other_big"><b>30-40女(人)</b></th> 
-               <th class="sales_other_big"><b>-50女(人)</b></th>
+               <th class="sales_other_big"><b>男幼(人)</b></th>
+               <th class="sales_other_big"><b>男成(人)</b></th>
+               <th class="sales_other_big"><b>男熟(人)</b></th>
+               <th class="sales_other_big"><b>女幼(人)</b></th>
+               <th class="sales_other_big"><b>女成(人)</b></th>
+               <th class="sales_other_big"><b>女熟(人)</b></th>
             </tr>
         </thead>
 

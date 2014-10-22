@@ -19,8 +19,8 @@
             <div class = "left_contents" id="item_list">
                 <script id="item_tmp" type="text/template">
                 <div class="item divButtonOff" data-metatag_regiapp_cat_id="<%-category_id%>" data-metatag_regiapp_item_id="<%-id%>">
-                    <span class="name"><%-item_name%></span>
-                    <span class="price"><%-item_price%></span>
+                    <div class="name"><%-item_name%></div>
+                    <div class="price">¥ <%-item_price%></div>
                 </div>
                 </script>
             </div><!-- #item_list -->
