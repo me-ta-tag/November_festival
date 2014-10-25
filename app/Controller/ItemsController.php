@@ -218,7 +218,6 @@ class ItemsController extends AppController {
                             }
                         }*/
                         //echo "true";
-                        $this->redirect('/shops/registration');
 
                     }else{
                         echo "error";
@@ -227,6 +226,8 @@ class ItemsController extends AppController {
                 }catch (Exception $e){
                     echo $e;
                 }
+                $this->redirect('/shops/registration');
+
             }
         }
     }
