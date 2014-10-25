@@ -106,7 +106,13 @@ class ItemsController extends AppController {
             if ($this->request->is('get')) {
                 $params = array(
                     //'fields' => array( compact('item_exhibitor')),
-                    'conditions' => array('Item.shop_id' => 1),
+                    'conditions' => array('Item.shop_id' => 1,
+                        'AND' => array(
+                            'NOT' => array(
+                                'Item.item_photo' => null
+                            )
+                        )
+                    ),
                     'order' => 'Item.id DESC'
                 );
                 // 'fields' => array('id','item_name','item_price','item_detail','item_photo','item_photo_dir','item_stock','item_leader','category_id','category_name'),
