@@ -173,7 +173,7 @@ class ItemsController extends AppController {
                     $data = $this->request->data['Item'];
 
                     if ($this->Item->saveAll($data)){
-                        $id_list = $this->Item->id_list;
+                        /*$id_list = $this->Item->id_list;
                         //var_dump($id_list);
                         $act = 'act'; //Access token
                         $ats = 'ats'; //Access token secret
@@ -216,7 +216,7 @@ class ItemsController extends AppController {
                             }else{
 
                             }
-                        }
+                        }*/
                         //echo "true";
                         $this->redirect('/shops/registration');
 
