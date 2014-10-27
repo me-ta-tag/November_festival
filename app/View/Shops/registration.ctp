@@ -800,10 +800,10 @@ $(function(){
 });
 
     cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
-        alert("削除が出現しました");
         $(".KONAMInone").each(function(){
             $(this).removeClass("KONAMInone");
         });
+        alert("削除が出現しました");
     });
 
 </script>
