@@ -83,6 +83,8 @@
                 <?php
                 //var_dump(count($items['item']));
                 if( $shop['id'] == 1){
+                    echo ("<h2>追加はこっち</h2>");
+                    echo $this->Html->link("追加",array('action'=>'../items/append'));
                     //var_dump($items['item'][0]['Item']);
                     //var_dump($exhibitor);
                     echo("<ul>");
@@ -91,6 +93,8 @@
                         echo($items['item'][$k]['Item']['id']."：");
                         echo ($items['item'][$k]['Item']['item_name']."　");
                         echo $this->Html->link('編集',array('action'=>'../items/edit',$items['item'][$k]['Item']['id']));
+                        echo ' ';
+                        echo $this->Form->postLink('削除',array('action'=>'../items/delete',$items['item'][$k]['Item']['id']),array('class' => 'KONAMInone','confirm'=>'sure?'));
                         echo ("</li>");
                     }
                     echo("</ul>");

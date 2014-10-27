@@ -167,7 +167,7 @@ class ItemsController extends AppController {
                     //var_dump($this->request->data);
                     $data = $this->request->data['Item'];
 
-                    if ($this->Item->saveAll($data)){
+                    if ($this->Item->save($data)){
                         /*$id_list = $this->Item->id_list;
                         //var_dump($id_list);
                         $act = 'act'; //Access token
@@ -229,13 +229,21 @@ class ItemsController extends AppController {
 
 
     // 該当するIDのカラムを削除する
-    public function delete(){
+    public function delete($id = null){
        if($this-> request -> is('ajax')){
             if ($this -> request -> is('post') ){
                 $items_id = $this -> request -> data['id'];
                 $this->Item->delete($items_id);
             }
-        }
+        }else{
+           if($this-> request -> is('get')){
+               throw new MethodNotAllowedException();
+           }else{
+               if($this->Item->delete($id)){
+                    $this->redirect('/shops/registration');
+               }
+           }
+       }
     }
 
 
@@ -272,6 +280,85 @@ class ItemsController extends AppController {
             }else{
 
             }
+        }
+    }
+
+// POSTされた内容を追加する処理
+    public function append(){
+        //$items_base = array();
+        // アイテム取得処理
+        $exhiparams = array(
+            'order' => 'id ASC'
+        );
+        $exhibitors = $this->Exhibitor->find('all',$exhiparams);
+        $cateparamas = array(
+            'conditions' => array('shop_id'=> 1),
+            'order' => 'id ASC'
+        );
+        $categorys = $this->Category->find('all',$cateparamas);
+        $this->set('items', array('category' => $categorys,'exhibitor' => $exhibitors));
+
+        if($this->request->is('post')){
+            try{
+                //var_dump($this->request->data);
+                $data = $this->request->data['Item'];
+
+                if ($this->Item->save($data)){
+                    /*$id_list = $this->Item->id_list;
+                    //var_dump($id_list);
+                    $act = 'act'; //Access token
+                    $ats = 'ats'; //Access token secret
+                    if(count($id_list) > 1){
+
+                        $tweet = "バザー商品".count($id_list).'品、バザーに追加登録しました。※バザーによるテストツイートです。';
+
+                        $client = $this->_createClient();
+                        $client->post(
+                            $act,
+                            $ats,
+                            'https://api.twitter.com/1.1/statuses/update.json',
+                            array(
+                                'status' => $tweet
+                            )
+                        );
+                    }else{
+                        if(count($id_list)){
+                            //var_dump($id_list);
+                            $params = array(
+                                'conditions' => array('Item.id'=> $id_list[0]),
+                                'order' => 'Item.id ASC'
+                            );
+                            $pdo = $this->Item->getDatasource()->getConnection();
+                            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
+                            $items = $this->Item->find('all',$params);
+
+                            $tweet = "商品名『".$items[0]['Item']['item_name'].'』価格：'.$items[0]['Item']['item_price'].'円でバザーに登録しました。※バザーによるテストツイートです。';
+
+                            $client = $this->_createClient();
+                            $client->post(
+                                $act,
+                                $ats,
+                                'https://api.twitter.com/1.1/statuses/update.json',
+                                array(
+                                    'status' => $tweet
+                                )
+                            );
+
+                        }else{
+
+                        }
+                    }*/
+                    //echo "true";
+
+                }else{
+                    echo "error";
+                    //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
+                }
+            }catch (Exception $e){
+                echo $e;
+            }
+            $this->redirect('/shops/registration');
+
         }
     }
 
