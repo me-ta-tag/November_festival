@@ -85,7 +85,20 @@
                 if( $shop['id'] == 1){
                     //var_dump($items['item'][0]['Item']);
                     //var_dump($exhibitor);
-                    $categorys = array();
+                    echo("<ul>");
+                    foreach($items['item'] as $k => $val){
+                        echo("<li>");
+                        echo($items['item'][$k]['Item']['id']."：");
+                        echo ($items['item'][$k]['Item']['item_name']."　");
+                        echo $this->Html->link('編集',array('action'=>'../items/edit',$items['item'][$k]['Item']['id']));
+                        echo ("</li>");
+                    }
+                    echo("</ul>");
+
+
+
+
+                    /*$categorys = array();
                     foreach($items['category'] as $key => $value){
                         //var_dump($value);
                         $categorys[$value["Category"]['id']] = $value["Category"]['category_name'];
@@ -106,7 +119,7 @@
                         'shop_id' => array('type' => 'text'),
                         'category_id' => array( 'type' => 'select','options' => $categorys),
                         'tweet' => array('type'=>'text')
-                );
+                    );
 
                     foreach($items['item'] as $k => $val){
                         echo ('<div class="metaupload">');
@@ -142,7 +155,7 @@
                         }
                     }
                     echo ('<div class="submitbtn">');
-                    echo $this->Form->end('Submit');
+                    echo $this->Form->end('Submit');*/
                     echo ('</div>');
                     //echo $upload->url;
                     //$path = $this->Html->webroot;

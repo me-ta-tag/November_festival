@@ -34,14 +34,10 @@ class ItemsController extends AppController {
      * $_GET['shop_id']を取得し、それに該当するデータを取得する
      */
     public function read(){
-
-
         $id = $_GET['shop_id'];
         if ($this->request->is('ajax')) {
             if (isset($id)){
                 if($id != 0){
-
-
                     $params = array(
                         'conditions' => array('Item.shop_id'=> $id),
                         'order' => 'Item.id ASC'
@@ -87,7 +83,6 @@ class ItemsController extends AppController {
                         //var_dump('test');
                         $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs));
                     }
-
                 }
             }
 //            $this->disableCache();
@@ -239,6 +234,43 @@ class ItemsController extends AppController {
             if ($this -> request -> is('post') ){
                 $items_id = $this -> request -> data['id'];
                 $this->Item->delete($items_id);
+            }
+        }
+    }
+
+
+    public function edit($id = null){
+        $this->Item->id = $id;
+        if($this->request->is("get")){
+            //if($shop_id == 1){
+            $params = array(
+                'conditions' => array('Item.shop_id'=> 1,
+                    'AND' => array(
+                        'Item.id' => $id
+                    )),
+                'order' => 'Item.id ASC'
+            );
+            $pdo = $this->Item->getDatasource()->getConnection();
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
+            $items = $this->Item->find('all',$params);
+                $exhiparams = array(
+                    'order' => 'id ASC'
+                );
+                $exhibitors = $this->Exhibitor->find('all',$exhiparams);
+                $cateparamas = array(
+                    'conditions' => array('shop_id'=> 1),
+                    'order' => 'id ASC'
+                );
+                $categorys = $this->Category->find('all',$cateparamas);
+                $this->set('items', array('item'=>$items,'category' => $categorys,'exhibitor' => $exhibitors));
+
+            //}
+            $this->request->data = $this->Item->read();
+        }else{
+            if($this->Item->save($this->request->data)){
+                $this->redirect('/shops/registration');
+            }else{
+
             }
         }
     }
