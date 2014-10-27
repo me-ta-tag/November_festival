@@ -39,7 +39,7 @@ $option = array(
     'item_detail' => array('type' => 'textarea'),
     'item_photo' => array('type' => 'file'),
     'item_photo_dir' => array('type' => 'hidden'),
-    'item_leader' => array('class' => 'checkChange'),
+    'item_leader' => array('type'=>'text','class' => 'checkChange'),
     'item_stock' => array(),
     'exhibitor_id' => array('type' => 'select','options' => $exhibitor),
     'shop_id' => array('type' => 'text'),
@@ -49,7 +49,7 @@ $option = array(
 
 foreach($option as $k => $val){
     if($k == 'item_leader'){
-        echo $this->Form->input($k,listSetting($val,$option[$k],true));
+        echo $this->Form->input($k,listSetting($val,$option[$k],false));
     }else{
         echo $this->Form->input($k,listSetting($val,$option[$k]));
     }
