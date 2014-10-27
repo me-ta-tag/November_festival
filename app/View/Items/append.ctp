@@ -57,7 +57,7 @@ foreach($option as $k => $val){
 //echo $this->html->image('item/item_photo/'.$item['item_photo_dir'].'/'.$item['item_photo'],array('alt' =>'img','width' => '200','height' => '200'));
 
 echo $this->Form->end('Save!');
-echo ("<a href='/m_regi/shops/registration'>Back</a>");
+echo ("<a href='/shops/registration'>Back</a>");
 
 function listSetting($value,$option,$boolean = false){
     $ret = array();

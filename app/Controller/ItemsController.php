@@ -97,7 +97,8 @@ class ItemsController extends AppController {
 //        $shop_id = $this->Auth->user()->id;
 
    public function metaread(){
-        if($this->request->is('ajax')) {
+       //response.setHeader("Access-Control-Allow-Origin","*");
+        //if($this->request->is('ajax')) {
             if ($this->request->is('get')) {
                 $params = array(
                     //'fields' => array( compact('item_exhibitor')),
@@ -128,9 +129,9 @@ class ItemsController extends AppController {
             } else {
                 throw new NotFoundException();
             }
-        }else{
-            throw new NotFoundException();
-        }
+        //}else{
+          //  throw new NotFoundException();
+        //}
     }
 
 
