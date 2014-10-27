@@ -8,6 +8,8 @@
     $TicketsDelete = $this->Html->url("/Tickets/delete", true);
     $CostsAdd = $this->Html->url("/Costs/add", true);
     $CostsDelete = $this->Html->url("/Costs/delete", true);
+
+    echo $this->Html->script( 'cheet.min.js' );
 ?>
     <div class="touroku_cotainer" style="margin-top:20px;" id="category_reg">
         <table>
@@ -796,6 +798,12 @@ $(function(){
     });
 });
 
+    cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
+        alert("削除が出現しました");
+        $(".KONAMInone").each(function(){
+            $(this).removeClass("KONAMInone");
+        });
+    });
 
 </script>
 <?php
