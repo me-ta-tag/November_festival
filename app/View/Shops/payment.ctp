@@ -621,12 +621,12 @@ $(function(){
                         append_profit();
                         $.get("<?php echo $ItemsRead ?>", {"shop_id" : shop_id}, function(data){
                             var tmp_i = _.template($("#item_tmp").html());
+                            $("#item_list > .regi_item").remove();
                             for(i=0; i<data.item.length; i++){
                                 items.push(data.item[i].Item);
                                 if(countLength(items[i].item_name) > 24){
                                     items[i].item_name = trimStr(items[i].item_name, 25);
                                 }
-                                $("#item_list > .regi_item").remove();
                                 $("#item_list").append(tmp_i(items[i]));
                             }
                         });
