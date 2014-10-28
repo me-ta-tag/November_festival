@@ -59,7 +59,7 @@ class Item extends AppModel{
                     'thumb150' => '150x150',
                     'longBig' => '[960x365]',
                     'middle' => '[360x480]',
-                    'small' => '[200x200]',
+                    'small' => '200x200',
                     'normal' => '[400x400]'
                 ),
                 'extensions' => array(
