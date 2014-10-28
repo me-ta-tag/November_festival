@@ -469,6 +469,9 @@ $(function(){
         if($(".pay_text").is(":focus")){
             $(".pay_text").blur();
         }
+        if($("#id_search").is(":focus")){
+            $("#id_search").blur();
+        }
     });
     cheet("p enter", function(){
         $(".pay_text").trigger("click", true);
@@ -517,9 +520,22 @@ $(function(){
 
 //---------------------------------------------------------------------------------------
     // その他
-    $(".pay_text").on("click", function(){
+    $(document).on("click",".pay_text, #id_search", function(){
         $(this).select();
         return false;
+    });
+
+    if(shop_id == 1){
+        $(".left_category > p").append("ID: <input type='text' id='id_search' size='5'>");
+    }
+    $("#id_search").on("keyup", function(){
+        if($(this).val() !== ""){
+            $("#item_list > .regi_item").hide();
+            $("#item_list > .regi_item[data-metatag_regiapp_item_id="+$(this).val()+"]").show();
+        }
+    });
+    cheet("f enter", function(){
+        $("#id_search").trigger("click", true);
     });
 
     function countLength(str) { 
