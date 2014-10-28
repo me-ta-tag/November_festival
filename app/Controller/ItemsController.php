@@ -305,13 +305,13 @@ class ItemsController extends AppController {
                 $data = $this->request->data['Item'];
 
                 if ($this->Item->save($data)){
-                    /*$id_list = $this->Item->id_list;
+                    $id_list = $this->Item->id_list;
                     //var_dump($id_list);
                     $act = 'act'; //Access token
                     $ats = 'ats'; //Access token secret
                     if(count($id_list) > 1){
 
-                        $tweet = "バザー商品".count($id_list).'品、バザーに追加登録しました。※バザーによるテストツイートです。';
+                        $tweet = "バザー商品".count($id_list).'品、バザーに追加登録しました。詳細はこちら→ http://kcg-furumono-2014.me-ta-tag.com/';
 
                         $client = $this->_createClient();
                         $client->post(
@@ -333,7 +333,7 @@ class ItemsController extends AppController {
                             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                             $items = $this->Item->find('all',$params);
 
-                            $tweet = "商品名『".$items[0]['Item']['item_name'].'』価格：'.$items[0]['Item']['item_price'].'円でバザーに登録しました。※バザーによるテストツイートです。';
+                            $tweet = "商品名『".$items[0]['Item']['item_name'].'』価格：'.$items[0]['Item']['item_price'].'円でバザーに登録しました。詳細はこちら→ http://kcg-furumono-2014.me-ta-tag.com/';
 
                             $client = $this->_createClient();
                             $client->post(
@@ -348,7 +348,7 @@ class ItemsController extends AppController {
                         }else{
 
                         }
-                    }*/
+                    }
                     //echo "true";
 
                 }else{
