@@ -87,6 +87,7 @@
                 if( $shop['id'] == 1){
                     echo ("<h2>追加はこっち</h2>");
                     echo $this->Html->link("追加",array('action'=>'../items/append'));
+                    echo "<br /><br />";
                     //var_dump($items['item'][0]['Item']);
                     //var_dump($exhibitor);
                     echo("<ul>");

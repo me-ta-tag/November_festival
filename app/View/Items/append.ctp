@@ -41,9 +41,9 @@ $option = array(
     'item_leader' => array('class' => 'checkChange'),
     'item_stock' => array(),
     'exhibitor_id' => array('type' => 'select','options' => $exhibitor),
-    'shop_id' => array('type' => 'text'),
+    'shop_id' => array('type' => 'text','value'=>1),
     'category_id' => array( 'type' => 'select','options' => $categorys),
-    'tweet' => array('type'=>'text')
+    'tweet' => array('type'=>'text','value'=>1)
 );
 
 foreach($option as $k => $val){
