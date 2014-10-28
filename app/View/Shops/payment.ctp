@@ -626,6 +626,7 @@ $(function(){
                                 if(countLength(items[i].item_name) > 24){
                                     items[i].item_name = trimStr(items[i].item_name, 25);
                                 }
+                                $("#item_list > .regi_item").remove();
                                 $("#item_list").append(tmp_i(items[i]));
                             }
                         });
