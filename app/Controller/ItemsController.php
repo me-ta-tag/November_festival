@@ -73,14 +73,21 @@ class ItemsController extends AppController {
                         $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'] + $salesArray[$value['Sale']['item_id']];
                     }
 
+                    $outItems = array();
+                    $outCount = 0;
                     foreach ($items as $key => $value) {
                         $items[$key]["Item"]["item_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
                         if($items[$key]["Item"]["item_stock"] <= 0){
                             unset($items[$key]);
                         }else{
+
+                            $outItems[$outCount] = $items[$key];
+                            $outCount++;
                             unset($items[$key]["Item"]["tweet"]);
                         }
                     }
+
+
 
                     if($id == 1){
                         $exhiparams = array(
@@ -100,10 +107,10 @@ class ItemsController extends AppController {
 
                     // $studentsの配列をviewに渡す。
                     if($id == 1){
-                        $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs,'exhibitor' => $exhibitors));
+                        $this->set('items', array('item' => $outItems,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs,'exhibitor' => $exhibitors));
                     }else{
                         //var_dump('test');
-                        $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs));
+                        $this->set('items', array('item' => $outItems,'category' => $categorys,'ticket' =>$tickets,'cost'=>$costs));
                     }
                 }
             }
