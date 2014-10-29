@@ -1,7 +1,7 @@
 <?php
     $ItemsRead = $this->Html->url("/Items/read", true);
-    $ProfitsRead = $this->Html->url("/Profits/read", true);
-    $ProfitsAdd = $this->Html->url("/Profits/add", true);
+    $ProfitsRead = $this->Html->url("/profits/read", true);
+    $ProfitsAdd = $this->Html->url("/profits/add", true);
 
     echo $this->Html->script( 'cheet.min.js' );
 ?>
@@ -628,7 +628,7 @@ $(function(){
                         "Sale": sale_ary,
                         "Ticketuse": ticket_ary
                     }
-                    $.post("<?php echo $ProfitsAdd ?>", JSON.stringify(json), function(data){
+                    $.post("<?php echo $ProfitsAdd ?>", json, function(data){
                         $(".reset").trigger("click", true);
                         $(".pay_text").val("");
                         // $("select[name=left_category] option").eq(0).prop("selected", true);
