@@ -12,7 +12,7 @@ App::import('Vendor', 'OAuth/OAuthClient');
 class ItemsController extends AppController {
 //    public $scaffold;
 
-    var $uses = array('Item', 'Category', 'ticket','Cost','Exhibitor');
+    var $uses = array('Item', 'Category', 'ticket','Cost','Exhibitor','Sale');
     //loadModel($uses);
 
     public $components = array('RequestHandler');
@@ -115,8 +115,19 @@ class ItemsController extends AppController {
                 $pdo = $this->Item->getDatasource()->getConnection();
                 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                 $items = $this->Item->find('all', $params);
+                $salparams = array(
+                    'shop_id' => array('shop_id' => 1)
+                );
+                $sales = $this->Sale->find('all', $salparams);
+
+                $salesArray = array();
+                foreach($sales as $key => $value){
+                    $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'] + $salesArray[$value['Sale']['item_id']];
+                }
+                //var_dump($salesArray);
                 foreach ($items as $key => $value) {
-                    unset($items[$key]["Item"]["item_exhibitor"],$items[$key]["Item"]["shop_id"],$items[$key]["Category"]["shop_id"]);
+                    $items[$key]["Item"]["item_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
+                    unset($items[$key]["Item"]["tweet"],$items[$key]["Item"]["item_exhibitor"],$items[$key]["Item"]["shop_id"],$items[$key]["Category"]["shop_id"]);
                 }
 
             // viewにはjson形式のファイルを表示させるように。
