@@ -200,7 +200,7 @@ $(function(){
     $(document).on("click",".regi_item",function(){
         var item_id = $(this).data("metatag_regiapp_item_id"),
             // 取ってきたアイテムの何番目か
-            num = $("#item_list > .regi_item").index(this),
+            num = $(".regi_item").index(this),
             tmp = _.template($("#selected_item_tmp").html());
         // 既にその商品が選択されているかどうかを調べる
         var flag = _.contains(selected_item_id, item_id);
@@ -471,6 +471,9 @@ $(function(){
         }
         if($("#id_search").is(":focus")){
             $("#id_search").blur();
+            if($("#id_search").val() !== "" && $("#id_search").val().match(/^[0-9]+$/)){
+                $(".regi_item[data-metatag_regiapp_item_id="+$("#id_search").val()+"]").trigger("click", true);
+            }
         }
     });
     cheet("p enter", function(){
@@ -529,9 +532,11 @@ $(function(){
         $(".left_category > p").append("ID: <input type='text' id='id_search' size='5'>");
     }
     $("#id_search").on("keyup", function(){
-        if($(this).val() !== ""){
-            $("#item_list > .regi_item").hide();
-            $("#item_list > .regi_item[data-metatag_regiapp_item_id="+$(this).val()+"]").show();
+        if($(this).val() !== "" && $(this).val().match(/^[0-9]+$/)){
+            $(".regi_item").hide();
+            $(".regi_item[data-metatag_regiapp_item_id="+$(this).val()+"]").show();
+        }else{
+            $(".regi_item").show();
         }
     });
     cheet("f enter", function(){
@@ -637,7 +642,7 @@ $(function(){
                         append_profit();
                         $.get("<?php echo $ItemsRead ?>", {"shop_id" : shop_id}, function(data){
                             var tmp_i = _.template($("#item_tmp").html());
-                            $("#item_list > .regi_item").remove();
+                            $(".regi_item").remove();
                             for(i=0; i<data.item.length; i++){
                                 items.push(data.item[i].Item);
                                 if(countLength(items[i].item_name) > 24){
