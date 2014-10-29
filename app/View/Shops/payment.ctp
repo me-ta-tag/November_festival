@@ -628,7 +628,7 @@ $(function(){
                         "Sale": sale_ary,
                         "Ticketuse": ticket_ary
                     }
-                    $.post("<?php echo $ProfitsAdd ?>", json, function(data){
+                    $.post("<?php echo $ProfitsAdd ?>", JSON.stringify(json), function(data){
                         $(".reset").trigger("click", true);
                         $(".pay_text").val("");
                         // $("select[name=left_category] option").eq(0).prop("selected", true);
