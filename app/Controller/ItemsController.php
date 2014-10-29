@@ -62,6 +62,26 @@ class ItemsController extends AppController {
                         'order' => 'id ASC'
                     );
                     $costs = $this->Cost->find('all',$costparams);
+
+                    $salparams = array(
+                        'shop_id' => array('shop_id' => 1)
+                    );
+                    $sales = $this->Sale->find('all', $salparams);
+
+                    $salesArray = array();
+                    foreach($sales as $key => $value){
+                        $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'] + $salesArray[$value['Sale']['item_id']];
+                    }
+
+                    foreach ($items as $key => $value) {
+                        $items[$key]["Item"]["item_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
+                        if($items[$key]["Item"]["item_stock"] <= 0){
+                            unset($items[$key]);
+                        }else{
+                            unset($items[$key]["Item"]["tweet"]);
+                        }
+                    }
+
                     if($id == 1){
                         $exhiparams = array(
                             'order' => 'id ASC'
@@ -69,6 +89,8 @@ class ItemsController extends AppController {
                         $exhibitors = $this->Exhibitor->find('all',$exhiparams);
 
                     }
+
+
                     //var_dump($id);
 
                     // viewにはjson形式のファイルを表示させるように。
@@ -115,6 +137,7 @@ class ItemsController extends AppController {
                 $pdo = $this->Item->getDatasource()->getConnection();
                 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
                 $items = $this->Item->find('all', $params);
+
                 $salparams = array(
                     'shop_id' => array('shop_id' => 1)
                 );
