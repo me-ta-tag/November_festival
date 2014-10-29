@@ -643,6 +643,7 @@ $(function(){
                         $.get("<?php echo $ItemsRead ?>", {"shop_id" : shop_id}, function(data){
                             var tmp_i = _.template($("#item_tmp").html());
                             $(".regi_item").remove();
+                            items = [];
                             for(i=0; i<data.item.length; i++){
                                 items.push(data.item[i].Item);
                                 if(countLength(items[i].item_name) > 24){
