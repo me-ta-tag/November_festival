@@ -69,7 +69,7 @@ class ProfitsController extends AppController {
                                 'Profit.shop_id' => $id
                             )
                         );
-                        $output = [];
+                        $output = array();
                         $output['Profits'] = $this->Profit->find('all', $params);
                         $output['customers'] = $this->Customer->find('all');
                         // viewにはjson形式のファイルを表示させるように。
