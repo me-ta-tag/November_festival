@@ -15,7 +15,7 @@ class ItemsController extends AppController {
     var $uses = array('Item', 'Category', 'ticket','Cost','Exhibitor','Sale');
     //loadModel($uses);
 
-    public $components = array('RequestHandler');
+    public $components = array('RequestHandler','Auth');
     //読み込むコンポーネントの指定
 
     //どのアクションが呼ばれてもはじめに実行される関数
@@ -290,6 +290,9 @@ class ItemsController extends AppController {
 
 
     public function edit($id = null){
+        //未認証なら弾く
+        $this->Auth->allow('register', 'login');
+
         $this->Item->id = $id;
         if($this->request->is("get")){
             //if($shop_id == 1){
