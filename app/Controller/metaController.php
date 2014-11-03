@@ -7,7 +7,7 @@
  */
 
 
-class metaController extends AppController{
+class MetaController extends AppController{
     var $uses = array('Item', 'Category','Sale');
     //loadModel($uses);
 
