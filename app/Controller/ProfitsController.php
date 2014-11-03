@@ -10,7 +10,7 @@ App::uses('AppController', 'Controller');
 
 class ProfitsController extends AppController {
 
-    var $uses = array('Profit', 'Customer');
+    var $uses = array('Profit', 'Customer', 'Shop');
 //    public $scaffold;
     public $components = array('RequestHandler');
     //読み込むコンポーネントの指定
@@ -43,9 +43,15 @@ class ProfitsController extends AppController {
          // アイテム取得処理
          if($this -> request -> is('ajax') ){
              if($this->request->is('post')){
-                 if($this->Profit->saveAssociated($this->request->data)){
+                 if(1 == $this->checkShops($this->request->data['Profit']['shop_id'],$this->request->data['Profit']['key'])){
+                     unset($this->request->data['Profit']['key']);
+                     if($this->request->data) {
+                         if ($this->Profit->saveAssociated($this->request->data)) {
+                         } else {
+                             return false;
+                         }
+                     }
                  }else{
-                     throw new NotFoundException();
                      return false;
                  }
              }
@@ -97,9 +103,21 @@ class ProfitsController extends AppController {
     public function delete(){
         if($this-> request -> is('ajax')){
             if ($this -> request -> is('post') ){
-                $id = $this -> request -> data['id'];
-                $this->Profit->delete($id);
+                if($this->checkShops($this->request->data['shop_id'],$this->request->data['key'])){
+                    $id = $this -> request -> data['id'];
+                    $this->Profit->delete($id);
+                }
             }
         }
+    }
+    function checkShops($id,$key){
+        $params = array(
+            'conditions' => array(
+                'id' => $id,
+                'key' => $key
+            )
+        );
+        $ret = $this->Shop->find('count', $params);
+        return $ret;
     }
 }

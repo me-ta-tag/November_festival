@@ -70,13 +70,22 @@ class ItemsController extends AppController {
 
                     $salesArray = array();
                     foreach($sales as $key => $value){
-                        $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'] + $salesArray[$value['Sale']['item_id']];
+                        //var_dump($salesArray[$value['Sale']['item_id']]);
+                        if(empty($salesArray[$value['Sale']['item_id']])){
+                            $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'];
+                        }else{
+                            $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'] + $salesArray[$value['Sale']['item_id']];
+                        }
                     }
 
                     $outItems = array();
                     $outCount = 0;
                     foreach ($items as $key => $value) {
-                        $items[$key]["Item"]["item_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
+                        if(empty($salesArray[$items[$key]["Item"]["id"]])){
+                            $items[$key]["Item"]["item_stock"] = $items[$key]["Item"]["item_stock"];
+                        }else{
+                            $items[$key]["Item"]["item_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
+                        }
                         if($items[$key]["Item"]["item_stock"] <= 0){
                             unset($items[$key]);
                         }else{
@@ -186,6 +195,10 @@ class ItemsController extends AppController {
                 try{
                     //var_dump($this->request->data);
                     $data = $this->request->data['Item'];
+                    if($data['Shop_id'] == 1){
+                        //throw new MethodNotAllowedException();
+                        return false;
+                    }
                     $insertArray = array();
                     foreach($data as $value){
                         array_push($insertArray,$value);
@@ -202,69 +215,6 @@ class ItemsController extends AppController {
                 }catch (Exception $e){
                     echo $e;
                 }
-            }
-        }else{
-            if($this->request->is('post')){
-                try{
-                    //var_dump($this->request->data);
-                    $data = $this->request->data['Item'];
-
-                    if ($this->Item->save($data)){
-                        /*$id_list = $this->Item->id_list;
-                        //var_dump($id_list);
-                        $act = 'act'; //Access token
-                        $ats = 'ats'; //Access token secret
-                        if(count($id_list) > 1){
-
-                            $tweet = "バザー商品".count($id_list).'品、バザーに追加登録しました。※バザーによるテストツイートです。';
-
-                            $client = $this->_createClient();
-                            $client->post(
-                                $act,
-                                $ats,
-                                'https://api.twitter.com/1.1/statuses/update.json',
-                                array(
-                                    'status' => $tweet
-                                )
-                            );
-                        }else{
-                            if(count($id_list)){
-                                //var_dump($id_list);
-                                $params = array(
-                                    'conditions' => array('Item.id'=> $id_list[0]),
-                                    'order' => 'Item.id ASC'
-                                );
-                                $pdo = $this->Item->getDatasource()->getConnection();
-                                $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
-                                $items = $this->Item->find('all',$params);
-
-                                $tweet = "商品名『".$items[0]['Item']['item_name'].'』価格：'.$items[0]['Item']['item_price'].'円でバザーに登録しました。※バザーによるテストツイートです。';
-
-                                $client = $this->_createClient();
-                                $client->post(
-                                    $act,
-                                    $ats,
-                                    'https://api.twitter.com/1.1/statuses/update.json',
-                                    array(
-                                        'status' => $tweet
-                                    )
-                                );
-
-                            }else{
-
-                            }
-                        }*/
-                        //echo "true";
-
-                    }else{
-                        echo "error";
-                        //$this->log("validationErrors=" . var_export($this->Item->validationErrors, true));
-                    }
-                }catch (Exception $e){
-                    echo $e;
-                }
-                $this->redirect('/shops/registration');
-
             }
         }
     }

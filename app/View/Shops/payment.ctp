@@ -629,7 +629,7 @@ $(function(){
                         }
                     });
                     var json = {
-                        "Profit": {"shop_id": shop_id, "customer_id": customer_id},
+                        "Profit": {"shop_id": shop_id, "customer_id": customer_id,"key": shop_key},
                         "Sale": sale_ary,
                         "Ticketuse": ticket_ary
                     }
