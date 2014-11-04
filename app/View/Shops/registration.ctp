@@ -93,11 +93,11 @@
                     echo("<ul>");
                     foreach($items['item'] as $k => $val){
                         echo("<li>");
-                        echo($items['item'][$k]['Item']['id']."：");
-                        echo ($items['item'][$k]['Item']['item_name']."　");
-                        echo $this->Html->link('編集',array('action'=>'../items/edit',$items['item'][$k]['Item']['id']));
+                        echo(h($items['item'][$k]['Item']['id'])."：");
+                        echo (h($items['item'][$k]['Item']['item_name']."　");
+                        echo $this->Html->link('編集',array('action'=>'../items/edit',h($items['item'][$k]['Item']['id'])));
                         echo ' ';
-                        echo $this->Form->postLink('削除',array('action'=>'../items/delete',$items['item'][$k]['Item']['id']),array('class' => 'KONAMInone','confirm'=>'sure?'));
+                        echo $this->Form->postLink('削除',array('action'=>'../items/delete',h($items['item'][$k]['Item']['id'])),array('class' => 'KONAMInone','confirm'=>'sure?'));
                         echo ("</li>");
                     }
                     echo("</ul>");
