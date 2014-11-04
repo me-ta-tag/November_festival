@@ -32,7 +32,7 @@ $(function(){
 		var cfm = confirm("売り上げを削除しますか？");
 		if(cfm){
 			var profit_id = $(this).closest("[data-metatag_regiapp_profit_id]").attr("data-metatag_regiapp_profit_id");
-			$.post("<?php echo $deleteProfits; ?>", { "shop_id": shop_id, "key":"<?php echo $_SESSION['shop_key']; ?>", "id": profit_id}, function(data){
+			$.post("<?php echo $deleteProfits; ?>", { "shop_id": shop_id, "key": shop_key , "id": profit_id}, function(data){
 				$.get("<?php echo $readProfits; ?>",{"shop_id": shop_id},function(data){
 					profits = [], customers = [];
 					$(".paymentdel_container > div").remove();
