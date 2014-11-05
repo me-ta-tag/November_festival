@@ -28,7 +28,7 @@ $(function(){
 		}
 	});
 
-	$(document).on("click", ".delete_btn", function(){
+	$(document).on("click touchstart", ".delete_btn", function(){
 		var cfm = confirm("売り上げを削除しますか？");
 		if(cfm){
 			var profit_id = $(this).closest("[data-metatag_regiapp_profit_id]").attr("data-metatag_regiapp_profit_id");

@@ -405,16 +405,16 @@ $(function(){
         var flag = true,
             nav = "";
         $("#" + tgt + "_reg .reg_list .numtxt").each(function(){
-            if($(this).val().match(/[^0-9]/)){
+            if(!$(this).val().match(/^[0-9]+$/)){
                 $(this).css("background-color","LightSalmon");
                 flag = false;
                 if(tgt === "item"){
                     nav = "価格・在庫は半角数字のみを入力してください";
                 }
-                if(tgt === "ticket"){
+                else if(tgt === "ticket"){
                     nav = "価格は半角数字のみを入力してください";
                 }
-                if(tgt === "cost"){
+                else if(tgt === "cost"){
                     nav = "価格は半角数字のみを入力してください";
                 }
             }
@@ -425,7 +425,7 @@ $(function(){
         return flag;
     }
     
-    $("#item_reg .ok").on("click",function(){
+    $("#item_reg .ok").on("click touchstart",function(){
         var flag = NumCheck("item");
         if(flag){
             var cfm = confirm("登録を確定しますか？");
@@ -489,9 +489,9 @@ $(function(){
                 }
             }
         }
-    });// END-$("#item_reg .ok").on("click");
+    });// END-$("#item_reg .ok").on("click touchstart");
 
-    $("#ticket_reg .ok").on("click",function(){
+    $("#ticket_reg .ok").on("click touchstart",function(){
         var flag = NumCheck("ticket");
         if(flag){
             var cfm = confirm("登録を確定しますか？");
@@ -539,9 +539,9 @@ $(function(){
                 }
             }
         }
-    });// END-$("#ticket_reg .ok").on("click")
+    });// END-$("#ticket_reg .ok").on("click touchstart")
 
-    $("#cost_reg .ok").on("click", function(){
+    $("#cost_reg .ok").on("click touchstart", function(){
         var flag = NumCheck("cost");
         if(flag){
             var cfm = confirm("登録を確定しますか？");
@@ -590,7 +590,7 @@ $(function(){
             }
         }
     });
-    $("#category_reg .ok").on("click", function(){
+    $("#category_reg .ok").on("click touchstart", function(){
         var cfm = confirm("カテゴリを登録しますか？");
         if(cfm){
             var category_name = $(">input:text", $(this).prev()).val(),
@@ -664,7 +664,7 @@ $(function(){
     });*/
 //--------------------------------------------------------------------------
 // リセットボタン（そこのリストを初期状態に戻す）
-    $(".cancel").on("click",function(){
+    $(".cancel").on("click touchstart",function(){
         var target = $(this).closest("[id$=_reg]"),
             target_list = $(".reg_list", target),
             tmp = _.template($("[id$=_tmp]", target_list).html());
@@ -675,7 +675,7 @@ $(function(){
     });
 //--------------------------------------------------------------------------
 // 消去ボタン
-    $(document).on("click", "#item_reg .reg_list .delete", function(){
+    $(document).on("click touchstart", "#item_reg .reg_list .delete", function(){
         var cfm = confirm( "商品 「" + $("input:text", $(this).prevAll(".name")).val() + "」 を消去しますか？" );
         if(cfm){
             var id = $(this).closest(".touroku_item").data("metatag_regiapp_item_id");
@@ -695,7 +695,7 @@ $(function(){
         }
     });
     /*
-    $(document).on("click","#ItemRegistrationForm .metaupload .delete",function(){
+    $(document).on("click touchstart","#ItemRegistrationForm .metaupload .delete",function(){
         //var id = $(this).parents(".touroku_item").data("metatag_regiapp_item_id");
         $.post("/m_regi/Items/delete",{id : $($(this).parent("div").children("input")[0]).val()}, function(data){
             console.log(data);
@@ -703,7 +703,7 @@ $(function(){
     });
     */
 
-    $(document).on("click", "#ticket_reg .reg_list .delete", function(){
+    $(document).on("click touchstart", "#ticket_reg .reg_list .delete", function(){
         var cfm = confirm( "金券 「" + $("input:text", $(this).prevAll(".name")).val() + "」 を消去しますか？" );
         if(cfm){
             var id = $(this).closest(".touroku_item").data("metatag_regiapp_ticket_id");
@@ -721,7 +721,7 @@ $(function(){
             });
         }
     });
-    $(document).on("click", "#cost_reg .reg_list .delete", function(){
+    $(document).on("click touchstart", "#cost_reg .reg_list .delete", function(){
         var cfm = confirm("費用「" + $("input:text", $(this).prevAll(".name")).val() + "」 を消去しますか？" );
         if(cfm){
             var id = $(this).closest(".touroku_item").data("metatag_regiapp_cost_id");
@@ -739,7 +739,7 @@ $(function(){
             });
         }
     });
-    $("#category_reg .delete").on("click", function(){
+    $("#category_reg .delete").on("click touchstart", function(){
         var cfm = confirm("カテゴリ 「" + $("#category_reg select[name=category_name] option:selected").html() +"」 を消去しますか？");
         if(cfm){
             var id = parseInt($("#category_reg select[name=category_name]").val(), 10);
@@ -768,7 +768,7 @@ $(function(){
         }
     });
 //--------------------------------------------------------------------------
-    $(document).on("click","input:text.numtxt",function(){
+    $(document).on("click touchstart","input:text.numtxt",function(){
         $(this).select();
         $(this).css("background-color","");
         return false;

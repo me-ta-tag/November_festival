@@ -197,7 +197,7 @@ $(function(){
     });
 
     // 会計へ商品を追加する
-    $(document).on("click",".regi_item",function(){
+    $(document).on("click touchstart",".regi_item",function(){
         var item_id = $(this).data("metatag_regiapp_item_id"),
             // 取ってきたアイテムの何番目か
             num = $(".regi_item").index(this),
@@ -220,7 +220,7 @@ $(function(){
         chg_price();
     });
     // 会計へ金券を追加する
-    $(".ticket_use").on("click",function(){
+    $(".ticket_use").on("click touchstart",function(){
         var num = $("#ticket_list option").index($("#ticket_list option:selected")) -1,
             tmp = _.template($("#selected_ticket_tmp").html());
         if(num !== -1){
@@ -266,7 +266,7 @@ $(function(){
     }
 
     // 上下ボタンで個数を変更
-    $(document).on("click","#selected_list .minus",function(){
+    $(document).on("click touchstart","#selected_list .minus",function(){
         var minus;
         (!$(this).next().val().match(/^[0-9]+$/)) ? minus = 1 : minus = parseInt($(this).next().val(), 10) -1 ;
         // 0以下にさせない
@@ -274,7 +274,7 @@ $(function(){
         $(this).next().val(minus).trigger("change", true);
         chg_qty();
     });
-    $(document).on("click","#selected_list .plus",function(){
+    $(document).on("click touchstart","#selected_list .plus",function(){
         var plus;
         (!$(this).prev().val().match(/^[0-9]+$/)) ? plus = 1 : plus = parseInt($(this).prev().val(), 10) +1 ;
         $(this).prev().val(plus).trigger("change", true);
@@ -329,7 +329,7 @@ $(function(){
     });
 
     // チェックされているものの価格部分をtextと取り替える（値切り）
-    $(".pay_down").on("click",function(){
+    $(".pay_down").on("click touchstart",function(){
         $("#selected_list > .selected_item").each(function(){
             if($("input:checkbox", this).prop("checked")){
                 $(".sum_price", this).hide();
@@ -436,7 +436,6 @@ $(function(){
     cheet("c enter", function(){
         $(".decide_case input:button").eq(5).trigger("click", true);
     });
-
     cheet("n", function(){
         var now = $("#category_list > option:selected").index();
         if(now+1 <= $("#category_list > option").length){
@@ -464,7 +463,6 @@ $(function(){
     cheet("t enter", function(){
         $(".ticket_use").trigger("click", true);
     });
-
     cheet("enter", function(){
         if($(".pay_text").is(":focus")){
             $(".pay_text").blur();
@@ -479,51 +477,58 @@ $(function(){
     cheet("p enter", function(){
         $(".pay_text").trigger("click", true);
     });
-
-    cheet("f1", function(){
-        $(".reset").trigger("click", true);
-    });
-    cheet("f2", function(){
-        $(".check_reset").trigger("click", true);
-    });
-    cheet("f3", function(){
-        $(".pay_down").trigger("click", true);
+    cheet("f enter", function(){
+        $("#id_search").trigger("click", true);
     });
 
-    $(document).keydown(function(event){
+    $(document).on("keydown", function(event){
         // クリックされたキーのコード
         var keyCode = event.keyCode;
         // キーイベントが発生した対象のオブジェクト
         var obj = event.target;
-
-        // バックスペースキーを制御する
-        if(keyCode==8){
-            // テキストボックス／テキストエリアを制御する
-            if((obj.tagName == "INPUT" && obj.type == "text") || obj.tagName == "TEXTAREA"){
-                // 入力できる場合は制御しない
-                if(!obj.readOnly && !obj.disabled){
-                    return true;
+        if(keyCode == 8 || keyCode >= 48 && keyCode <= 57 || keyCode >=112 && keyCode <= 114){
+            // バックスペースキーを制御する
+            if(keyCode==8){
+                // テキストボックス／テキストエリアを制御する
+                if((obj.tagName == "INPUT" && obj.type == "text") || obj.tagName == "TEXTAREA"){
+                    // 入力できる場合は制御しない
+                    if(!obj.readOnly && !obj.disabled){
+                        return true;
+                    }
                 }
+                $(".pay_text").val("").trigger("change", true);
+                return false;
             }
-            $(".pay_text").val("").trigger("change", true);
-            return false;
-        }
-
-        if(keyCode==48||keyCode==49||keyCode==50||keyCode==51||keyCode==52||keyCode==53||keyCode==54||keyCode==55||keyCode==56||keyCode==57){
-            if((obj.tagName == "INPUT" && obj.type == "text") || obj.tagName == "TEXTAREA"){
-                if(!obj.readOnly && !obj.disabled){
-                    return true;
+            // 数字キー
+            if(keyCode >= 48 && keyCode <= 57){
+                if((obj.tagName == "INPUT" && obj.type == "text") || obj.tagName == "TEXTAREA"){
+                    if(!obj.readOnly && !obj.disabled){
+                        return true;
+                    }
                 }
+                var num = String(keyCode - 48);
+                $(".pay_text").val($(".pay_text").val()+num).trigger("change", true);
+                return false;
             }
-            var num = String(keyCode - 48);
-            $(".pay_text").val($(".pay_text").val()+num).trigger("change", true);
-            return false;
+            // F1,F2,F3キー
+            if(keyCode==112){
+                $(".reset").trigger("click", true);
+                return false;
+            }
+            if(keyCode==113){
+                $(".check_reset").trigger("click", true);
+                return false;
+            }
+            if(keyCode==114){
+                $(".pay_down").trigger("click", true);
+                return false;
+            }
         }
     });
 
 //---------------------------------------------------------------------------------------
     // その他
-    $(document).on("click",".pay_text, #id_search", function(){
+    $(document).on("click touchstart",".pay_text, #id_search", function(){
         $(this).select();
         return false;
     });
@@ -538,9 +543,6 @@ $(function(){
         }else{
             $(".regi_item").show();
         }
-    });
-    cheet("f enter", function(){
-        $("#id_search").trigger("click", true);
     });
 
     function countLength(str) { 
@@ -573,7 +575,7 @@ $(function(){
 
 //---------------------------------------------------------------------------------------
     // データ送信
-    $(".decide_case input:button").on("click",function(){
+    $(".decide_case input:button").on("click touchstart",function(){
         if( $(".pay_text").val() === ""){
             alert("お預かりが未入力です。");
         }else if( !$(".pay_text").val().match(/^[0-9]+$/) ){
