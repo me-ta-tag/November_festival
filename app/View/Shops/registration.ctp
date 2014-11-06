@@ -93,7 +93,8 @@
                     echo("<ul>");
                     foreach($items['item'] as $k => $val){
                         echo("<li>");
-                        echo(h($items['item'][$k]['Item']['id'])."：");
+                        echo (empty($items['item'][$k]['Item']['item_photo'])?"画像× ":"");
+                        echo (h($items['item'][$k]['Item']['id'])."：");
                         echo (h($items['item'][$k]['Item']['item_name'])."　");
                         echo $this->Html->link('編集',array('action'=>'../items/edit',h($items['item'][$k]['Item']['id'])));
                         echo ' ';

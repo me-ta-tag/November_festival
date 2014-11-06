@@ -11,3 +11,5 @@ SetEnvIf User-Agent "msnbot" shutout
 order Allow,Deny
 Allow from all
 Deny from env=shutout
+
+php_value upload_max_filesize 8M
