@@ -345,7 +345,7 @@ $(function(){
         $(".price > span", this_item).html("-----");
         $(this).parent().hide();
         $(".sum_price > span", this_item).html($(this).val());
-        $(".sum_price").show();
+        $(".sum_price", this_item).show();
         $("input:checkbox",this_item).prop("checked",false);
         chg_price();
     });
