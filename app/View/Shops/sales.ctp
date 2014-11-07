@@ -290,7 +290,7 @@ $(function(){
 
     $.get("<?php echo $ProfitsRead ?>", {"shop_id": <?php echo $shop['id'] ?>}, function(data){
         var data_sales = [], sale_dates = [];
-        for(i=0; i<data.Profits.length; i++){            
+        for(i=0; i<data.Profits.length; i++){
             data_sales.push(data.Profits[i].Sale);
             sale_dates.push(data.Profits[i].Profit.sale_time.substr(0, 10));
         }
@@ -321,6 +321,7 @@ $(function(){
         });
     });
 
+    // 費用
     function CostLiquidation(data_sales, data_costs){
         var tmp;
         var total_sale = 0, total_cost = 0, total_profit = 0;
@@ -349,6 +350,7 @@ $(function(){
 
     }
 
+    // 日付別
     function DateLiquidation(sale_dates, date_group){
         var p1, p2, p3, p4, p5, p6, total_p;
         var day_sale, sum_sale=0, sum_p=0, sum_p1=0, sum_p2=0, sum_p3=0, sum_p4=0, sum_p5=0, sum_p6=0;
@@ -397,6 +399,7 @@ $(function(){
 
     }
 
+    // 日付内、時間別
     function TimeLiquidation(sale_dates, date_group){
         var hour, time_group = [];
         var g1=[], g2=[], g3=[], g4=[];
@@ -404,20 +407,20 @@ $(function(){
         // date_groupからtime_groupを作る
         for(i=0; i<date_group.length; i++){
             g1=[], g2=[], g3=[], g4=[];
-
             for(j=0; j<date_group[i].length; j++){
-                hour = parseInt(date_group[i][j].Profit.sale_time.substr(11, 2));
-                if(9 > hour && hour < 11){
-                    g1.push(date_group[i][j])
+                hour = parseInt(date_group[i][j].Profit.sale_time.substr(11, 2), 10);
+                if(hour > 8 && hour < 11){
+                    debugger;
+                    g1.push(date_group[i][j]);
                 }
-                else if(11 > hour && hour < 13){
-                    g2.push(date_group[i][j])
+                else if(hour > 10 && hour < 13){
+                    g2.push(date_group[i][j]);
                 }
-                else if(13 > hour && hour < 15){
-                    g3.push(date_group[i][j])
+                else if(hour > 12 && hour < 15){
+                    g3.push(date_group[i][j]);
                 }
                 else{
-                    g4.push(date_group[i][j])
+                    g4.push(date_group[i][j]);
                 }
             }
             time_group.push({g1: g1, g2: g2, g3: g3, g4: g4});
