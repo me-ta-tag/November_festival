@@ -120,51 +120,50 @@
 
     
 .btn2 {
-	-moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
-	box-shadow:inset 0px 1px 0px 0px #dcecfb;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #db4444), color-stop(1, #e03d7e) );
-	background:-moz-linear-gradient( center top, #db4444 5%, #e03d7e 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#db4444', endColorstr='#e03d7e');
-	background-color:#db4444;
-	-webkit-border-top-left-radius:0px;
-	-moz-border-radius-topleft:0px;
-	border-top-left-radius:0px;
-	-webkit-border-top-right-radius:0px;
-	-moz-border-radius-topright:0px;
-	border-top-right-radius:0px;
-	-webkit-border-bottom-right-radius:0px;
-	-moz-border-radius-bottomright:0px;
-	border-bottom-right-radius:0px;
-	-webkit-border-bottom-left-radius:0px;
-	-moz-border-radius-bottomleft:0px;
-	border-bottom-left-radius:0px;
+    -moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #db4444), color-stop(1, #e03d7e) );
+    background:-moz-linear-gradient( center top, #db4444 5%, #e03d7e 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#db4444', endColorstr='#e03d7e');
+    background-color:#db4444;
+    -webkit-border-top-left-radius:0px;
+    -moz-border-radius-topleft:0px;
+    border-top-left-radius:0px;
+    -webkit-border-top-right-radius:0px;
+    -moz-border-radius-topright:0px;
+    border-top-right-radius:0px;
+    -webkit-border-bottom-right-radius:0px;
+    -moz-border-radius-bottomright:0px;
+    border-bottom-right-radius:0px;
+    -webkit-border-bottom-left-radius:0px;
+    -moz-border-radius-bottomleft:0px;
+    border-bottom-left-radius:0px;
 text-indent:0px;
-	border:1px solid #cc4343;
-	display:inline-block;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	font-style:normal;
+    border:1px solid #cc4343;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
 height:40px;
-	line-height:40px;
+    line-height:40px;
 width:93px;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:1px 1px 0px #e61054;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #e61054;
 }
 .btn2:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e03d7e), color-stop(1, #db4444) );
-	background:-moz-linear-gradient( center top, #e03d7e 5%, #db4444 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e03d7e', endColorstr='#db4444');
-	background-color:#e03d7e;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e03d7e), color-stop(1, #db4444) );
+    background:-moz-linear-gradient( center top, #e03d7e 5%, #db4444 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e03d7e', endColorstr='#db4444');
+    background-color:#e03d7e;
 }
 .btn2:active {
-	position:relative;
-	top:1px;
+    position:relative;
+    top:1px;
 }
-
 .left_container div.divButtonOff {
   padding: 10px;
   background: #919191;
@@ -177,11 +176,11 @@ width:93px;
 }
 .left_container div.divButtonOff .name {
     width:200px;
-    margin-top: 5px;
+    margin-top: 8px;
     float: left;
 }
 .left_container div.divButtonOff .price {
-    margin-top: 6px;
+    margin-top: 8px;
     float: right;
     margin-right: 20px;
 }
@@ -199,15 +198,13 @@ width:93px;
 
 .left_container div.divButtonOn .name {
     width:200px;
-    margin-top: 5px;
+    margin-top: 8px;
     float: left;
 }
 .left_container div.divButtonOn .price {
-    width: 80px;
-    margin-top: 6px;
-    margin-right: 20px;
+    margin-top: 8px;
     float: right;
-    text-align: left;
+    margin-right: 20px;
 }
 
 .negiri_item{
@@ -216,6 +213,7 @@ width:93px;
 .selected_ticket{
     color: #42afdb;
 }
+
 
 
 /*
@@ -248,12 +246,14 @@ width:93px;
         display: inline;
         margin-left: 5%;
     }
-	.name{
-		width: 30ex;
-	}
-	.price{
-		width: 15ex;
-	}
+    .name{
+        width: 30ex;
+        display: inline-block;
+    }
+    .price{
+        width: 15ex;
+        display: inline-block;
+    }
     .left_yen{
         display: inline;
         margin-left: 30%;
@@ -277,11 +277,11 @@ width:93px;
         width: 400px;
         height: 180px;
         margin: 20px 0;
-		border: 2px solid black;
+        border: 2px solid black;
     }
-	.sell li{
-		font-size: 120%;
-	}
+    .sell li{
+        font-size: 120%;
+    }
     /*ここまで左側コンテンツ*/
 
 
@@ -325,7 +325,7 @@ width:93px;
         overflow: scroll;
         margin-bottom: 20px;
         background: #fff;
-		white-space:nowrap;
+        white-space:nowrap;
     }
     .option ul{
         padding-top: 20px;
@@ -352,31 +352,31 @@ width:93px;
         width:500px;
         margin-top: 10px;
     }
-	.pay_item, .pay_ticket{
-		margin-top: 25px;
-		margin-left: 15px;
-	}
-	.pay_ticket div{
-		color: lightskyblue; 
-	}
-	.pay_item div,.pay_ticket div{
-		margin-left: 10px;
-		display: inline-block;
-	}
-	.pay_item1,.pay_ticket1{
-		width: 30ex;
-	}
-	.pay_item2,.pay_ticket2{
-		width: 8ex;
-	}
-	.pay_yen, .pay_ticket{
-		width: 50px;
-		height: 15px;
-	}
-	.item_kazu, .ticket_kazu{
-		width: 15px;
-		height: 15px;
-	}
+    .pay_item, .pay_ticket{
+        margin-top: 25px;
+        margin-left: 15px;
+    }
+    .pay_ticket div{
+        color: lightskyblue; 
+    }
+    .pay_item div,.pay_ticket div{
+        margin-left: 10px;
+        display: inline-block;
+    }
+    .pay_item1,.pay_ticket1{
+        width: 30ex;
+    }
+    .pay_item2,.pay_ticket2{
+        width: 8ex;
+    }
+    .pay_yen, .pay_ticket{
+        width: 50px;
+        height: 15px;
+    }
+    .item_kazu, .ticket_kazu{
+        width: 15px;
+        height: 15px;
+    }
 
     .total_item{
         float: left;
@@ -398,32 +398,33 @@ width:93px;
         font-size: 100%;
         float: right;
     }
-	.exchange_text{
-		width: auto;
-	}
+
+    .exchange_text{
+        width: auto;
+    }
     .decide{
         clear: both;
-		width: 500px;
-		margin: 0 auto;
-		padding-top: 10px;
+        width: 500px;
+        margin: 0 auto;
+        padding-top: 10px;
     }
-	.decide_case{
-		border: solid 2px;
-		padding: 5px 5px;
-	}
-	.indecide{
-		width:270px;
-		margin: 0 auto;
-		margin-top: 5px;
-	}
+    .decide_case{
+        border: solid 2px;
+        padding: 5px 5px;
+    }
+    .indecide{
+        width:270px;
+        margin: 0 auto;
+        margin-top: 5px;
+    }
     .decide_women, .dicide_men{
         margin-top: 5px;
     }
     /*.decide span{
-		margin-left: 85px;
-		padding: 6px 10px;
-		background-color: lightblue;
-	}*/
+        margin-left: 85px;
+        padding: 6px 10px;
+        background-color: lightblue;
+    }*/
 
 /*=============================================
     マイページ
@@ -544,12 +545,12 @@ width:93px;
     .line3{
         width:810px;
     }
-	.line4{
-		width: 870px;
-	}
-	.line5{
-		width: 800px;
-	}
+    .line4{
+        width: 870px;
+    }
+    .line5{
+        width: 800px;
+    }
 
 
 /*==============================================
@@ -615,18 +616,18 @@ width:93px;
         .touroku_3_2{
             margin-left: 150px;
         }
-		.touroku_4_1{
-			margin-left: 320px;
-		}
+        .touroku_4_1{
+            margin-left: 320px;
+        }
         .touroku_body{
             margin-top: 10px;
         }
         .touroku_item{
             margin-top: 10px;
         }
-		.category_name{
-			margin-left: 240px;
-		}
+        .category_name{
+            margin-left: 240px;
+        }
 
 @charaset "utf-8";
 /*==================================
@@ -657,9 +658,9 @@ width:93px;
     ここまでヘッダーｃｓｓ
     =============================================
     */
-	.sell{
-		width: 100px;
-	}
+    .sell{
+        width: 100px;
+    }
     /*ここまで会計ページCSS*/
     .link ul li{
         display: block;
@@ -669,9 +670,9 @@ width:93px;
     .link ul li input{
         width: 80%;
     }
-	.left_container div .divButtonOff,.left_container div.divButtonOn{
-		width:93%;
-	}
+    .left_container div .divButtonOff,.left_container div.divButtonOn{
+        width:93%;
+    }
 /*==============================================
     売上詳細
 ================================================*/
@@ -693,12 +694,12 @@ width:93px;
     .line3{
         width: 630px;
     }
-	.line4{
-		width: 670px;
-	}
-	.line5{
-		width: 620px;
-	}
+    .line4{
+        width: 670px;
+    }
+    .line5{
+        width: 620px;
+    }
 
 }
 /*
@@ -758,12 +759,12 @@ body{
         position: absolute;
         top: 750px;
         width: 45%;
-		border: none;
+        border: none;
     }
-	.sell li{
-		font-size: 100%;
-	}
-	
+    .sell li{
+        font-size: 100%;
+    }
+    
     /*
     ここまで左側コンテンツ
     */
@@ -810,12 +811,12 @@ body{
         margin-bottom: 30px;
         clear: both;
     }
-	.exchange{
-		width: 50%;
+    .exchange{
+        width: 50%;
         float: right;
         margin-top: -10px;
         clear: both;
-	}
+    }
     .take_pay p, exchange p{
         width: 40%;
         float: left;
@@ -827,10 +828,10 @@ body{
     .decide{
         width: 100%;
     }
-	.indecide{
-		margin:0 auto;
-	}
-	
+    .indecide{
+        margin:0 auto;
+    }
+    
 
     
     /*ここまで会計ページCSS*/
