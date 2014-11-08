@@ -170,6 +170,18 @@ class ShopsController extends AppController {
                 $items[$key]["Item"]["item_sale_price"] = $mannyArray[$key+1];
             }
 
+            $sortItems = array();
+            $sortKey = 0;
+            for($i = -1; $i < 70;$i++){
+                foreach($items as $key => $value){
+                    if($items[$key]["Item"]["item_now_stock"] == $i){
+                        $sortItems[$sortKey] = $items[$key];
+                        unset($items[$key]);
+                        $sortKey++;
+                    }
+                }
+            }
+
 
 
             if($id == 1){
@@ -190,10 +202,10 @@ class ShopsController extends AppController {
 
             // $studentsの配列をviewに渡す。
             if($id == 1){
-                $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'exhibitor' => $exhibitors));
+                $this->set('items', array('item' => $sortItems,'category' => $categorys,'ticket' =>$tickets,'exhibitor' => $exhibitors));
             }else{
                 //var_dump('test');
-                $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets));
+                $this->set('items', array('item' => $sortItems,'category' => $categorys,'ticket' =>$tickets));
             }
         }
     }
