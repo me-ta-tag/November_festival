@@ -148,22 +148,26 @@ class ShopsController extends AppController {
             $sales = $this->Sale->find('all', $salparams);
 
             $salesArray = array();
+            $mannyArray = array();
             foreach($sales as $key => $value){
                 //var_dump($salesArray[$value['Sale']['item_id']]);
                 if(empty($salesArray[$value['Sale']['item_id']])){
                     $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'];
+                    $mannyArray[$value['Sale']['item_id']] = $value['Sale']['sale_price'];
                 }else{
                     $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'] + $salesArray[$value['Sale']['item_id']];
+                    $mannyArray[$value['Sale']['item_id']] = $value['Sale']['sale_price'] + $mannyArray[$value['Sale']['item_id']];
                 }
             }
 
-            $outItems = array();
+            //$outItems = array();
             foreach ($items as $key => $value) {
                 if(empty($salesArray[$items[$key]["Item"]["id"]])){
                     $items[$key]["Item"]["item_now_stock"] = $items[$key]["Item"]["item_stock"];
                 }else{
                     $items[$key]["Item"]["item_now_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
                 }
+                $items[$key]["Item"]["item_sale_price"] = $mannyArray[$key];
             }
 
 
