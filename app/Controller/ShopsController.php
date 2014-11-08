@@ -167,7 +167,7 @@ class ShopsController extends AppController {
                 }else{
                     $items[$key]["Item"]["item_now_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
                 }
-                $items[$key]["Item"]["item_sale_price"] = $mannyArray[$key];
+                $items[$key]["Item"]["item_sale_price"] = $mannyArray[$key+1];
             }
 
 
