@@ -11,7 +11,7 @@ App::uses('AppController', 'Controller');
 class ShopsController extends AppController {
 //    public $scaffold;
 
-    var $uses = array('Item', 'Category', 'ticket','Shop','Exhibitor');
+    var $uses = array('Item', 'Category', 'ticket','Shop','Exhibitor', 'Sale');
 
     //読み込むコンポーネントの指定
     public $components = array('Session', 'Auth');
@@ -117,7 +117,82 @@ class ShopsController extends AppController {
     public function paymentdel(){
         $this->set('shop', $this->Auth->user());
     }
+    public function saleslist(){
+        $this->set('shop', $this->Auth->user());
+        $user = $this->Auth->user();
+        if($user['id'] == 1 ){
+            $id = 1;
+            $params = array(
+                'conditions' => array('Item.shop_id'=> $id),
+                'order' => 'Item.id ASC'
+            );
+            $pdo = $this->Item->getDatasource()->getConnection();
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,FALSE);
+            $items = $this->Item->find('all',$params);
 
+            $ticparams = array(
+                'shop_id' => array('shop_id' => $id)
+            );
+            $tickets = $this->ticket->find('all', $ticparams);
+
+            $cateparamas = array(
+                'conditions' => array('shop_id'=> $id),
+                'order' => 'id ASC'
+            );
+            $categorys = $this->Category->find('all',$cateparamas);
+
+
+            $salparams = array(
+                'shop_id' => array('shop_id' => 1)
+            );
+            $sales = $this->Sale->find('all', $salparams);
+
+            $salesArray = array();
+            foreach($sales as $key => $value){
+                //var_dump($salesArray[$value['Sale']['item_id']]);
+                if(empty($salesArray[$value['Sale']['item_id']])){
+                    $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'];
+                }else{
+                    $salesArray[$value['Sale']['item_id']] = $value['Sale']['sale_quantity'] + $salesArray[$value['Sale']['item_id']];
+                }
+            }
+
+            $outItems = array();
+            foreach ($items as $key => $value) {
+                if(empty($salesArray[$items[$key]["Item"]["id"]])){
+                    $items[$key]["Item"]["item_now_stock"] = $items[$key]["Item"]["item_stock"];
+                }else{
+                    $items[$key]["Item"]["item_now_stock"] = $items[$key]["Item"]["item_stock"] - $salesArray[$items[$key]["Item"]["id"]];
+                }
+            }
+
+
+
+            if($id == 1){
+                $exhiparams = array(
+                    'order' => 'id ASC'
+                );
+                $exhibitors = $this->Exhibitor->find('all',$exhiparams);
+
+            }
+
+
+            //var_dump($id);
+
+            // viewにはjson形式のファイルを表示させるように。
+//            $this->layout = 'ajax';
+//            $this->RequestHandler->setContent('json');
+//            $this->RequestHandler->respondAs('application/json; charset=UTF-8');
+
+            // $studentsの配列をviewに渡す。
+            if($id == 1){
+                $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets,'exhibitor' => $exhibitors));
+            }else{
+                //var_dump('test');
+                $this->set('items', array('item' => $items,'category' => $categorys,'ticket' =>$tickets));
+            }
+        }
+    }
     /**
      * ランダム文字列生成 (英数字)
      * $length: 生成する文字数
